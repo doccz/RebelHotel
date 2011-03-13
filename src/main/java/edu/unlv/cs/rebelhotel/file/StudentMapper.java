@@ -21,6 +21,19 @@ public class StudentMapper {
 		if (student == null) {
 			student = new Student();
 		}
+		
+		student.setUserId(fileStudent.getStudentId());
+		student.setFirstName(fileStudent.getFirstName());
+		student.setLastName(fileStudent.getLastName());
+		student.setMiddleName(fileStudent.getMiddleName());
+		student.setEmail(fileStudent.getEmail());
+		student.setGradTerm(fileStudent.getGradTerm());
+
+		/* if both major columns are populated, and there is only one requirement term,
+		 * then can we assume that it is the same for both majors? I suppose...but what if
+		 * they take up another major three years after declaring the first one?
+		 */
+		workRequirementService.updateStudentInformation(fileStudent.getMajors());
 		return student;
 	}
 }
