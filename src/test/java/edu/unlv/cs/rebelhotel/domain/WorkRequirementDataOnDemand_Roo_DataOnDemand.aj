@@ -18,7 +18,7 @@ privileged aspect WorkRequirementDataOnDemand_Roo_DataOnDemand {
     
     public WorkRequirement WorkRequirementDataOnDemand.getNewTransientWorkRequirement(int index) {
         edu.unlv.cs.rebelhotel.domain.WorkRequirement obj = new edu.unlv.cs.rebelhotel.domain.WorkRequirement();
-        obj.setName("name_" + index);
+        obj.setName(edu.unlv.cs.rebelhotel.domain.enums.Departments.class.getEnumConstants()[0]);
         obj.setHours(new Integer(index));
         obj.setMilestone(true);
         obj.setMajor(null);

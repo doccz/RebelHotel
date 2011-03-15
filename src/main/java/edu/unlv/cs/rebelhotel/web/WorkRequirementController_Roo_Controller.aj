@@ -6,10 +6,12 @@ package edu.unlv.cs.rebelhotel.web;
 import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
 import edu.unlv.cs.rebelhotel.domain.WorkRequirement;
+import edu.unlv.cs.rebelhotel.domain.enums.Departments;
 import java.io.UnsupportedEncodingException;
 import java.lang.Integer;
 import java.lang.Long;
 import java.lang.String;
+import java.util.Arrays;
 import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -93,6 +95,11 @@ privileged aspect WorkRequirementController_Roo_Controller {
     @ModelAttribute("workefforts")
     public Collection<WorkEffort> WorkRequirementController.populateWorkEfforts() {
         return WorkEffort.findAllWorkEfforts();
+    }
+    
+    @ModelAttribute("departmentses")
+    public Collection<Departments> WorkRequirementController.populateDepartmentses() {
+        return Arrays.asList(Departments.class.getEnumConstants());
     }
     
     String WorkRequirementController.encodeUrlPathSegment(String pathSegment, HttpServletRequest request) {

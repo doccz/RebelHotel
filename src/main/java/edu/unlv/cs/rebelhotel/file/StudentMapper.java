@@ -1,8 +1,11 @@
 package edu.unlv.cs.rebelhotel.file;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.service.WorkRequirementService;
 
@@ -33,7 +36,11 @@ public class StudentMapper {
 		 * then can we assume that it is the same for both majors? I suppose...but what if
 		 * they take up another major three years after declaring the first one?
 		 */
-		workRequirementService.updateStudentInformation(fileStudent.getMajors());
+		
+		Set<Major> majors = workRequirementService.updateStudentInformation(student.getMajors(),fileStudent.getMajors(), fileStudent.getRequirementTerm());
+		student.setMajors(majors);
+		student.setAdmitTerm(fileStudent.getAdmitTerm());
+		
 		return student;
 	}
 }
