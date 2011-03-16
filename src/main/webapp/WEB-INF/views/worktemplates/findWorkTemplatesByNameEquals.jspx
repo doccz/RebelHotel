@@ -3,9 +3,9 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <tiles:insertAttribute ignore="true" name="worktemplate_menu"/>
-    <br />
-    <br />
+    <br/>
+    <br/>
     <form:find finderName="ByNameEquals" id="ff_edu_unlv_cs_rebelhotel_domain_WorkTemplate" path="/worktemplates" z="z2U1KLVINr0KlB1MfDiU1sYtaKw=">
-        <field:input disableFormBinding="true" field="name" id="f_edu_unlv_cs_rebelhotel_domain_WorkTemplate_name" required="true" z="QRUG17LcqW8Z8jfwGMOxs4Y5F8g="/>
+        <field:select disableFormBinding="true" field="name" id="f_edu_unlv_cs_rebelhotel_domain_WorkTemplate_name" items="${departmentses}" path="/departmentses" required="true" z="X43QitwZ20IS3SYMyUSkeLsH4gs="/>
     </form:find>
 </div>

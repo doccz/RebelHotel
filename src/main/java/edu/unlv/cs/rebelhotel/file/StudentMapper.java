@@ -31,15 +31,22 @@ public class StudentMapper {
 		student.setMiddleName(fileStudent.getMiddleName());
 		student.setEmail(fileStudent.getEmail());
 		student.setGradTerm(fileStudent.getGradTerm());
-
+		student.setAdmitTerm(fileStudent.getAdmitTerm());
+		
 		/* if both major columns are populated, and there is only one requirement term,
 		 * then can we assume that it is the same for both majors? I suppose...but what if
 		 * they take up another major three years after declaring the first one?
 		 */
-		
 		Set<Major> majors = workRequirementService.updateStudentInformation(student.getMajors(),fileStudent.getMajors(), fileStudent.getRequirementTerm());
 		student.setMajors(majors);
-		student.setAdmitTerm(fileStudent.getAdmitTerm());
+
+		boolean codeOfConductSigned = student.getCodeOfConductSigned();
+		// case 1) a new student, so it will not be true, and so we will initialize it to false
+		// case 2) a preexisting student, so it can either be true or false; if true, then true; otherwise, false
+		codeOfConductSigned = (codeOfConductSigned) ? true : false;
+		student.setCodeOfConductSigned(codeOfConductSigned);
+		//setUserAccount
+		//setLastModified
 		
 		return student;
 	}
