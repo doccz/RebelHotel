@@ -21,12 +21,7 @@ public class StudentMapper {
 	}
 	
 	public Student findOrReplace(FileStudent fileStudent){
-		Student student;
-		student = Student.findStudentsByUserIdEquals(fileStudent.getStudentId()).getSingleResult();
-		if (student == null) {
-			student = new Student();
-		}
-		
+		Student student = findStudent(fileStudent);
 		student.setUserId(fileStudent.getStudentId());
 		student.setFirstName(fileStudent.getFirstName());
 		student.setLastName(fileStudent.getLastName());
@@ -55,5 +50,11 @@ public class StudentMapper {
 		student.setUserAccount(student_account);
 		//student.setLastModified();
 		return student;
+	}
+	
+	public Student findStudent(FileStudent fileStudent) {
+		if (null != Student.findStudentsByUserIdEquals(fileStudent.getStudentId())) {
+			return 
+		}
 	}
 }
