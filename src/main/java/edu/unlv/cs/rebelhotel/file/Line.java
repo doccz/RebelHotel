@@ -1,5 +1,6 @@
 package edu.unlv.cs.rebelhotel.file;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,12 +18,12 @@ public class Line {
 	private String firstName;
 	private String middleName;
 	private String email;
-	private Set<String> majors;
+	private Set<String> majors = new HashSet<String>();
 	private Term admitTerm;
 	private Term requirementTerm;
 	private Term gradTerm;
 
-	public Line convert(List<String> tokens) {
+	public Line convert(List<String> tokens){
 		Line line = new Line();
 		String[] field = (String[]) tokens.toArray();
 		line.setStudentId(field[0]);
@@ -30,26 +31,33 @@ public class Line {
 		line.setFirstName(field[2]);
 		line.setMiddleName(field[3]);
 		line.setEmail(field[4]);
-		line.getMajors().add(field[5]);
 		
-		if (!field[6].equals("")) {
-			line.getMajors().add(field[6]);
+		Set<String> majors = line.getMajors();
+		majors.add(field[5]);
+		line.setMajors(majors);
+		
+		if (!field[6].equals(" ")) {
+			majors.add(field[6]);
+			line.setMajors(majors);
 		}
 		
-		line.setAdmitTerm(makeTerm(field[7]));
-		line.setRequirementTerm(makeTerm(field[8]));
-		line.setGradTerm(makeTerm(field[9]));
+		System.out.println(field[0]);
+		
+		line.setAdmitTerm(doMakeTerm(field[7]));
+		line.setRequirementTerm(doMakeTerm(field[8]));
+		line.setGradTerm(doMakeTerm(field[9]));
+		
 		return line;
 	}
 	
 	public Term makeTerm(String yearAndTerm) {
 		char[] character = {0,0,0,0};
 		Integer termYear = null;
-		String semester = null;
+		Semester semester = null;
 		
 		yearAndTerm.getChars(0,4,character,0);
 		termYear = convertToYear(character[0], character[1], character[2]);
-		semester = convertToSemester(character[4]);
+		semester = convertToSemester(character[3]);
 		Term term = new Term();
 		term.setTermYear(termYear);
 		
@@ -65,7 +73,7 @@ public class Line {
 		return term;
 	}
 	
-	public Integer convertToYear(char century, char leftYear, char rightYear) {
+	private Integer convertToYear(char century, char leftYear, char rightYear) {
 		Integer year = null;
 		if ('0' == century) { 
 			year = 1900;
@@ -79,15 +87,23 @@ public class Line {
 		return year;
 	}
 	
-	public String convertToSemester(char semester){
+	private Semester convertToSemester(char semester){
 		if ('8' == semester) {
-			return "FALL";
+			return Semester.FALL;
 		} else if ('2' == semester) {
-			return "SPRING";
+			return Semester.SPRING;
 		} else if ('5' == semester) {
-			return "SUMMER";
+			return Semester.SUMMER;
 		} else {
 			throw new IllegalArgumentException("Invalid semester:" + semester);
+		}
+	}
+	
+	private Term doMakeTerm(String term) {
+		if (term.equals(" ")){
+			return null;
+		} else {
+			return makeTerm(term);
 		}
 	}
 }
