@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="/~d/styles/rss2full.xsl"?><?xml-stylesheet type="text/css" media="screen" href="http://feeds.feedburner.com/~d/styles/itemcontent.css"?><rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/" xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" version="2.0">
+
+<channel>
+	<title>SpringSource Team Blog</title>
+	
+	<link>http://blog.springsource.com</link>
+	<description>The voice of SpringSource</description>
+	<lastBuildDate>Sun, 13 Mar 2011 08:30:09 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.0.1</generator>
+		<atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="http://feeds.feedburner.com/SpringSourceTeamBlog" /><feedburner:info uri="springsourceteamblog" /><atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="hub" href="http://pubsubhubbub.appspot.com/" /><item>
+		<title>Extending Spring Social's Service Provider Framework</title>
+		<link>http://feedproxy.google.com/~r/SpringSourceTeamBlog/~3/Id_hVaf8kSg/</link>
+		<comments>http://blog.springsource.com/2011/03/10/extending-spring-socials-service-provider-framework/#comments</comments>
+		<pubDate>Thu, 10 Mar 2011 21:41:32 +0000</pubDate>
+		<dc:creator>Craig Walls</dc:creator>
+				<category><![CDATA[Spring]]></category>
+
+		<guid isPermaLink="false">http://blog.springsource.com/?p=8042</guid>
+		<description>Last week, I introduced you to Spring Social&amp;#039;s Service Provider &amp;#034;Connect&amp;#034; Framework and showed you how it simplifies creating connections between a user&amp;#039;s local application account and their accounts on Software-as-a-Service (SaaS) providers. Today I want to show you how to extend the service provider framework to handle connections to providers that aren&amp;#039;t directly supported [...]&lt;img src="http://feeds.feedburner.com/~r/SpringSourceTeamBlog/~4/Id_hVaf8kSg" height="1" width="1"/&gt;</description>
+		<wfw:commentRss>http://blog.springsource.com/2011/03/10/extending-spring-socials-service-provider-framework/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<feedburner:origLink>http://blog.springsource.com/2011/03/10/extending-spring-socials-service-provider-framework/</feedburner:origLink></item>
+		<item>
+		<title>Addressing a Big New Audience: VMware Acquires WaveMaker</title>
+		<link>http://feedproxy.google.com/~r/SpringSourceTeamBlog/~3/pxbguyNdNXc/</link>
+		<comments>http://blog.springsource.com/2011/03/08/vmware-acquires-wavemaker/#comments</comments>
+		<pubDate>Tue, 08 Mar 2011 16:59:47 +0000</pubDate>
+		<dc:creator>Rod Johnson</dc:creator>
+				<category><![CDATA[Business]]></category>
+		<category><![CDATA[Cloud Computing]]></category>
+		<category><![CDATA[Java]]></category>
+		<category><![CDATA[Open Source]]></category>
+		<category><![CDATA[Spring]]></category>
+		<category><![CDATA[SpringSource]]></category>
+		<category><![CDATA[Tools]]></category>
+		<category><![CDATA[VMware]]></category>
+
+		<guid isPermaLink="false">http://blog.springsource.com/?p=8163</guid>
+		<description>Today, VMware announces with this blog the acquisition of WaveMaker, a widely used graphical tool that enables non-expert developers to build web applications quickly.  While WaveMaker is already part of the Spring ecosystem, it will now become an integral part of the Spring family and VMware’s cloud strategy. All of WaveMaker’s staff will be joining [...]&lt;img src="http://feeds.feedburner.com/~r/SpringSourceTeamBlog/~4/pxbguyNdNXc" height="1" width="1"/&gt;</description>
+		<wfw:commentRss>http://blog.springsource.com/2011/03/08/vmware-acquires-wavemaker/feed/</wfw:commentRss>
+		<slash:comments>35</slash:comments>
+		<feedburner:origLink>http://blog.springsource.com/2011/03/08/vmware-acquires-wavemaker/</feedburner:origLink></item>
+		<item>
+		<title>Introducing Spring Social's Service Provider Framework</title>
+		<link>http://feedproxy.google.com/~r/SpringSourceTeamBlog/~3/nATpno3Bc3c/</link>
+		<comments>http://blog.springsource.com/2011/03/02/introducing-spring-socials-service-provider-framework/#comments</comments>
+		<pubDate>Wed, 02 Mar 2011 22:20:29 +0000</pubDate>
+		<dc:creator>Craig Walls</dc:creator>
+				<category><![CDATA[Spring]]></category>
+
+		<guid isPermaLink="false">http://blog.springsource.com/?p=8047</guid>
+		<description>In my previous post, I introduced you to Spring Social&amp;#039;s Java bindings to popular Software-as-a-Service (SaaS) APIs such as Twitter, Facebook, LinkedIn, and TripIt. In addition to providing simple, strongly-typed Java methods for common API operations, these bindings ensure each HTTP request includes the credentials required to authorize your application to invoke the API on [...]&lt;img src="http://feeds.feedburner.com/~r/SpringSourceTeamBlog/~4/nATpno3Bc3c" height="1" width="1"/&gt;</description>
+		<wfw:commentRss>http://blog.springsource.com/2011/03/02/introducing-spring-socials-service-provider-framework/feed/</wfw:commentRss>
+		<slash:comments>7</slash:comments>
+		<feedburner:origLink>http://blog.springsource.com/2011/03/02/introducing-spring-socials-service-provider-framework/</feedburner:origLink></item>
+		<item>
+		<title>Custom Project Templates in SpringSource Tool Suite</title>
+		<link>http://feedproxy.google.com/~r/SpringSourceTeamBlog/~3/qQnRvfA44VI/</link>
+		<comments>http://blog.springsource.com/2011/02/24/custom-project-templates-in-springsource-tool-suite/#comments</comments>
+		<pubDate>Thu, 24 Feb 2011 11:06:34 +0000</pubDate>
+		<dc:creator>Martin Lippert</dc:creator>
+				<category><![CDATA[Tools]]></category>
+
+		<guid isPermaLink="false">http://blog.springsource.com/?p=7553</guid>
+		<description>The SpringSource Tool Suite (STS) provides the New Spring Template Project wizard. Uses this wizard, the user can see a number of project templates, choose one and let the wizard create a complete project, based on that template description. While this gives you an easy way to create new projects, you might wanna define your [...]&lt;img src="http://feeds.feedburner.com/~r/SpringSourceTeamBlog/~4/qQnRvfA44VI" height="1" width="1"/&gt;</description>
+		<wfw:commentRss>http://blog.springsource.com/2011/02/24/custom-project-templates-in-springsource-tool-suite/feed/</wfw:commentRss>
+		<slash:comments>3</slash:comments>
+		<feedburner:origLink>http://blog.springsource.com/2011/02/24/custom-project-templates-in-springsource-tool-suite/</feedburner:origLink></item>
+		<item>
+		<title>Green Beans: Getting Started with Spring Integration</title>
+		<link>http://feedproxy.google.com/~r/SpringSourceTeamBlog/~3/FwILKCX8BGE/</link>
+		<comments>http://blog.springsource.com/2011/02/23/green-beans-getting-started-with-spring-integration/#comments</comments>
+		<pubDate>Thu, 24 Feb 2011 01:33:27 +0000</pubDate>
+		<dc:creator>Josh Long</dc:creator>
+				<category><![CDATA[Green Beans]]></category>
+		<category><![CDATA[Spring]]></category>
+
+		<guid isPermaLink="false">http://blog.springsource.com/?p=7985</guid>
+		<description>Applications don&amp;#039;t exist in a vacuum. They need to communicate with their customers and with other applications. Application Integration is all about enabling this communication. Integration lets applications share services and data with each other, and, just as often, integration helps applications connect with their users. Spring Integration provides a framework to build integration solutions, [...]&lt;img src="http://feeds.feedburner.com/~r/SpringSourceTeamBlog/~4/FwILKCX8BGE" height="1" width="1"/&gt;</description>
+		<wfw:commentRss>http://blog.springsource.com/2011/02/23/green-beans-getting-started-with-spring-integration/feed/</wfw:commentRss>
+		<slash:comments>6</slash:comments>
+		<feedburner:origLink>http://blog.springsource.com/2011/02/23/green-beans-getting-started-with-spring-integration/</feedburner:origLink></item>
+		<item>
+		<title>Spring 3.1 M1: Cache Abstraction</title>
+		<link>http://feedproxy.google.com/~r/SpringSourceTeamBlog/~3/4PbzoP-1Lgc/</link>
+		<comments>http://blog.springsource.com/2011/02/23/spring-3-1-m1-caching/#comments</comments>
+		<pubDate>Wed, 23 Feb 2011 09:10:13 +0000</pubDate>
+		<dc:creator>Costin Leau</dc:creator>
+				<category><![CDATA[3.1]]></category>
+		<category><![CDATA[Containers]]></category>
+		<category><![CDATA[Data Access]]></category>
+		<category><![CDATA[Java]]></category>
+		<category><![CDATA[Open Source]]></category>
+		<category><![CDATA[Spring]]></category>
+
+		<guid isPermaLink="false">http://blog.springsource.com/?p=7970</guid>
+		<description>One of the major features added in Spring Framework 3.1 M1 is the generic cache abstraction for transparently applying caching to Spring applications. Just like the transaction support, the caching abstraction allows consistent use of various caching solutions with minimal impact on the code. Purpose Caches are in general used to improve application performance by [...]&lt;img src="http://feeds.feedburner.com/~r/SpringSourceTeamBlog/~4/4PbzoP-1Lgc" height="1" width="1"/&gt;</description>
+		<wfw:commentRss>http://blog.springsource.com/2011/02/23/spring-3-1-m1-caching/feed/</wfw:commentRss>
+		<slash:comments>28</slash:comments>
+		<feedburner:origLink>http://blog.springsource.com/2011/02/23/spring-3-1-m1-caching/</feedburner:origLink></item>
+		<item>
+		<title>Spring 3.1 M1: MVC Namespace Enhancements and @Configuration</title>
+		<link>http://feedproxy.google.com/~r/SpringSourceTeamBlog/~3/DjhxBmdE5W8/</link>
+		<comments>http://blog.springsource.com/2011/02/21/spring-3-1-m1-mvc-namespace-enhancements-and-configuration/#comments</comments>
+		<pubDate>Mon, 21 Feb 2011 13:53:11 +0000</pubDate>
+		<dc:creator>Rossen Stoyanchev</dc:creator>
+				<category><![CDATA[3.1]]></category>
+		<category><![CDATA[Spring]]></category>
+
+		<guid isPermaLink="false">http://blog.springsource.com/?p=7934</guid>
+		<description>In this 5th post of the series describing Spring 3.1 M1 features, I will focus on web applications. In the first half I&amp;#039;ll discuss enhancements to the MVC XML namespace. Then I&amp;#039;ll show how to create the equivalent of the MVC namespace with all Java configuration. At the end I mention some of the Servlet [...]&lt;img src="http://feeds.feedburner.com/~r/SpringSourceTeamBlog/~4/DjhxBmdE5W8" height="1" width="1"/&gt;</description>
+		<wfw:commentRss>http://blog.springsource.com/2011/02/21/spring-3-1-m1-mvc-namespace-enhancements-and-configuration/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<feedburner:origLink>http://blog.springsource.com/2011/02/21/spring-3-1-m1-mvc-namespace-enhancements-and-configuration/</feedburner:origLink></item>
+		<item>
+		<title>Spring 3.1 M1: Introducing FeatureSpecification support</title>
+		<link>http://feedproxy.google.com/~r/SpringSourceTeamBlog/~3/pkTOE6cJ6Gw/</link>
+		<comments>http://blog.springsource.com/2011/02/17/spring-3-1-m1-featurespec/#comments</comments>
+		<pubDate>Fri, 18 Feb 2011 00:58:04 +0000</pubDate>
+		<dc:creator>Chris Beams</dc:creator>
+				<category><![CDATA[3.1]]></category>
+		<category><![CDATA[IOC Container]]></category>
+		<category><![CDATA[Spring]]></category>
+
+		<guid isPermaLink="false">http://blog.springsource.com/?p=7943</guid>
+		<description>Introduction Earlier in this series I touched on how the new @Profile annotation can be used in conjunction with @Configuration classes to take advantage of Spring&amp;#039;s bean definition profiles. Today, we&amp;#039;ll look at an entirely new addition to the code-based configuration landscape in Spring 3.1: FeatureSpecification classes and their related support. I&amp;#039;ve put together a [...]&lt;img src="http://feeds.feedburner.com/~r/SpringSourceTeamBlog/~4/pkTOE6cJ6Gw" height="1" width="1"/&gt;</description>
+		<wfw:commentRss>http://blog.springsource.com/2011/02/17/spring-3-1-m1-featurespec/feed/</wfw:commentRss>
+		<slash:comments>4</slash:comments>
+		<feedburner:origLink>http://blog.springsource.com/2011/02/17/spring-3-1-m1-featurespec/</feedburner:origLink></item>
+		<item>
+		<title>Spring 3.1 M1: Unified Property Management</title>
+		<link>http://feedproxy.google.com/~r/SpringSourceTeamBlog/~3/1FnlhW8r2jo/</link>
+		<comments>http://blog.springsource.com/2011/02/15/spring-3-1-m1-unified-property-management/#comments</comments>
+		<pubDate>Wed, 16 Feb 2011 01:29:24 +0000</pubDate>
+		<dc:creator>Chris Beams</dc:creator>
+				<category><![CDATA[3.1]]></category>
+		<category><![CDATA[IOC Container]]></category>
+		<category><![CDATA[Spring]]></category>
+
+		<guid isPermaLink="false">http://blog.springsource.com/?p=7903</guid>
+		<description>In the first two posts of this series, I described the bean definition profiles feature, and how it relates to the Environment abstraction new in Spring 3.1 M1. Today we&amp;#039;ll take a look at a second aspect of the Environment &amp;#8212; how it helps simplify the concern of configuration property management. Understanding property sources Spring&amp;#039;s [...]&lt;img src="http://feeds.feedburner.com/~r/SpringSourceTeamBlog/~4/1FnlhW8r2jo" height="1" width="1"/&gt;</description>
+		<wfw:commentRss>http://blog.springsource.com/2011/02/15/spring-3-1-m1-unified-property-management/feed/</wfw:commentRss>
+		<slash:comments>6</slash:comments>
+		<feedburner:origLink>http://blog.springsource.com/2011/02/15/spring-3-1-m1-unified-property-management/</feedburner:origLink></item>
+		<item>
+		<title>GORM for MongoDB: New Milestone, Richer Experience</title>
+		<link>http://feedproxy.google.com/~r/SpringSourceTeamBlog/~3/3biJ2jqGRc8/</link>
+		<comments>http://blog.springsource.com/2011/02/15/gorm-for-mongodb-new-milestone-richer-experience/#comments</comments>
+		<pubDate>Tue, 15 Feb 2011 11:08:52 +0000</pubDate>
+		<dc:creator>grocher</dc:creator>
+				<category><![CDATA[Cloud Computing]]></category>
+		<category><![CDATA[Data Access]]></category>
+		<category><![CDATA[Groovy/Grails]]></category>
+
+		<guid isPermaLink="false">http://blog.springsource.com/?p=7890</guid>
+		<description>Last year we introduced support for MongoDB in GORM (along with many other GORM implementations) and it has been extremely well received by the community. We have had a ton of feedback, and today we are pleased to announce a new release (Milestone 2) which addresses some of the feedback we have received. Embedded Document [...]&lt;img src="http://feeds.feedburner.com/~r/SpringSourceTeamBlog/~4/3biJ2jqGRc8" height="1" width="1"/&gt;</description>
+		<wfw:commentRss>http://blog.springsource.com/2011/02/15/gorm-for-mongodb-new-milestone-richer-experience/feed/</wfw:commentRss>
+		<slash:comments>29</slash:comments>
+		<feedburner:origLink>http://blog.springsource.com/2011/02/15/gorm-for-mongodb-new-milestone-richer-experience/</feedburner:origLink></item>
+	</channel>
+</rss>
