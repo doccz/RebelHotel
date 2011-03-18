@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.Student;
+import edu.unlv.cs.rebelhotel.domain.UserAccount;
+import edu.unlv.cs.rebelhotel.domain.enums.UserGroup;
 import edu.unlv.cs.rebelhotel.service.WorkRequirementService;
 
 @Component
@@ -19,12 +21,7 @@ public class StudentMapper {
 	}
 	
 	public Student findOrReplace(FileStudent fileStudent){
-		Student student;
-		student = Student.findStudentsByUserIdEquals(fileStudent.getStudentId()).getSingleResult();
-		if (student == null) {
-			student = new Student();
-		}
-		
+		Student student = findStudent(fileStudent);
 		student.setUserId(fileStudent.getStudentId());
 		student.setFirstName(fileStudent.getFirstName());
 		student.setLastName(fileStudent.getLastName());
@@ -45,9 +42,19 @@ public class StudentMapper {
 		// case 2) a preexisting student, so it can either be true or false; if true, then true; otherwise, false
 		codeOfConductSigned = (codeOfConductSigned) ? true : false;
 		student.setCodeOfConductSigned(codeOfConductSigned);
-		//setUserAccount
-		//setLastModified
 		
+		UserAccount student_account = new UserAccount();
+		student_account.setUserId(fileStudent.getStudentId());
+		student_account.setPassword("password");
+		student_account.setUserGroup(UserGroup.ROLE_USER);
+		student.setUserAccount(student_account);
+		//student.setLastModified();
 		return student;
+	}
+	
+	public Student findStudent(FileStudent fileStudent) {
+		if (null != Student.findStudentsByUserIdEquals(fileStudent.getStudentId())) {
+			return 
+		}
 	}
 }
