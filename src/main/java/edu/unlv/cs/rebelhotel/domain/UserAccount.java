@@ -20,6 +20,10 @@ public class UserAccount {
     @NotNull
     @Column(unique = true)
     private String userId;
+    
+    // test fix for database exception
+    @Column(unique = true)
+    private String email = "default@mail.com";
 
     private transient MessageDigestPasswordEncoder passwordEncoder;
 

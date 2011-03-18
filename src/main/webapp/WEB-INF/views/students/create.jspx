@@ -7,7 +7,7 @@
     <br/>
     <form:create id="fc_edu_unlv_cs_rebelhotel_domain_Student" modelAttribute="student" path="/students" render="${empty dependencies}" z="+PQ5T4tJs0ArIv1PS5oDINVj6go=">
 	    <field:input field="userId" id="c_edu_unlv_cs_rebelhotel_domain_Student_userId" required="true" z="Q+6uPHxy+J/BfpXNbnqjoUPl21g="/>
-        <field:input field="email" id="c_edu_unlv_cs_rebelhotel_domain_Student_email" min="2" required="true" validationMessageCode="field_invalid_email" z="NDEa4jJiTvMWRIHiuomeDmvp6Do="/>
+        <field:input field="email" id="c_edu_unlv_cs_rebelhotel_domain_Student_email" min="5" required="true" validationMessageCode="field_invalid_email" z="RJ8BLJGdUEq9HahrScbqwXOvAfI="/>
         <field:input field="firstName" id="c_edu_unlv_cs_rebelhotel_domain_Student_firstName" min="2" required="true" z="ZfwFke0QaSpPBgRorUMR8NFmIWU="/>
         <field:input field="middleName" id="c_edu_unlv_cs_rebelhotel_domain_Student_middleName" z="BuRwgbxmRVgdC9lvISnajvdbTNc="/>
         <field:input field="lastName" id="c_edu_unlv_cs_rebelhotel_domain_Student_lastName" z="cLk7Jgc0hUpB99wzThzltRiBzcE="/>

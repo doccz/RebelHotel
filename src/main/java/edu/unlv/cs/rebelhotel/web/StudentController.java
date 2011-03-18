@@ -139,7 +139,8 @@ public class StudentController {
 	
 	public String buildMaxLengthsString(FormStudentQuery formStudentQuery) {
 		// these will determine how many characters the table.jspx will display per data column; table.jspx defaults to 10, so this does too
-		String properties = "10";
+		String properties = "1";
+		
 		if (formStudentQuery.getShowUserId()) {
 			properties += ",10";
 		}

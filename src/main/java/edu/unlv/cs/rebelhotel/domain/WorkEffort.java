@@ -32,6 +32,8 @@ public class WorkEffort {
 
     private String workPosition;
 
+    // Alan: We may need to add a custom class for comments to handle multi-line comments
+    // entered on the form by admins.
     private String comment;
 
     @Embedded
