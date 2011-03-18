@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_edu_unlv_cs_rebelhotel_domain_ViewProgress" object="${viewprogress}" path="/viewprogresses" z="xuLwpjmWyUVSASWGpb6y28z5lm0=">
+	<!-- 
+        <field:display field="major1Milestone" id="s_edu_unlv_cs_rebelhotel_domain_ViewProgress_major1Milestone" object="${viewprogress}" z="yYc23VLrXjQXYD1ZsEXDf48hDFQ="/>
+        <field:display field="major2Milestone" id="s_edu_unlv_cs_rebelhotel_domain_ViewProgress_major2Milestone" object="${viewprogress}" z="UuouTZnIv1oekR4lyUfM0PHVB3E="/>
+        <field:display field="general_requirement" id="s_edu_unlv_cs_rebelhotel_domain_ViewProgress_general_requirement" object="${viewprogress}" z="k1xK0X8nTHv0dMrKtlogEYVJvD0="/>
+    <field:display field="student" id="s_edu_unlv_cs_rebelhotel_domain_ViewProgress_student" object="${viewprogress}" z="gq75OGCFtR/498zQNkltLoyKJYk="/>
+    <field:display field="major1_approved_hours" id="s_edu_unlv_cs_rebelhotel_domain_ViewProgress_major1_approved_hours" object="${viewprogress}" z="PTUhG1X28BPR0tKxQuiE42AccHQ="/>
+        <field:display field="major2_approved_hours" id="s_edu_unlv_cs_rebelhotel_domain_ViewProgress_major2_approved_hours" object="${viewprogress}" z="hvmNo24kMWJj6xdF/i/Wa7H66WU="/>
+        <field:display field="major1_remaining_hours" id="s_edu_unlv_cs_rebelhotel_domain_ViewProgress_major1_remaining_hours" object="${viewprogress}" z="Fo0WO4ib+NDtxwFcoSkWUXVCGAg="/>
+        <field:display field="major2_remaining_hours" id="s_edu_unlv_cs_rebelhotel_domain_ViewProgress_major2_remaining_hours" object="${viewprogress}" z="FP9IGF2ox9bSeUsYfTeJVo8R7JM="/>
+        <field:display field="total_hours_approved" id="s_edu_unlv_cs_rebelhotel_domain_ViewProgress_total_hours_approved" object="${viewprogress}" z="6LJ7TlC+PyGude7y2yEIy0VQcuc="/>
+        <field:display field="total_hours_remaining" id="s_edu_unlv_cs_rebelhotel_domain_ViewProgress_total_hours_remaining" object="${viewprogress}" z="/twoyDLqMI400YTbE3pg1pVwjOY="/>
+     -->
+    
+    <field:display field="workRequirement" id="s_edu_unlv_cs_rebelhotel_domain_ViewProgress_workRequirement" object="${viewprogress}" z="sprb9We7/HI6RXb7FQkwzznkU8Q="/>
+        <field:display field="approvedHours" id="s_edu_unlv_cs_rebelhotel_domain_ViewProgress_approvedHours" object="${viewprogress}" z="6Kzber5SeTzMy7+daGdgFKptpWQ="/>
+    </page:show>
+</div>
