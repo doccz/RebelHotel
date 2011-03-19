@@ -24,7 +24,7 @@ public class UserAccount {
     // test fix for database exception
     @Column(unique = true)
     private String email = "default@mail.com";
-
+    
     private transient MessageDigestPasswordEncoder passwordEncoder;
 
     @NotNull

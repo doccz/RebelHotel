@@ -33,7 +33,8 @@ public class Student {
 
     @NotNull
     @Size(min = 5)
-    private String email = "default";
+    @Column(unique = true)
+    private String email;
 
     @NotNull
     @Size(min = 2)
