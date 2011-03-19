@@ -48,12 +48,7 @@ public class DefaultStudentService implements StudentService{
 		
 		for (FileStudent each : fileStudents) {
 			Student student = studentMapper.findOrReplace(each);
-			
-			if (Student.findStudentsByUserIdEquals(each.getStudentId()).getResultList().size() > 0) {
-				student.merge();
-			} else {
-				student.persist();
-			}
+			student.persist();
 		}
 	}
 }
