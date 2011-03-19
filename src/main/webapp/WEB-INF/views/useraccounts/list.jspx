@@ -9,8 +9,12 @@
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_UserAccount_userGroup" property="userGroup" z="ApnEsKzC/nwopnMpwPa/VYsGHsg="/>
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_UserAccount_enabled" property="enabled" z="v67LmVv6c4GIR25ijiOiNDebP5Q="/>
 <<<<<<< HEAD:src/main/webapp/WEB-INF/views/useraccounts/list.jspx
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/useraccounts/list.jspx
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_UserAccount_email" property="email" z="X5T0kQEQprhl8VaLl6LSbDEIC30="/>
         </table:table>
+=======
+            </table:table>
+>>>>>>> 3e989e0... merge with suziee dev:src/main/webapp/WEB-INF/views/useraccounts/list.jspx
 =======
             </table:table>
 >>>>>>> 3e989e0... merge with suziee dev:src/main/webapp/WEB-INF/views/useraccounts/list.jspx

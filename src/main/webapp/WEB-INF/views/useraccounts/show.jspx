@@ -8,7 +8,10 @@
         <field:display field="userGroup" id="s_edu_unlv_cs_rebelhotel_domain_UserAccount_userGroup" object="${useraccount}" z="4vExJoAW/a+nF5Qspanxmh6RRtU="/>
         <field:display field="enabled" id="s_edu_unlv_cs_rebelhotel_domain_UserAccount_enabled" object="${useraccount}" z="BM0JEna7ZOR6pcLuvG6iMJzBxt0="/>
 <<<<<<< HEAD:src/main/webapp/WEB-INF/views/useraccounts/show.jspx
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/useraccounts/show.jspx
     <field:display field="email" id="s_edu_unlv_cs_rebelhotel_domain_UserAccount_email" object="${useraccount}" z="B/glAxf7hl1imfcxPOe55tWRmCI="/>
+=======
+>>>>>>> 3e989e0... merge with suziee dev:src/main/webapp/WEB-INF/views/useraccounts/show.jspx
 =======
 >>>>>>> 3e989e0... merge with suziee dev:src/main/webapp/WEB-INF/views/useraccounts/show.jspx
     </page:show>
