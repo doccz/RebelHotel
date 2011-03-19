@@ -40,7 +40,7 @@
 		<category><![CDATA[VMware]]></category>
 
 		<guid isPermaLink="false">http://blog.springsource.com/?p=8163</guid>
-		<!-- <description>Today, VMware announces with this blog the acquisition of WaveMaker, a widely used graphical tool that enables non-expert developers to build web applications quickly. ï¿½While WaveMaker is already part of the Spring ecosystem, it will now become an integral part of the Spring family and VMwareï¿½s cloud strategy. All of WaveMakerï¿½s staff will be joining [...]&lt;img src="http://feeds.feedburner.com/~r/SpringSourceTeamBlog/~4/pxbguyNdNXc" height="1" width="1"/&gt;</description>-->
+		<description>Today, VMware announces with this blog the acquisition of WaveMaker, a widely used graphical tool that enables non-expert developers to build web applications quickly. ÊWhile WaveMaker is already part of the Spring ecosystem, it will now become an integral part of the Spring family and VMwareÕs cloud strategy. All of WaveMakerÕs staff will be joining [...]&lt;img src="http://feeds.feedburner.com/~r/SpringSourceTeamBlog/~4/pxbguyNdNXc" height="1" width="1"/&gt;</description>
 		<wfw:commentRss>http://blog.springsource.com/2011/03/08/vmware-acquires-wavemaker/feed/</wfw:commentRss>
 		<slash:comments>35</slash:comments>
 		<feedburner:origLink>http://blog.springsource.com/2011/03/08/vmware-acquires-wavemaker/</feedburner:origLink></item>

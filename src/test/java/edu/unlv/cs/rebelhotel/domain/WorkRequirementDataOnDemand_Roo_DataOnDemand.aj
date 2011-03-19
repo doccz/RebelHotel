@@ -3,11 +3,9 @@
 
 package edu.unlv.cs.rebelhotel.domain;
 
-import edu.unlv.cs.rebelhotel.domain.MajorDataOnDemand;
 import edu.unlv.cs.rebelhotel.domain.WorkRequirement;
 import java.util.List;
 import java.util.Random;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 privileged aspect WorkRequirementDataOnDemand_Roo_DataOnDemand {
@@ -18,15 +16,12 @@ privileged aspect WorkRequirementDataOnDemand_Roo_DataOnDemand {
     
     private List<WorkRequirement> WorkRequirementDataOnDemand.data;
     
-    @Autowired
-    private MajorDataOnDemand WorkRequirementDataOnDemand.majorDataOnDemand;
-    
     public WorkRequirement WorkRequirementDataOnDemand.getNewTransientWorkRequirement(int index) {
         edu.unlv.cs.rebelhotel.domain.WorkRequirement obj = new edu.unlv.cs.rebelhotel.domain.WorkRequirement();
         obj.setName(edu.unlv.cs.rebelhotel.domain.enums.Departments.class.getEnumConstants()[0]);
         obj.setHours(new Integer(index));
         obj.setMilestone(true);
-        obj.setMajor(majorDataOnDemand.getRandomMajor());
+        obj.setMajor(null);
         return obj;
     }
     

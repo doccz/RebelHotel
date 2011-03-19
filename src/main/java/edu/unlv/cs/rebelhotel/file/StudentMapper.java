@@ -53,11 +53,8 @@ public class StudentMapper {
 	}
 	
 	public Student findStudent(FileStudent fileStudent) {
-		// adding this dummy object to fix error after merge
-		Student student = new Student();
 		if (null != Student.findStudentsByUserIdEquals(fileStudent.getStudentId())) {
-			; // empty statement because I don't know what Suzanna wanted to do with this...
+			return 
 		}
-		return student;
 	}
 }

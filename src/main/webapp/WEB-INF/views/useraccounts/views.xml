@@ -17,8 +17,13 @@
         <put-attribute name="body" value="/WEB-INF/views/useraccounts/update.jspx"/>
         <put-attribute name="menu" value="/WEB-INF/views/useraccounts/user_accounts_menu.jspx" />
     </definition>
+<definition extends="default" name="useraccounts/findUserAccountsByName">
+        <put-attribute name="body" value="/WEB-INF/views/useraccounts/findUserAccountsByName.jspx"/>
+    </definition>
+<definition extends="default" name="useraccounts/findUserAccountsByNSHE">
+        <put-attribute name="body" value="/WEB-INF/views/useraccounts/findUserAccountsByNSHE.jspx"/>
+    </definition>
 <definition extends="default" name="useraccounts/findUserAccountsByUserId">
         <put-attribute name="body" value="/WEB-INF/views/useraccounts/findUserAccountsByUserId.jspx"/>
-        <put-attribute name="menu" value="/WEB-INF/views/useraccounts/user_accounts_menu.jspx" />
     </definition>
 </tiles-definitions>

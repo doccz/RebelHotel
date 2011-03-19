@@ -13,7 +13,7 @@ public class Supervisor {
 
     private String lastName;
 
-    private String email = "default";
+    private String email;
 
     private String phone;
     
