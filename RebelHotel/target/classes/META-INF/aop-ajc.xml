@@ -1,0 +1,49 @@
+<aspectj>
+<aspects>
+<aspect name="edu.unlv.cs.rebelhotel.domain.Student_Roo_JavaBean"/>
+<aspect name="edu.unlv.cs.rebelhotel.web.StudentController_Roo_Controller"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.Term_Roo_Entity"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkTemplate_Roo_Finder"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.Term_Roo_JavaBean"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkTemplate_Roo_Entity"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkTemplate_Roo_JavaBean"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.Major_Roo_Entity"/>
+<aspect name="edu.unlv.cs.rebelhotel.web.MajorController_Roo_Controller"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkRequirement_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkEffort_Roo_Finder"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkEffortDuration_Roo_JavaBean"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.Major_Roo_JavaBean"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkTemplate_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.Student_Roo_Entity"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.Term_Roo_Finder"/>
+<aspect name="edu.unlv.cs.rebelhotel.file.Line_Roo_ToString"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.Employer_Roo_ToString"/>
+<aspect name="edu.unlv.cs.rebelhotel.web.TermController_Roo_Controller"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.UserAccount_Roo_JavaBean"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkRequirement_Roo_JavaBean"/>
+<aspect name="edu.unlv.cs.rebelhotel.web.WorkRequirementController_Roo_Controller"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkRequirement_Roo_ToString"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkTemplate_Roo_ToString"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.Major_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.UserAccount_Roo_Entity"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.Student_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.Supervisor_Roo_JavaBean"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkEffort_Roo_Entity"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.Employer_Roo_JavaBean"/>
+<aspect name="edu.unlv.cs.rebelhotel.web.ApplicationConversionServiceFactoryBean_Roo_ConversionService"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.Major_Roo_ToString"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.UserAccount_Roo_Finder"/>
+<aspect name="edu.unlv.cs.rebelhotel.web.WorkEffortController_Roo_Controller"/>
+<aspect name="edu.unlv.cs.rebelhotel.file.FileStudent_Roo_ToString"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkEffort_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.web.UserAccountController_Roo_Controller"/>
+<aspect name="edu.unlv.cs.rebelhotel.web.WorkTemplateController_Roo_Controller"/>
+<aspect name="edu.unlv.cs.rebelhotel.file.Line_Roo_JavaBean"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkEffort_Roo_JavaBean"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.Student_Roo_Finder"/>
+<aspect name="edu.unlv.cs.rebelhotel.file.FileStudent_Roo_JavaBean"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkRequirement_Roo_Entity"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.Term_Roo_Configurable"/>
+</aspects>
+</aspectj>
+

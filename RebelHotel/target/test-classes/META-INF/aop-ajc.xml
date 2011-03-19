@@ -1,0 +1,33 @@
+<aspectj>
+<aspects>
+<aspect name="edu.unlv.cs.rebelhotel.domain.MajorDataOnDemand_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkEffortDataOnDemand_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkRequirementDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.StudentDataOnDemand_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkRequirementIntegrationTest_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.StudentIntegrationTest_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.MajorIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkEffortDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.UserAccountIntegrationTest_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkTemplateIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkRequirementIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.StudentIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.MajorIntegrationTest_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.UserAccountDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkTemplateDataOnDemand_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkRequirementDataOnDemand_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkEffortIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.TermDataOnDemand_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.TermDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.TermIntegrationTest_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.StudentDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkTemplateDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkEffortIntegrationTest_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.MajorDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.WorkTemplateIntegrationTest_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.UserAccountDataOnDemand_Roo_Configurable"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.UserAccountIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="edu.unlv.cs.rebelhotel.domain.TermIntegrationTest_Roo_IntegrationTest"/>
+</aspects>
+</aspectj>
+

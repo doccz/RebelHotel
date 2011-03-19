@@ -5,10 +5,12 @@ package edu.unlv.cs.rebelhotel.web;
 
 import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.WorkTemplate;
+import edu.unlv.cs.rebelhotel.domain.enums.Departments;
 import java.io.UnsupportedEncodingException;
 import java.lang.Integer;
 import java.lang.Long;
 import java.lang.String;
+import java.util.Arrays;
 import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -88,13 +90,14 @@ privileged aspect WorkTemplateController_Roo_Controller {
     }
     
     @RequestMapping(params = { "find=ByNameEquals", "form" }, method = RequestMethod.GET)
-    public String WorkTemplateController.findWorkTemplatesByNameEqualsForm(Model uiModel) {
+    public String WorkTemplateController.findWorkTemplatesByNameEqualsForm(Model model) {
+        model.addAttribute("departmentses", java.util.Arrays.asList(Departments.class.getEnumConstants()));
         return "worktemplates/findWorkTemplatesByNameEquals";
     }
     
     @RequestMapping(params = "find=ByNameEquals", method = RequestMethod.GET)
-    public String WorkTemplateController.findWorkTemplatesByNameEquals(@RequestParam("name") String name, Model uiModel) {
-        uiModel.addAttribute("worktemplates", WorkTemplate.findWorkTemplatesByNameEquals(name).getResultList());
+    public String WorkTemplateController.findWorkTemplatesByNameEquals(@RequestParam("name") Departments name, Model model) {
+        model.addAttribute("worktemplates", WorkTemplate.findWorkTemplatesByNameEquals(name).getResultList());
         return "worktemplates/list";
     }
     
@@ -103,13 +106,15 @@ privileged aspect WorkTemplateController_Roo_Controller {
         return Term.findAllTerms();
     }
     
-    @ModelAttribute("worktemplates")
-    public java.util.Collection<WorkTemplate> WorkTemplateController.populateWorkTemplates() {
-        return WorkTemplate.findAllWorkTemplates();
+
+    @ModelAttribute("departmentses")
+    public Collection<Departments> WorkTemplateController.populateDepartmentses() {
+        return Arrays.asList(Departments.class.getEnumConstants());
     }
     
-    String WorkTemplateController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
-        String enc = httpServletRequest.getCharacterEncoding();
+    String WorkTemplateController.encodeUrlPathSegment(String pathSegment, HttpServletRequest request) {
+        String enc = request.getCharacterEncoding();
+
         if (enc == null) {
             enc = WebUtils.DEFAULT_CHARACTER_ENCODING;
         }

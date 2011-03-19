@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_edu_unlv_cs_rebelhotel_domain_ViewProgress" items="${viewprogresses}" z="gQQUg4+S3YL8f8KP2bktqbT4xkY=">
+	<!-- 
+        <table:table data="${viewprogresses}" id="l_edu_unlv_cs_rebelhotel_domain_ViewProgress" path="/viewprogresses" z="Ug6B2KHVkhS9Rbj4kb4hn04D22Y=">
+        <table:column id="c_edu_unlv_cs_rebelhotel_domain_ViewProgress_student" property="student" z="Fm09Ra89bc5g8na6LIfcroTLE5w="/>
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_ViewProgress_major1Milestone" property="major1Milestone" z="Cjyu/ivlULzB2wMy4cq8xsCeaOM="/>
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_ViewProgress_major2Milestone" property="major2Milestone" z="MNPr7A+CstqDx5StZb7aVrHubFE="/>
+        <table:column id="c_edu_unlv_cs_rebelhotel_domain_ViewProgress_major1_approved_hours" property="major1_approved_hours" z="QH9nTlgel2etaQnAa9kjmIkFY5A="/>
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_ViewProgress_major2_approved_hours" property="major2_approved_hours" z="R7NdpSKjXovYgEAoklpCCinZLC4="/>
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_ViewProgress_major1_remaining_hours" property="major1_remaining_hours" z="1UNF8KyKyHVMu/1xCFqxH837J/0="/>
+        </table:table>
+     -->
+    <table:table data="${viewprogresses}" id="l_edu_unlv_cs_rebelhotel_domain_ViewProgress" path="/viewprogresses" z="Ug6B2KHVkhS9Rbj4kb4hn04D22Y=">
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_ViewProgress_workRequirement" property="workRequirement" z="h91MLLnUe9ocwZXu/zdm0eBZw4o="/>
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_ViewProgress_approvedHours" property="approvedHours" z="i1XYSaCa1YfUUnYtwHcwbuu1h9I="/>
+        </table:table>
+    </page:list>
+</div>
