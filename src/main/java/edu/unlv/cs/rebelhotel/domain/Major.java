@@ -17,7 +17,6 @@ import edu.unlv.cs.rebelhotel.domain.WorkRequirement;
 import edu.unlv.cs.rebelhotel.domain.Term;
 
 @RooJavaBean
-@RooToString
 @RooEntity
 public class Major {
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -30,5 +29,14 @@ public class Major {
 
 	@ManyToOne
     private Term catalogTerm;
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+        //sb.append("WorkRequirements: ").append(getWorkRequirements() == null ? "null" : getWorkRequirements().size()).append(", ");
+        //sb.append("ReachedMilestone: ").append(isReachedMilestone()).append(", ");
+        sb.append(getDepartment()).append(", ");
+        //sb.append("CatalogTerm: ").append(getCatalogTerm());
+        return sb.toString();
+	}
 
 }

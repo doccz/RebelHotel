@@ -20,11 +20,11 @@ body {
 }
 
 #wrapper {
-	width:800px;
-	min-width: 1024px;
-	max-width: 1024px;
+	width:1280px;
+	min-width: 1280px;
+	max-width: 1280px;/*1280px;*/
 	margin-right: auto;
-	margin-left: auto;
+	margin-left: 3%;
 
 	/* fix max-width incompatibility in IE6 */
 	width:expression(document.body.clientWidth > 1024? "1024px": "auto" );
@@ -158,12 +158,13 @@ a.menu, a.menu:link, a.menu:visited {display:block; width:px; height:25px;}
 
 h1,h2,h3 {
 	font-family: Helvetica, sans-serif;
-	color: #7db223;
+	color: #000000;/*#7db223*/
 }
 
 h1 {
 	font-size: 20px;
 	line-height: 26px;
+	text-align: center;
 }
 
 h2 {
@@ -209,7 +210,7 @@ tr:nth-child(even) {
 }
 
 a:link {
-	color: #7db223;
+	color: #000000;
 }
 
 a:hover {
@@ -217,11 +218,11 @@ a:hover {
 }
 
 a:active {
-	color: #7db223;
+	color: #000000;
 }
 
 a:visited {
-	color: #7db223;
+	color: #000000;
 }
 
 li {
