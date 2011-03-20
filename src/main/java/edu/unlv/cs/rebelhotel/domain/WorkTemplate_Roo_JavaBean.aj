@@ -4,16 +4,16 @@
 package edu.unlv.cs.rebelhotel.domain;
 
 import edu.unlv.cs.rebelhotel.domain.Term;
-import edu.unlv.cs.rebelhotel.domain.enums.Departments;
 import java.lang.Integer;
+import java.lang.String;
 
 privileged aspect WorkTemplate_Roo_JavaBean {
     
-    public Departments WorkTemplate.getName() {
+    public String WorkTemplate.getName() {
         return this.name;
     }
     
-    public void WorkTemplate.setName(Departments name) {
+    public void WorkTemplate.setName(String name) {
         this.name = name;
     }
     

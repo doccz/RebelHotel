@@ -37,68 +37,20 @@ public class WorkRequirementService {
 				if (!majorName.equals(m.getDepartment())){
 					Major new_major = new Major();
 					Set<WorkRequirement> wr = new HashSet<WorkRequirement>();
-					/* new WorkTemplate() will be replaced with an existing work template */
-					wr.add(WorkRequirement.fromWorkTemplate(new WorkTemplate(),new_major));
+					
+					// change this later
+					WorkRequirement workRequirement = WorkRequirement.fromWorkTemplate(WorkTemplate.findWorkTemplatesByNameEquals("Gaming").getSingleResult(), new_major); 
+					workRequirement.persist();
+					
+					wr.add(workRequirement);
 					new_major.setWorkRequirements(wr);
 					new_major.setCatalogTerm(requirementTerm);
 					
-					// I would have done a case/switch, but that does not work for strings, apparently.
-					switch (Departments.valueOf(majorName)){
-					case HOSPITALITY_MANAGEMENT: {
-						new_major.setDepartment(Departments.GAMING_MANAGEMENT);
-						break;
-					}
-					case HOTEL_ADMINISTRATION_BEVERAGE_MANAGEMENT:{
-						new_major.setDepartment(Departments.GAMING_MANAGEMENT);
-						break;
-					}
-					case FOOD_SERVICE_MANAGEMENT:{
-						new_major.setDepartment(Departments.GAMING_MANAGEMENT);
-						break;
-					}
-					case LODGING_AND_RESORT_MANAGEMENT:{
-						new_major.setDepartment(Departments.GAMING_MANAGEMENT);
-						break;
-					}
-					case MEETINGS_AND_EVENTS_MANAGEMENT:{
-						new_major.setDepartment(Departments.GAMING_MANAGEMENT);
-						break;
-					}
-					case CULINARY_ARTS_MANAGEMENT: {
-						new_major.setDepartment(Departments.CULINARY_ARTS_MANAGEMENT);
-						break;
-					}
-					case CULINARY_ARTS_BEVERAGE_MANAGEMENT: {
-						new_major.setDepartment(Departments.CULINARY_ARTS_BEVERAGE_MANAGEMENT);
-						break;
-					}
-					case GAMING_MANAGEMENT: {
-						new_major.setDepartment(Departments.GAMING_MANAGEMENT);
-						break;
-					}
-					default: {
-						new_major.setDepartment(Departments.NOVALUE); 
-						break;
-					}
-					}
-						
-					/*
-					if (majorName.equals(Departments.CULINARY_ARTS_BEVERAGE_MANAGEMENT)) {
-						new_major.setDepartment(Departments.CULINARY_ARTS_BEVERAGE_MANAGEMENT);
-					} else if (majorName.equals(Departments.CULINARY_ARTS_MANAGEMENT)) {
-						new_major.setDepartment(Departments.CULINARY_ARTS_MANAGEMENT);
-					} else if (majorName.equals(Departments.FOOD_SERVICE_MANAGEMENT)) {
-						new_major.setDepartment(Departments.FOOD_SERVICE_MANAGEMENT);
-					} else if (majorName.equals(Departments.GAMING_MANAGEMENT)) {
-						new_major.setDepartment(Departments.GAMING_MANAGEMENT);
-					} else if (majorName.equals(Departments.HOSPITALITY_MANAGEMENT)) {
-						new_major.setDepartment(Departments.HOSPITALITY_MANAGEMENT);
-					} else if (majorName.equals(Departments.HOTEL_ADMINISTRATION_BEVERAGE_MANAGEMENT)) {
-						new_major.setDepartment(Departments.HOTEL_ADMINISTRATION_BEVERAGE_MANAGEMENT);
-					} else if (majorName.equals(Departments.))
-					*/
-					
+					// change this later
+					new_major.setDepartment(Departments.GAMING_MANAGEMENT);
 					new_major.setReachedMilestone(false);
+					new_major.persist();
+					
 					newMajors.add(new_major);
 				}
 			}

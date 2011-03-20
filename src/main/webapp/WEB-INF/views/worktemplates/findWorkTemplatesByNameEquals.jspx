@@ -6,6 +6,6 @@
     <br/>
     <br/>
     <form:find finderName="ByNameEquals" id="ff_edu_unlv_cs_rebelhotel_domain_WorkTemplate" path="/worktemplates" z="z2U1KLVINr0KlB1MfDiU1sYtaKw=">
-        <field:select disableFormBinding="true" field="name" id="f_edu_unlv_cs_rebelhotel_domain_WorkTemplate_name" items="${departmentses}" path="/departmentses" required="true" z="X43QitwZ20IS3SYMyUSkeLsH4gs="/>
+        <field:input disableFormBinding="true" field="name" id="f_edu_unlv_cs_rebelhotel_domain_WorkTemplate_name" required="true" z="QRUG17LcqW8Z8jfwGMOxs4Y5F8g="/>
     </form:find>
 </div>

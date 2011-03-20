@@ -21,8 +21,7 @@ import javax.persistence.ManyToMany;
 public class WorkRequirement {
 
 	@NotNull
-	@Enumerated
-	private Departments name;
+	private String name;
 
     private Integer hours;
 

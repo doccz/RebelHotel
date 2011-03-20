@@ -88,6 +88,18 @@ privileged aspect TermController_Roo_Controller {
         return "redirect:/terms";
     }
     
+    @RequestMapping(params = { "find=BySemester", "form" }, method = RequestMethod.GET)
+    public String TermController.findTermsBySemesterForm(Model uiModel) {
+        uiModel.addAttribute("semesters", java.util.Arrays.asList(Semester.class.getEnumConstants()));
+        return "terms/findTermsBySemester";
+    }
+    
+    @RequestMapping(params = "find=BySemester", method = RequestMethod.GET)
+    public String TermController.findTermsBySemester(@RequestParam("semester") Semester semester, Model uiModel) {
+        uiModel.addAttribute("terms", Term.findTermsBySemester(semester).getResultList());
+        return "terms/list";
+    }
+    
     @ModelAttribute("terms")
     public Collection<Term> TermController.populateTerms() {
         return Term.findAllTerms();

@@ -35,32 +35,29 @@ public class Line {
 		Set<String> majors = line.getMajors();
 		majors.add(field[5]);
 		line.setMajors(majors);
-		
+
 		if (!field[6].equals(" ")) {
 			majors.add(field[6]);
 			line.setMajors(majors);
 		}
-		
-		System.out.println(field[0]);
-		
+
 		line.setAdmitTerm(doMakeTerm(field[7]));
 		line.setRequirementTerm(doMakeTerm(field[8]));
 		line.setGradTerm(doMakeTerm(field[9]));
-		
+
 		return line;
 	}
-	
+
 	public Term makeTerm(String yearAndTerm) {
 		char[] character = {0,0,0,0};
 		Integer termYear = null;
 		Semester semester = null;
-		
 		yearAndTerm.getChars(0,4,character,0);
 		termYear = convertToYear(character[0], character[1], character[2]);
 		semester = convertToSemester(character[3]);
 		Term term = new Term();
 		term.setTermYear(termYear);
-		
+
 		if (semester.equals(Semester.FALL)) {
 			term.setSemester(Semester.FALL);
 		} else if (semester.equals(Semester.SPRING)) {
@@ -70,9 +67,18 @@ public class Line {
 		} else {
 			throw new IllegalArgumentException("Invalid semester:" + semester);
 		}
+		
+		/*if (Term.doesExist(term.getSemester(), term.getTermYear())) {
+			term.merge();
+		} else {
+			term.persist();
+		}*/
+		
+		term.merge();
+		
 		return term;
 	}
-	
+
 	private Integer convertToYear(char century, char leftYear, char rightYear) {
 		Integer year = null;
 		if ('0' == century) { 
@@ -86,7 +92,7 @@ public class Line {
 		year += Integer.valueOf(yearString);
 		return year;
 	}
-	
+
 	private Semester convertToSemester(char semester){
 		if ('8' == semester) {
 			return Semester.FALL;
@@ -97,8 +103,8 @@ public class Line {
 		} else {
 			throw new IllegalArgumentException("Invalid semester:" + semester);
 		}
-	}
-	
+	} 
+
 	private Term doMakeTerm(String term) {
 		if (term.equals(" ")){
 			return null;

@@ -16,8 +16,7 @@ import javax.persistence.ManyToOne;
 public class WorkTemplate {
 
 	@NotNull
-	@Enumerated
-	private Departments name;
+	private String name;
 
     private Integer hours;
 

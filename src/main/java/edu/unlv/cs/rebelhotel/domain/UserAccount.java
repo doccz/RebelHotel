@@ -14,14 +14,13 @@ import javax.persistence.EnumType;
 @Configurable("userAccount")
 @RooJavaBean
 @RooToString
-@RooEntity(finders = { "findUserAccountsByUserId" })
+@RooEntity(finders = { "findUserAccountsByUserId", "findUserAccountsByUserIdEquals" })
 public class UserAccount {
 
     @NotNull
     @Column(unique = true)
     private String userId;
-    
-    // test fix for database exception
+
     @Column(unique = true)
     private String email = "default@mail.com";
 
@@ -43,7 +42,7 @@ public class UserAccount {
     public void setPasswordEncoder(MessageDigestPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
-    
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("UserId: ").append(getUserId()).append(", ");

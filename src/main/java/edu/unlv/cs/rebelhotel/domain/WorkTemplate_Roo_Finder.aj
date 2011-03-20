@@ -4,14 +4,14 @@
 package edu.unlv.cs.rebelhotel.domain;
 
 import edu.unlv.cs.rebelhotel.domain.WorkTemplate;
-import edu.unlv.cs.rebelhotel.domain.enums.Departments;
+import java.lang.String;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 privileged aspect WorkTemplate_Roo_Finder {
     
-    public static TypedQuery<WorkTemplate> WorkTemplate.findWorkTemplatesByNameEquals(Departments name) {
-        if (name == null) throw new IllegalArgumentException("The name argument is required");
+    public static TypedQuery<WorkTemplate> WorkTemplate.findWorkTemplatesByNameEquals(String name) {
+        if (name == null || name.length() == 0) throw new IllegalArgumentException("The name argument is required");
         EntityManager em = WorkTemplate.entityManager();
         TypedQuery<WorkTemplate> q = em.createQuery("SELECT WorkTemplate FROM WorkTemplate AS worktemplate WHERE worktemplate.name = :name", WorkTemplate.class);
         q.setParameter("name", name);

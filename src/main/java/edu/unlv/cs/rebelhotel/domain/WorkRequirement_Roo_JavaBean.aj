@@ -5,17 +5,17 @@ package edu.unlv.cs.rebelhotel.domain;
 
 import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
-import edu.unlv.cs.rebelhotel.domain.enums.Departments;
 import java.lang.Integer;
+import java.lang.String;
 import java.util.Set;
 
 privileged aspect WorkRequirement_Roo_JavaBean {
     
-    public Departments WorkRequirement.getName() {
+    public String WorkRequirement.getName() {
         return this.name;
     }
     
-    public void WorkRequirement.setName(Departments name) {
+    public void WorkRequirement.setName(String name) {
         this.name = name;
     }
     
