@@ -32,16 +32,8 @@ public class Student {
     private String userId;
 
     @NotNull
-<<<<<<< HEAD:src/main/java/edu/unlv/cs/rebelhotel/domain/Student.java
-<<<<<<< HEAD:src/main/java/edu/unlv/cs/rebelhotel/domain/Student.java
     @Size(min = 5)
     private String email = "default";
-=======
-=======
->>>>>>> 3e989e0... merge with suziee dev:src/main/java/edu/unlv/cs/rebelhotel/domain/Student.java
-    @Size(min = 2)
-    private String email;
->>>>>>> 3e989e0... merge with suziee dev:src/main/java/edu/unlv/cs/rebelhotel/domain/Student.java
 
     @NotNull
     @Size(min = 2)

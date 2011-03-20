@@ -53,8 +53,11 @@ public class StudentMapper {
 	}
 	
 	public Student findStudent(FileStudent fileStudent) {
+		Student student = new Student();
 		if (null != Student.findStudentsByUserIdEquals(fileStudent.getStudentId())) {
-			return 
+			; // empty statement because I don't know what suziee wanted to do here
 		}
+		return student;
 	}
+	
 }

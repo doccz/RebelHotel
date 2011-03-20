@@ -20,16 +20,10 @@ public class UserAccount {
     @NotNull
     @Column(unique = true)
     private String userId;
-<<<<<<< HEAD:src/main/java/edu/unlv/cs/rebelhotel/domain/UserAccount.java
-<<<<<<< HEAD:src/main/java/edu/unlv/cs/rebelhotel/domain/UserAccount.java
     
     // test fix for database exception
     @Column(unique = true)
     private String email = "default@mail.com";
-=======
->>>>>>> 3e989e0... merge with suziee dev:src/main/java/edu/unlv/cs/rebelhotel/domain/UserAccount.java
-=======
->>>>>>> 3e989e0... merge with suziee dev:src/main/java/edu/unlv/cs/rebelhotel/domain/UserAccount.java
 
     private transient MessageDigestPasswordEncoder passwordEncoder;
 
