@@ -15,47 +15,28 @@ import edu.unlv.cs.rebelhotel.domain.enums.Departments;
 @Component
 public class WorkRequirementService {
 	
-	public Set<Major> updateStudentInformation(Set<Major> current_majors, Set<String> majors, Term requirementTerm){
-		//List<WorkTemplate> workTemplates = WorkTemplate.findAllWorkTemplates();
-		Set<WorkRequirement> workRequirements = new HashSet<WorkRequirement>();
-		
-		/* now get the work requirements from those majors. 
-		 * this implementation might change later if Sam decides to make the changes he anticipated.
-		 */
-		
-		// Do this just in case the student is a preexisting one
-		for (Major each : current_majors) {
-			workRequirements.addAll(each.getWorkRequirements());
-		}
-
-		// Create any new majors
-		Major m;
-		Set<Major> newMajors = new HashSet<Major>();
-		for (WorkRequirement each : workRequirements) {
-			m = each.getMajor();
-			for (String majorName : majors) {
-				if (!majorName.equals(m.getDepartment())){
-					Major new_major = new Major();
-					Set<WorkRequirement> wr = new HashSet<WorkRequirement>();
-					
-					// change this later
-					WorkRequirement workRequirement = WorkRequirement.fromWorkTemplate(WorkTemplate.findWorkTemplatesByNameEquals("Gaming").getSingleResult(), new_major); 
-					workRequirement.persist();
-					
-					wr.add(workRequirement);
-					new_major.setWorkRequirements(wr);
-					new_major.setCatalogTerm(requirementTerm);
-					
-					// change this later
-					new_major.setDepartment(Departments.GAMING_MANAGEMENT);
-					new_major.setReachedMilestone(false);
-					new_major.persist();
-					
-					newMajors.add(new_major);
+	public Set<Major> updateStudentInformation(Set<Major> current_majors, Set<Major> majors){
+		if (0 == current_majors.size()) { // this means the student is new
+			for (Major each : majors) {
+				WorkRequirement workRequirement = WorkRequirement.fromWorkTemplate(WorkTemplate.findWorkTemplatesByNameEquals("Gaming").getSingleResult(), each);
+				workRequirement.persist();
+				each.getWorkRequirements().add(workRequirement);
+				current_majors.add(each);
+				each.persist();
+			}
+		} else {
+			for (Major current : current_majors) {
+				for (Major each : majors) {
+					if (!current.getDepartment().equals(each.getDepartment())){
+						WorkRequirement workRequirement = WorkRequirement.fromWorkTemplate(WorkTemplate.findWorkTemplatesByNameEquals("Gaming").getSingleResult(), each);
+						workRequirement.persist();
+						each.getWorkRequirements().add(workRequirement);
+						current_majors.add(each);
+						each.persist();
+					}
 				}
 			}
 		}
-		current_majors.addAll(newMajors);
 		return current_majors;
 	}
 }

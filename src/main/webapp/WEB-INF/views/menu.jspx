@@ -17,7 +17,9 @@
             <menu:item id="i_term_new" messageCode="global_menu_new" url="/terms?form" z="wgiKkyRDO0HpHhgEDihRQzUhP3k="/>
         	<menu:item id="i_term_list" messageCode="global_menu_list" url="/terms?page=1&amp;size=${empty param.size ? 10 : param.size}" z="ev5ds/cpGL+OtBUv9Kd6x/Ioqak="/>
         	<menu:item id="i_term_generate" url="/terms?generate"/>
-        <menu:item id="fi_term_semester" messageCode="global_menu_find" url="/terms?find=BySemester&amp;form" z="N0dnziCmUVvr4CvPA/1i8qxFtV0="/>
+        
+            <menu:item id="fi_term_semester" messageCode="global_menu_find" url="/terms?find=BySemester&amp;form" z="N0dnziCmUVvr4CvPA/1i8qxFtV0="/>
+            <menu:item id="fi_term_semesterandtermyearequals" messageCode="global_menu_find" url="/terms?find=BySemesterAndTermYearEquals&amp;form" z="ZvutSn3UsA2jKyZo1S+8ibDjbpE="/>
             </menu:category>
     	<menu:category id="c_workrequirement" z="BRAzcRCVcdWWTNOQXNpMuQUdr2k=">
             <menu:item id="i_workrequirement_new" messageCode="global_menu_new" url="/workrequirements?form" z="csM8in6vJFFUluBeqSNYi3aS52k="/>
@@ -37,7 +39,8 @@
            	<menu:item id="i_useraccount_new" messageCode="global_menu_new" url="/useraccounts?form" z="dm6iErpLQmgISoPCTS3yLiH8XFA="/>
        		<menu:item id="i_useraccount_list" messageCode="global_menu_list" url="/useraccounts?page=1&amp;size=${empty param.size ? 10 : param.size}" z="nijRCp2PPYuD2D3D7hljcdDK4vs="/>
            	<menu:item id="fi_useraccount_userid" messageCode="global_menu_find" url="/useraccounts?find=ByUserId&amp;form" z="Lyfp14MJ72W8c0ryI3/ak+xDci0="/>
-           <menu:item id="fi_useraccount_useridequals" messageCode="global_menu_find" url="/useraccounts?find=ByUserIdEquals&amp;form" z="0+2Z/hAuuLLaGCIvOYVNYchmFnw="/>
+           
+            <menu:item id="fi_useraccount_useridequals" messageCode="global_menu_find" url="/useraccounts?find=ByUserIdEquals&amp;form" z="0+2Z/hAuuLLaGCIvOYVNYchmFnw="/>
             </menu:category>
    		<menu:category id="c_worktemplate" z="6KPiRf5UVbR/ArLJBSoOhBpwQRY=">
            	<menu:item id="i_worktemplate_new" messageCode="global_menu_new" url="/worktemplates?form" z="PqYl9bxMIa4QRzgVSB4DnT8UAsY="/>
@@ -69,5 +72,9 @@
         		<menu:item id="i_student_personal_work" url="/workefforts?mywork"/>
         	</menu:category>
         </security:authorize>
+    <menu:category id="c_randomvalidationbatch" z="fZBaVDTdGZEHi4ystPcpxzWeGFk=">
+            <menu:item id="i_randomvalidationbatch_new" messageCode="global_menu_new" url="/randomvalidationbatches?form" z="ilQ2jLKc0Tn8zTBONmoFgwkNjJo="/>
+        <menu:item id="i_randomvalidationbatch_list" messageCode="global_menu_list" url="/randomvalidationbatches?page=1&amp;size=${empty param.size ? 10 : param.size}" z="oWWX2TQAaKIKAQSQ6JWNetjMNtE="/>
+        </menu:category>
     </menu:menu>
 </div>

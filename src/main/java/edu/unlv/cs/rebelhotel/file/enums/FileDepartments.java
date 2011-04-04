@@ -1,6 +1,6 @@
-package edu.unlv.cs.rebelhotel.domain.enums;
+package edu.unlv.cs.rebelhotel.file.enums;
 
-public enum Departments {
+public enum FileDepartments {
 
 	HOSSINBSMS, // HOSPITALITY_MANAGEMENT
     ENTMIN, // Entertainment Management Minor
@@ -21,5 +21,5 @@ public enum Departments {
     RECBS, // ignore
     RECMIN, // ignore
     RECPGMBS; // ignore
-	
+    
 }

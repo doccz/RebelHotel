@@ -71,7 +71,9 @@ public class WorkEffort {
     
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getWorkPosition()+" at "+getEmployer().getName()+" "+getDuration());
+        sb.append(getWorkPosition()).append('\n');
+        sb.append("at").append(getEmployer().getName()).append('\n');
+        //sb.append(getDuration()).append("\n\n");
         return sb.toString();
     }
     

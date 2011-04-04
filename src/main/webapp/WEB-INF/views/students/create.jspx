@@ -6,7 +6,7 @@
     <br/>
     <br/>
     <form:create id="fc_edu_unlv_cs_rebelhotel_domain_Student" modelAttribute="student" path="/students" render="${empty dependencies}" z="+PQ5T4tJs0ArIv1PS5oDINVj6go=">
-	    <field:input field="userId" id="c_edu_unlv_cs_rebelhotel_domain_Student_userId" label="NSHE" required="true" z="Q+6uPHxy+J/BfpXNbnqjoUPl21g="/>
+	    <field:input field="userId" id="c_edu_unlv_cs_rebelhotel_domain_Student_userId" label="NSHE" required="true" z="user-managed"/>
         <field:input field="email" id="c_edu_unlv_cs_rebelhotel_domain_Student_email" min="5" required="true" validationMessageCode="field_invalid_email" z="RJ8BLJGdUEq9HahrScbqwXOvAfI="/>
         <field:input field="firstName" id="c_edu_unlv_cs_rebelhotel_domain_Student_firstName" min="2" required="true" z="ZfwFke0QaSpPBgRorUMR8NFmIWU="/>
         <field:input field="middleName" id="c_edu_unlv_cs_rebelhotel_domain_Student_middleName" z="BuRwgbxmRVgdC9lvISnajvdbTNc="/>
@@ -20,6 +20,7 @@
     	<field:datetime dateTimePattern="${student_lastmodified_date_format}" field="lastModified" id="c_edu_unlv_cs_rebelhotel_domain_Student_lastModified" required="false" z="user-managed"/>
     	<!-- <field:select field="userAccount" id="c_edu_unlv_cs_rebelhotel_domain_Student_userAccount" itemValue="id" items="${useraccounts}" path="/useraccounts" required="true" z="vIEXM6artIq1tJJloR0h3yafX48="/> -->
     <field:select field="userAccount" id="c_edu_unlv_cs_rebelhotel_domain_Student_userAccount" itemValue="id" items="${useraccounts}" path="/useraccounts" z="3LUtyqCBfzl9Rw/zN4w4nhC4UpU="/>
+    <field:select field="workEffort" id="c_edu_unlv_cs_rebelhotel_domain_Student_workEffort" itemValue="id" items="${workefforts}" multiple="true" path="/workefforts" z="eFfB8SN/IhoYKLaCb2tgPxaxP+g="/>
     </form:create>
 <form:dependency dependencies="${dependencies}" id="d_edu_unlv_cs_rebelhotel_domain_Student" render="${not empty dependencies}" z="MlPRzZP5Yzrt03hbToBbk+X+gaM="/>
 </div>

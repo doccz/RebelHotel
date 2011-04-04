@@ -37,7 +37,7 @@ public class StudentMapper {
 		 * then can we assume that it is the same for both majors? I suppose...but what if
 		 * they take up another major three years after declaring the first one?
 		 */
-		Set<Major> majors = workRequirementService.updateStudentInformation(student.getMajors(),fileStudent.getMajors(), fileStudent.getRequirementTerm());
+		Set<Major> majors = workRequirementService.updateStudentInformation(student.getMajors(),fileStudent.getMajors());
 		student.setMajors(majors);
 
 		//boolean codeOfConductSigned = student.getCodeOfConductSigned();

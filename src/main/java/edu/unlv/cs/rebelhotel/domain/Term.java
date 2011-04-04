@@ -14,7 +14,7 @@ import javax.persistence.UniqueConstraint;
 @RooJavaBean
 @RooToString
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "semester", "termYear" }) })
-@RooEntity(finders = { "findTermsBySemester" })
+@RooEntity(finders = { "findTermsBySemester", "findTermsBySemesterAndTermYearEquals" })
 public class Term {
 
     @NotNull

@@ -4,11 +4,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.TypedQuery;
+
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 
+import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.Term;
+import edu.unlv.cs.rebelhotel.domain.enums.Departments;
 import edu.unlv.cs.rebelhotel.domain.enums.Semester;
+
+import edu.unlv.cs.rebelhotel.file.enums.FileDepartments;
 
 @RooJavaBean
 @RooToString
@@ -18,12 +24,12 @@ public class Line {
 	private String firstName;
 	private String middleName;
 	private String email;
-	private Set<String> majors = new HashSet<String>();
+	private Set<Major> majors = new HashSet<Major>();
 	private Term admitTerm;
-	private Term requirementTerm;
 	private Term gradTerm;
 
 	public Line convert(List<String> tokens){
+		System.out.println(tokens); 
 		Line line = new Line();
 		String[] field = (String[]) tokens.toArray();
 		line.setStudentId(field[0]);
@@ -31,27 +37,51 @@ public class Line {
 		line.setFirstName(field[2]);
 		line.setMiddleName(field[3]);
 		line.setEmail(field[4]);
-		
-		Set<String> majors = line.getMajors();
-		majors.add(field[5]);
-		line.setMajors(majors);
 
-		if (!field[6].equals(" ")) {
-			majors.add(field[6]);
-			line.setMajors(majors);
+		Set<Major> majors = line.getMajors();
+		Major major;
+		boolean shouldIgnore = shouldIgnore(field[5]);
+		if (shouldIgnore) {
+			return null;
+		} else {
+			major = makeMajor(field[5],field[6]);
+			majors.add(major);
+		}
+		shouldIgnore = shouldIgnore(field[7]);
+		if (!shouldIgnore) {
+			major = makeMajor(field[7],field[8]);
+			majors.add(major);
+		}
+		shouldIgnore = shouldIgnore(field[9]);
+		if (!shouldIgnore) {
+			major = makeMajor(field[9],field[10]);
+			majors.add(major);
 		}
 
-		line.setAdmitTerm(doMakeTerm(field[7]));
-		line.setRequirementTerm(doMakeTerm(field[8]));
-		line.setGradTerm(doMakeTerm(field[9]));
+		line.setAdmitTerm(doMakeTerm(field[11]));
+		line.setGradTerm(doMakeTerm(field[12]));
 
 		return line;
 	}
 
-	public Term makeTerm(String yearAndTerm) {
+	private boolean shouldIgnore(String major) {
+		boolean ignore = (major.equals(FileDepartments.RECBS.toString()) 
+				|| major.equals(FileDepartments.RECMIN.toString()) 
+				|| major.equals(FileDepartments.RECPGMBS.toString())
+				|| major.equals(FileDepartments.ENTMIN.toString())
+				|| major.equals(" "));
+		if (ignore) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private Term makeTerm(String yearAndTerm) {
 		char[] character = {0,0,0,0};
 		Integer termYear = null;
 		Semester semester = null;
+
 		yearAndTerm.getChars(0,4,character,0);
 		termYear = convertToYear(character[0], character[1], character[2]);
 		semester = convertToSemester(character[3]);
@@ -67,15 +97,6 @@ public class Line {
 		} else {
 			throw new IllegalArgumentException("Invalid semester:" + semester);
 		}
-		
-		/*if (Term.doesExist(term.getSemester(), term.getTermYear())) {
-			term.merge();
-		} else {
-			term.persist();
-		}*/
-		
-		term.merge();
-		
 		return term;
 	}
 
@@ -109,7 +130,65 @@ public class Line {
 		if (term.equals(" ")){
 			return null;
 		} else {
-			return makeTerm(term);
+			Term aterm = makeTerm(term);
+			TypedQuery<Term> q = Term.findTermsBySemesterAndTermYearEquals(aterm.getSemester(), aterm.getTermYear());
+            /*if (0 < q.getResultList().size()) {
+                aterm = aterm.merge();
+            } else {
+                aterm.persist();
+            }*/
+			if (0 >= q.getResultList().size()) {
+				aterm.persist();
+			}
+			return aterm;
+		}
+	}
+
+	private Major makeMajor(String amajor, String aterm) {
+		Major major = new Major();
+		Departments department = departmentMapper(amajor);
+		major.setDepartment(department);
+		Term term = doMakeTerm(aterm);
+		major.setCatalogTerm(term);
+		major.setCompleted_work_requirements(false);
+		major.setReachedMilestone(false);
+		return major;
+	}
+
+	private Departments departmentMapper(String major) {
+		if (major.equals(FileDepartments.CAMBSCM.toString())) {
+			return Departments.CAMBSCM;
+		} else if (major.equals(FileDepartments.CAMPRE.toString())) {
+			return Departments.CAMPRE;
+		} else if (major.equals(FileDepartments.CBEVBSCM.toString())) {
+			return Departments.CBEVBSCM;
+		} else if (major.equals(FileDepartments.CBEVPRBSCM.toString())) {
+			return Departments.CBEVPRBSCM;
+		} else if (major.equals(FileDepartments.FDMBSHA.toString())) {
+			return Departments.FDMBSHA;
+		} else if (major.equals(FileDepartments.FDMPRE.toString())) {
+			return Departments.FDMPRE;
+		} else if (major.equals(FileDepartments.GAMBSGM.toString())) {
+			return Departments.GAMBSGM;
+		} else if (major.equals(FileDepartments.GAMPRE.toString())) {
+			return Departments.GAMPRE;
+		} else if (major.equals(FileDepartments.HBEVBSHA.toString())) {
+			return Departments.HBEVBSHA;
+		} else if (major.equals(FileDepartments.HBEVPRBSHA.toString())) {
+			return Departments.HBEVPRBSHA;
+		} else if (major.equals(FileDepartments.HOSSINBSMS.toString())) {
+			return Departments.HOSSINBSMS;
+		} else if (major.equals(FileDepartments.LRMBSHA.toString())) {
+			return Departments.LRMBSHA;
+		} else if (major.equals(FileDepartments.LRMPRE.toString())) {
+			return Departments.LRMPRE;
+		} else if (major.equals(FileDepartments.MEMBSHA.toString())) {
+			return Departments.MEMBSHA;
+		} else if (major.equals(FileDepartments.MEMPRE.toString())) {
+			return Departments.MEMPRE;
+		} else {
+			throw new IllegalArgumentException("Invalid Major: " + major);
 		}
 	}
 }
+
