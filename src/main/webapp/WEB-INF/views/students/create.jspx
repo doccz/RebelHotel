@@ -21,6 +21,8 @@
     	<!-- <field:select field="userAccount" id="c_edu_unlv_cs_rebelhotel_domain_Student_userAccount" itemValue="id" items="${useraccounts}" path="/useraccounts" required="true" z="vIEXM6artIq1tJJloR0h3yafX48="/> -->
     <field:select field="userAccount" id="c_edu_unlv_cs_rebelhotel_domain_Student_userAccount" itemValue="id" items="${useraccounts}" path="/useraccounts" z="3LUtyqCBfzl9Rw/zN4w4nhC4UpU="/>
     <field:select field="workEffort" id="c_edu_unlv_cs_rebelhotel_domain_Student_workEffort" itemValue="id" items="${workefforts}" multiple="true" path="/workefforts" z="eFfB8SN/IhoYKLaCb2tgPxaxP+g="/>
+     <!-- <field:input field="approvedHoursList" id="c_edu_unlv_cs_rebelhotel_domain_Student_approvedHoursList" z="f8GkSuAMbe9yCqTz+HmJPincAf4="/>
+        <field:input field="remainingHoursList" id="c_edu_unlv_cs_rebelhotel_domain_Student_remainingHoursList" z="c9Xt4VoxAmz8ryw+Lho0aAHSa+Q="/> -->
     </form:create>
 <form:dependency dependencies="${dependencies}" id="d_edu_unlv_cs_rebelhotel_domain_Student" render="${not empty dependencies}" z="MlPRzZP5Yzrt03hbToBbk+X+gaM="/>
 </div>

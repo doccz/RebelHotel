@@ -9,9 +9,10 @@ privileged aspect WorkRequirement_Roo_ToString {
     
     public String WorkRequirement.toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("TotalApprovedHours: ").append(getTotalApprovedHours()).append(", ");
         sb.append("Name: ").append(getName()).append(", ");
         sb.append("Hours: ").append(getHours()).append(", ");
-        sb.append("Major: ").append(getMajor()).append(", ");
+        sb.append("Student: ").append(getStudent()).append(", ");
         sb.append("WorkEffort: ").append(getWorkEffort() == null ? "null" : getWorkEffort().size());
         return sb.toString();
     }

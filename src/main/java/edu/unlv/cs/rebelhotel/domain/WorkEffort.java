@@ -35,49 +35,75 @@ import javax.persistence.PreUpdate;
 @RooToString
 @RooEntity(finders = { "findWorkEffortsByStudentEquals" })
 public class WorkEffort {
-    private static final Logger LOG = LoggerFactory.getLogger("audit");
+    //private static final Logger LOG = LoggerFactory.getLogger("audit");
 	
     @NotNull
     @ManyToOne
     private Student student;
 
-    private String workPosition;
+	private String workPosition;
 
-    private String comment;
+	private String comment;
 
-    @Embedded
-    private Supervisor supervisor;
+	@Embedded
+	private Supervisor supervisor;
 
-    @Embedded
-    private Employer employer;
+	@Embedded
+	private Employer employer;
 
-    @Enumerated
-    private VerificationType verificationType;
+	@Enumerated
+	private VerificationType verificationType;
 
-    @Enumerated
-    private Validation validation;
+	@Enumerated
+	private Validation validation;
 
-    @Enumerated
-    private Verification verification;
+	@Enumerated
+	private Verification verification;
 
-    @Enumerated
-    private PayStatus payStatus;
+	@Enumerated
+	private PayStatus payStatus;
 
-    @Embedded
-    private WorkEffortDuration duration;
+	@Embedded
+	private WorkEffortDuration duration;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<WorkRequirement> workRequirements = new HashSet<WorkRequirement>();
+	@ManyToMany(cascade = CascadeType.ALL)
+	private Set<WorkRequirement> workRequirements = new HashSet<WorkRequirement>();
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getWorkPosition() + " at " + getEmployer().getName() + " "
+				+ getDuration());
+		return sb.toString();
+	}
+
+	public boolean isAccepted() {
+		return verification == Verification.ACCEPTED;
+	}
+
+	public boolean isValidated() {
+		return validation.equals(Validation.VALIDATED);
+	}
+
+	/**
+	 * After the student submits a work effort towards his/her major, that work
+	 * effort has to be verified and maybe also be validated if applicable
+	 * before those hours from that work effort can be counted towards the
+	 * student's completed hours. This method returns true if that work effort
+	 * has been verified and validated
+	 * 
+	 * @return
+	 */
+	public boolean isApplicable() {
+
+		if (this.validation.equals(Validation.NO_VALIDATION)) {
+			return isAccepted();
+		} else {
+			return isAccepted() && isValidated();
+		}
+	}
+
     
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getWorkPosition()).append('\n');
-        sb.append("at").append(getEmployer().getName()).append('\n');
-        //sb.append(getDuration()).append("\n\n");
-        return sb.toString();
-    }
-    
-    @PreUpdate
+   /* @PreUpdate
     @PrePersist
     public void audit() {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -95,5 +121,5 @@ public class WorkEffort {
 		String studentId = student.getUserId();
 		
 		LOG.info("User {} updated work effort {} for student {}.", new Object[]{username, this.toString(), studentId});
-    }
+    }*/
 }

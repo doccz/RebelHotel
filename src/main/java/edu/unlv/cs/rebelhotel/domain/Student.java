@@ -6,11 +6,15 @@ import org.springframework.roo.addon.tostring.RooToString;
 import javax.validation.constraints.NotNull;
 import javax.persistence.Column;
 import javax.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 import javax.persistence.ManyToMany;
 import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -43,7 +47,7 @@ public class Student {
 
     private String lastName;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Major> majors = new HashSet<Major>();
 
     @ManyToOne
@@ -64,6 +68,15 @@ public class Student {
     @OneToOne(optional = false)
     private UserAccount userAccount;
     
+    /*@ManyToOne
+    private Set<Integer> approvedHoursList = new HashSet<Integer>();
+    
+    @ManyToOne
+    private Set<Integer> remainingHoursList = new HashSet<Integer>();
+    
+	List<Integer> approvedHoursList = new ArrayList<Integer>();
+	List<Integer> remainingHoursList = new ArrayList<Integer>();*/
+	
     @PreUpdate
     @PrePersist
     public void onUpdate() {
@@ -83,6 +96,14 @@ public class Student {
     public void addWorkEffort(WorkEffort we) {
         workEffort.add(we);
     }
+    
+    /*public void addApprovedHours(Integer approvedHours){
+    	approvedHoursList.add(approvedHours);
+    }
+    
+    public void addRemainingHours(Integer remainingHours){
+    	remainingHoursList.add(remainingHours);
+    }    */
     
     public String getName() {
     	String name = firstName;

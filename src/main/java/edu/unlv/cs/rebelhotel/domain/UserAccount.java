@@ -25,7 +25,7 @@ public class UserAccount {
     private String email = "default@mail.com";
 
     private transient MessageDigestPasswordEncoder passwordEncoder;
-
+    
     @NotNull
     private String password;
 
