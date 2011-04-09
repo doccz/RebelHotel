@@ -249,7 +249,7 @@ public class StudentController {
 	@RequestMapping(params = "myprogress", method = RequestMethod.GET)
 	public String myProgress(Model model) {	
 	
-		Student student = userInformation.getStudent();
+		Student student = Student.findStudent(userInformation.getStudent().getId());
 		Integer majorCount = 0;
     	
     	List<Major> majorsList = new ArrayList<Major>();
@@ -262,7 +262,7 @@ public class StudentController {
     		majorCount++;
     	}
 
-    	/*for(Major major : majors){
+    	for(Major major : majors){
     		majorCount++;
     		//majorsList.add(majorCount, major);
     		//approvedHoursList.add(majorCount, major.calculateTotalHoursWorked());

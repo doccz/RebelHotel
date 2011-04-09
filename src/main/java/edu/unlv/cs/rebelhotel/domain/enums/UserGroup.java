@@ -6,6 +6,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public enum UserGroup implements GrantedAuthority {
+    ROLE_STUDENT(EnumSet.of(Permissions.READ)), 
     ROLE_USER(EnumSet.of(Permissions.READ)), 
     ROLE_ADMIN(EnumSet.of(Permissions.READ, Permissions.WRITE)), 
     ROLE_SUPERUSER(EnumSet.of(Permissions.READ, Permissions.WRITE));
