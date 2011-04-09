@@ -3,7 +3,6 @@ package edu.unlv.cs.rebelhotel.form;
 import java.util.Date;
 
 import edu.unlv.cs.rebelhotel.domain.Term;
-import edu.unlv.cs.rebelhotel.domain.enums.Departments;
 
 public class FormStudentQuery {
 	private boolean useUserId;
@@ -23,7 +22,7 @@ public class FormStudentQuery {
 	private boolean hasMilestone;
 	
 	private boolean useMajor;
-	private Departments department;
+	private String degreeCode;
 	
 	private boolean showUserId;
 	private boolean showEmail;
@@ -142,12 +141,12 @@ public class FormStudentQuery {
 		this.useMajor = useMajor;
 	}
 	
-	public Departments getDepartment() {
-		return department;
+	public String getDegreeCode() {
+		return degreeCode;
 	}
 	
-	public void setDepartment(Departments department) {
-		this.department = department;
+	public void setDegree(String degreeCode) {
+		this.degreeCode = degreeCode;
 	}
 	
 	public boolean getShowUserId() {

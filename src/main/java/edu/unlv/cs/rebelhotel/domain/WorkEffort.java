@@ -23,13 +23,10 @@ import edu.unlv.cs.rebelhotel.domain.enums.Validation;
 import edu.unlv.cs.rebelhotel.domain.enums.PayStatus;
 
 import java.util.Set;
-import edu.unlv.cs.rebelhotel.domain.WorkRequirement;
+import edu.unlv.cs.rebelhotel.domain.CatalogRequirement;
 
 import java.util.HashSet;
 import javax.persistence.ManyToMany;
-import javax.persistence.CascadeType;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 
 @RooJavaBean
 @RooToString
@@ -66,15 +63,6 @@ public class WorkEffort {
 	@Embedded
 	private WorkEffortDuration duration;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	private Set<WorkRequirement> workRequirements = new HashSet<WorkRequirement>();
-
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getWorkPosition() + " at " + getEmployer().getName() + " "
-				+ getDuration());
-		return sb.toString();
-	}
 
 	public boolean isAccepted() {
 		return verification == Verification.ACCEPTED;
@@ -102,24 +90,14 @@ public class WorkEffort {
 		}
 	}
 
+    @ManyToMany
+    private Set<CatalogRequirement> catalogRequirements = new HashSet<CatalogRequirement>();
     
-   /* @PreUpdate
-    @PrePersist
-    public void audit() {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	boolean hasAuthentication = null != authentication;
-    	String username = "";
-		if (hasAuthentication) {
-			Object principal = authentication.getPrincipal();
-			if (principal instanceof UserDetails) {
-				username = ((UserDetails) principal).getUsername();
-			} else {
-				username = principal.toString();
-			}
-		}
-		
-		String studentId = student.getUserId();
-		
-		LOG.info("User {} updated work effort {} for student {}.", new Object[]{username, this.toString(), studentId});
-    }*/
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Position: ").append(getWorkPosition()).append("\n");
+        sb.append("At: ").append(getEmployer().getName()).append("\n");
+        sb.append("Duration: ").append(getDuration()).append("\n").append("\n");
+        return sb.toString();
+    }
 }

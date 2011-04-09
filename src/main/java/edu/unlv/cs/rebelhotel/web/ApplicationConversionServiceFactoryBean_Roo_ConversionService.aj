@@ -3,44 +3,17 @@
 
 package edu.unlv.cs.rebelhotel.web;
 
-import edu.unlv.cs.rebelhotel.domain.ViewProgress;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
-import edu.unlv.cs.rebelhotel.domain.WorkRequirement;
-import edu.unlv.cs.rebelhotel.domain.WorkTemplate;
 import java.lang.String;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
 
 privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService {
     
-    Converter<ViewProgress, String> ApplicationConversionServiceFactoryBean.getViewProgressConverter() {
-        return new Converter<ViewProgress, String>() {
-            public String convert(ViewProgress viewprogress) {
-                return new StringBuilder().append(viewprogress.getApprovedHours()).toString();
-            }
-        };
-    }
-    
-    org.springframework.core.convert.converter.Converter<WorkEffort, String> ApplicationConversionServiceFactoryBean.getWorkEffortConverter() {
-        return new org.springframework.core.convert.converter.Converter<WorkEffort, String>() {
+    Converter<WorkEffort, String> ApplicationConversionServiceFactoryBean.getWorkEffortConverter() {
+        return new Converter<WorkEffort, String>() {
             public String convert(WorkEffort workeffort) {
                 return new StringBuilder().append(workeffort.getWorkPosition()).append(" ").append(workeffort.getComment()).toString();
-            }
-        };
-    }
-    
-    org.springframework.core.convert.converter.Converter<WorkRequirement, String> ApplicationConversionServiceFactoryBean.getWorkRequirementConverter() {
-        return new org.springframework.core.convert.converter.Converter<WorkRequirement, String>() {
-            public String convert(WorkRequirement workrequirement) {
-                return new StringBuilder().append(workrequirement.getName()).append(" ").append(workrequirement.getHours()).toString();
-            }
-        };
-    }
-    
-    org.springframework.core.convert.converter.Converter<WorkTemplate, String> ApplicationConversionServiceFactoryBean.getWorkTemplateConverter() {
-        return new org.springframework.core.convert.converter.Converter<WorkTemplate, String>() {
-            public String convert(WorkTemplate worktemplate) {
-                return new StringBuilder().append(worktemplate.getName()).append(" ").append(worktemplate.getHours()).toString();
             }
         };
     }
@@ -49,10 +22,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
         registry.addConverter(getStudentConverter());
         registry.addConverter(getTermConverter());
         registry.addConverter(getUserAccountConverter());
-        registry.addConverter(getViewProgressConverter());
         registry.addConverter(getWorkEffortConverter());
-        registry.addConverter(getWorkRequirementConverter());
-        registry.addConverter(getWorkTemplateConverter());
     }
     
     public void ApplicationConversionServiceFactoryBean.afterPropertiesSet() {

@@ -95,14 +95,6 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 		};
 	}
 	
-	Converter<edu.unlv.cs.rebelhotel.domain.enums.Departments, String> getDepartmentsConverter() {
-		return new Converter<edu.unlv.cs.rebelhotel.domain.enums.Departments, String>() {
-			public String convert(edu.unlv.cs.rebelhotel.domain.enums.Departments param) {
-				return messageSource.getMessage("label_"+param.getClass().getName().toLowerCase().replaceAll("\\.", "_")+"_"+param.name().toLowerCase(), null, LocaleContextHolder.getLocale());
-			}
-		};
-	}
-	
 	Converter<edu.unlv.cs.rebelhotel.domain.enums.PayStatus, String> getPayStatusConverter() {
 		return new Converter<edu.unlv.cs.rebelhotel.domain.enums.PayStatus, String>() {
 			public String convert(edu.unlv.cs.rebelhotel.domain.enums.PayStatus param) {
@@ -160,7 +152,6 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 		registry.addConverter(getVerificationTypeConverter());
 		registry.addConverter(getValidationConverter());
 		registry.addConverter(getSemesterConverter());
-		registry.addConverter(getDepartmentsConverter());
 		registry.addConverter(getPayStatusConverter());
 		registry.addConverter(getVerificationConverter());
 		

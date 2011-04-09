@@ -20,9 +20,15 @@ body {
 }
 
 #wrapper {
+<<<<<<< HEAD
 	width:1024px;
 	min-width: 1024px;
 	max-width: 1024px;/*1280px;*/
+=======
+	/*width:800px;*/
+	min-width: 1024px;
+	max-width: auto;
+>>>>>>> d260d0b9aac57113daaa3d0a3a0d60f3b0db779c
 	margin-right: auto;
 	margin-left: 3%;
 
@@ -113,7 +119,7 @@ table.navigation {
 }
 
 label {
-	width:100px;
+	width:200px;
 	float:left;
 	margin-left: 5px;
 	margin-top: 0px;
@@ -164,7 +170,12 @@ h1,h2,h3 {
 h1 {
 	font-size: 20px;
 	line-height: 26px;
+<<<<<<< HEAD
 	text-align: center;
+=======
+	color:#000000;
+	text-align:center;
+>>>>>>> d260d0b9aac57113daaa3d0a3a0d60f3b0db779c
 }
 
 h2 {

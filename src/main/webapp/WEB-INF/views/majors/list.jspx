@@ -6,9 +6,13 @@
         <table:table data="${majors}" id="l_edu_unlv_cs_rebelhotel_domain_Major" path="/majors" z="vWIsPbs+OidqDJF5mI9dxWo+ZHQ=">
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_Major_workRequirements" property="workRequirements" z="NsEhAlhvxYJC0dBMsyBPIyZu/Bg="/>
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_Major_reachedMilestone" property="reachedMilestone" z="kWru6OrCZUB5eiEkHllUX0WCE+E="/>
-            <table:column id="c_edu_unlv_cs_rebelhotel_domain_Major_department" property="department" z="ZOuHkLUThiEJPu/DElTbR8krmEI="/>
+            
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_Major_catalogTerm" property="catalogTerm" z="mqyehFU0GGspMvAtev5xVj+FVDY="/>
         <table:column id="c_edu_unlv_cs_rebelhotel_domain_Major_completed_work_requirements" property="completed_work_requirements" z="P4TsrCooGcXMUWvQtNYs6v2LPNo="/>
+<<<<<<< HEAD
+=======
+        <table:column id="c_edu_unlv_cs_rebelhotel_domain_Major_degree" property="degree" z="AjjKHJMoWeycqlO2YZ+GjBNidyQ="/>
+>>>>>>> d260d0b9aac57113daaa3d0a3a0d60f3b0db779c
         </table:table>
     </page:list>
 </div>

@@ -4,13 +4,37 @@
     <jsp:output omit-xml-declaration="yes"/>
     <page:list id="pl_edu_unlv_cs_rebelhotel_domain_WorkRequirement" items="${workrequirements}" z="QCeDt4KibFrmJLhIYd0UJERwiW4=">
         <table:table data="${workrequirements}" id="l_edu_unlv_cs_rebelhotel_domain_WorkRequirement" path="/workrequirements" z="3l9oZy9DvIJT6Y0XSnmVv6zzel4=">
+<<<<<<< HEAD
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkRequirement_hours" property="hours" z="UMlQ0/+gfF8A7URivcIzg7MSaZ0="/>
+=======
+            
+            
+            
+>>>>>>> d260d0b9aac57113daaa3d0a3a0d60f3b0db779c
         <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkRequirement_workEffort" property="workEffort" z="loEPCDKlA5Y1PYkYKsCNAxIy/SM="/>
         <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkRequirement_milestone" property="milestone" z="vIvVTcZ47O4WZ30gIACTwzuDG8k="/>
+<<<<<<< HEAD
         
         
         <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkRequirement_name" property="name" z="Jts3b4B2mL21AoL7jassUkvSGQU="/>
         <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkRequirement_student" property="student" z="UMBZM12lYzwbalc7LbUL6ihNeYg="/>
+=======
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkRequirement_name" property="name" z="Jts3b4B2mL21AoL7jassUkvSGQU="/>
+            
+        
+        
+        <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkRequirement_catalogRequirement" property="catalogRequirement" z="2IGHW/9RGmD23kZQ0xRlLPMdZuo="/>
+>>>>>>> d260d0b9aac57113daaa3d0a3a0d60f3b0db779c
         </table:table>
     </page:list>
 </div>

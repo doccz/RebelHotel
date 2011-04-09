@@ -17,8 +17,12 @@
             <menu:item id="i_term_new" messageCode="global_menu_new" url="/terms?form" z="wgiKkyRDO0HpHhgEDihRQzUhP3k="/>
         	<menu:item id="i_term_list" messageCode="global_menu_list" url="/terms?page=1&amp;size=${empty param.size ? 10 : param.size}" z="ev5ds/cpGL+OtBUv9Kd6x/Ioqak="/>
         	<menu:item id="i_term_generate" url="/terms?generate"/>
+<<<<<<< HEAD
         
             <menu:item id="fi_term_semester" messageCode="global_menu_find" url="/terms?find=BySemester&amp;form" z="N0dnziCmUVvr4CvPA/1i8qxFtV0="/>
+=======
+        <menu:item id="fi_term_semester" messageCode="global_menu_find" url="/terms?find=BySemester&amp;form" z="N0dnziCmUVvr4CvPA/1i8qxFtV0="/>
+>>>>>>> d260d0b9aac57113daaa3d0a3a0d60f3b0db779c
             <menu:item id="fi_term_semesterandtermyearequals" messageCode="global_menu_find" url="/terms?find=BySemesterAndTermYearEquals&amp;form" z="ZvutSn3UsA2jKyZo1S+8ibDjbpE="/>
             </menu:category>
     	<menu:category id="c_workrequirement" z="BRAzcRCVcdWWTNOQXNpMuQUdr2k=">
@@ -45,8 +49,12 @@
    		<menu:category id="c_worktemplate" z="6KPiRf5UVbR/ArLJBSoOhBpwQRY=">
            	<menu:item id="i_worktemplate_new" messageCode="global_menu_new" url="/worktemplates?form" z="PqYl9bxMIa4QRzgVSB4DnT8UAsY="/>
        		<menu:item id="i_worktemplate_list" messageCode="global_menu_list" url="/worktemplates?page=1&amp;size=${empty param.size ? 10 : param.size}" z="MGGtaSE2g/nOxu1RdzgEpNmfLt4="/>
-       		<menu:item id="fi_worktemplate_nameequals" messageCode="global_menu_find" url="/worktemplates?find=ByNameEquals&amp;form" z="l+ihaYjBnwP3bwyV6l1HhjMGlu0="/>  
-           </menu:category>
+       		  
+           
+            
+            
+            <menu:item id="fi_worktemplate_degreeandtermequals" messageCode="global_menu_find" url="/worktemplates?find=ByDegreeAndTermEquals&amp;form" z="mR8t3KDfG7L4Zg6IJOdYsLlSwPs="/>
+            </menu:category>
        	<menu:category id="c_seleniumtests" z="PPLMd2yNB6/LSbjIWogAacRPU+Q=">
            	<menu:item id="si_seleniumtests_test" messageCode="selenium_menu_test_suite" url="/resources/selenium/test-suite.xhtml" z="wwunW/IPDcunN97u41MvMJZQ2to="/>
        	</menu:category>
