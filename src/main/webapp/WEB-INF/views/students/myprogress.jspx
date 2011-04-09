@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:spring="http://www.springframework.org/tags" xmlns:tiles="http://tiles.apache.org/tags-tiles" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <tiles:insertAttribute ignore="true" name="student_menu"/>
+    <br/>
+    <br/>
+    <page:show id="ps_edu_unlv_cs_rebelhotel_domain_Student" object="${student}" path="/students" z="cZYC67PoW5MiFCVNBuWterMhIjU=">
+        
+    <field:display id="s_edu_unlv_cs_rebelhotel_domain_Student_firstName" object="${student}" field="firstName"></field:display>
+      <field:display id="s_edu_unlv_cs_rebelhotel_domain_Student_middleName" object="${student}" field="middleName"></field:display>
+      <field:display id="s_edu_unlv_cs_rebelhotel_domain_Student_lastName" object="${student}" field="lastName"></field:display>
+	  <field:display id="s_edu_unlv_cs_rebelhotel_domain_Student_email" object="${student}" field="email"></field:display>
+	  
+	  <field:display id="s_edu_unlv_cs_rebelhotel_domain_Student_admitTerm" object="${student}" field="admitTerm"></field:display>
+	  <field:display id="s_edu_unlv_cs_rebelhotel_domain_Student_gradTerm" object="${student}" field="gradTerm"></field:display>
+    </page:show>
+
+<!--    <page:show id="ps_edu_unlv_cs_rebelhotel_domain_major_plural" object="${majorsList}" path="/students">-->
+<!---->
+<!--		<c:forEach items="${majorsList}" var="majors">-->
+<!--		<table>-->
+<!--			<tr>-->
+<!--				<td>-->
+<!--					<field:display id="s_edu_unlv_cs_rebelhotel_domain_major" object="${major}" field="department"></field:display>				-->
+<!--				</td>-->
+<!--			</tr>-->
+<!--		</table>-->
+<!--		</c:forEach>-->
+<!---->
+<!--    </page:show>-->
+        
+    <!-- <page:show id="ps_edu_unlv_cs_rebelhotel_domain_major_approvedHours" object="${approvedHoursList}" path="/students">
+
+		<c:forEach items="${approvedHoursList}" var="approvedHours">
+		<table>
+			<tr>
+				<td></td>
+				<td>
+					<c:out value="${approvedHours}"></c:out>
+				</td>
+			</tr>
+		</table>
+		</c:forEach> 
+
+    </page:show> -->
+    
+    <!-- <page:show id="ps_edu_unlv_cs_rebelhotel_domain_major_remainingHours" object="${remainingHoursList}" path="/students">
+    	
+    	<c:forEach items="${remainingHoursList}" var="remainingHours">
+		<table>
+			<tr>
+				<td></td>
+				<td>
+					<c:out value="${remainingHours}"></c:out>	
+				</td>
+			</tr>
+		</table>    	
+		</c:forEach>
+		
+    </page:show> -->
+</div>
