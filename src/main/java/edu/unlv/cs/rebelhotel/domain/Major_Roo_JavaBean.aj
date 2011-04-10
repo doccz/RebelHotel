@@ -19,7 +19,7 @@ privileged aspect Major_Roo_JavaBean {
         return this.degreeCode;
     }
     
-    public void Major.setDegreCode(String degreeCode) {
+    public void Major.setDegreeCode(String degreeCode) {
         this.degreeCode = degreeCode;
     }
     

@@ -8,6 +8,4 @@
   <a href="${home}" name="${fn:escapeXml(home_label)}" title="${fn:escapeXml(home_label)}">
     <img src="${banner}" />
   </a>
-  <br/><br/>
-  <input>Find Student by Id:</input>
 </div>

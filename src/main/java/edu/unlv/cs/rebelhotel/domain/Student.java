@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 import javax.persistence.CascadeType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -52,7 +53,8 @@ public class Student {
 
     private String lastName;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    //@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Major> majors = new HashSet<Major>();
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -83,7 +85,7 @@ public class Student {
 	List<Integer> remainingHoursList = new ArrayList<Integer>();*/
 	
     @PreUpdate
-    @PrePersist
+    //@PrePersist
     public void onUpdate() {
     	lastModified = new Date();
     }
@@ -169,4 +171,66 @@ public class Student {
 	public boolean isNewStudent() {
 		return this.majors.isEmpty();
 	}
+    
+    public boolean compareDegreeCodes(String majorDegreeCode, Set<CatalogRequirement> workEffortCatalogRequirements){
+    	boolean hasMatchingCatalogRequirement = false;
+    	String majorDegreeCodePrefix;
+    	String workEffortDegreeCodePrefix;
+    	
+		for (CatalogRequirement workEffortCatalogRequirement : workEffortCatalogRequirements) {
+			if(!hasMatchingCatalogRequirement){
+				workEffortDegreeCodePrefix = workEffortCatalogRequirement.getDegreeCodePrefix();
+				hasMatchingCatalogRequirement = majorDegreeCode.equals(workEffortDegreeCodePrefix);
+			}
+		}
+    	
+    	return hasMatchingCatalogRequirement;
+    }
+    
+    public Integer calculateHoursWorkedPerMajor(Major major, Set<WorkEffort> workEfforts){
+    	
+    	Integer hoursWorkedPerMajor = 0;
+    	boolean haveMatchingDegreeCodes = false;
+
+    		for(WorkEffort workEffort : workEfforts){
+    			haveMatchingDegreeCodes = compareDegreeCodes(major.getDegreeCode(), workEffort.getCatalogRequirements());
+    			if(haveMatchingDegreeCodes){
+    				if(workEffort.isApplicable()){
+    					hoursWorkedPerMajor += workEffort.getDuration().getHours();
+    				}
+    			}
+    		}
+    	
+    	return hoursWorkedPerMajor;
+    }
+    
+//    Public Integer calculateHoursRemainingPerMajor(Major major, Set<WorkEffort> workEfforts){
+//    	boolean haveMatchingDegreeCodes = false;
+//
+//    }
+    
+    public Set<Progress> calculateStudentProgress(Set<Major> majors, Set<WorkEffort> workEfforts){
+    	Set<Progress> progressSet = new HashSet<Progress>();
+    	Progress progress = new Progress();
+    	
+    	for(Major major : majors){
+    		progress.setDegreeCode(major.getDegreeCode());
+    		progress.setApprovedHours(calculateHoursWorkedPerMajor(major, workEfforts));
+   
+    		progressSet.add(progress);
+    	}
+    	
+    	return progressSet;
+    }
+    
+//    public Set<Integer> calculateHoursWorkedForAllMajors(Set<Major> majors, Set<WorkEffort> workEfforts){
+//    	Set<Integer> hoursWorkedPerMajorList = new HashSet<Integer>();
+//    	Integer totalHoursWorkedPerMajor;
+//    	
+//    	for(Major major: majors){
+//    		totalHoursWorkedPerMajor = calculateHoursWorkedPerMajor(major, workEfforts);
+//    		hoursWorkedPerMajorList.add(totalHoursWorkedPerMajor);
+//    	}
+//    	return hoursWorkedPerMajorList;
+//    }
 }

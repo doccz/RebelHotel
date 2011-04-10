@@ -96,20 +96,6 @@ privileged aspect UserAccountController_Roo_Controller {
         return "useraccounts/list";
     }
     
-<<<<<<< HEAD
-    @RequestMapping(params = { "find=ByUserIdEquals", "form" }, method = RequestMethod.GET)
-    public String UserAccountController.findUserAccountsByUserIdEqualsForm(Model model) {
-        return "useraccounts/findUserAccountsByUserIdEquals";
-    }
-    
-    @RequestMapping(params = "find=ByUserIdEquals", method = RequestMethod.GET)
-    public String UserAccountController.findUserAccountsByUserIdEquals(@RequestParam("userId") String userId, Model model) {
-        model.addAttribute("useraccounts", UserAccount.findUserAccountsByUserIdEquals(userId).getResultList());
-        return "useraccounts/list";
-    }
-    
-=======
->>>>>>> d260d0b9aac57113daaa3d0a3a0d60f3b0db779c
     @ModelAttribute("usergroups")
     public Collection<UserGroup> UserAccountController.populateUserGroups() {
         return Arrays.asList(UserGroup.class.getEnumConstants());

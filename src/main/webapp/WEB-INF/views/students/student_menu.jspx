@@ -11,6 +11,14 @@
         	<menu:item id="i_query_students" url="/students?query" z=""/>
         	<menu:item id="i_main_menu" url="/"/>
         </menu:category>
-    	        </security:authorize>
+    </security:authorize>
+    
+    <security:authorize access="hasRole('ROLE_USER')">
+        <menu:category id="c_student_personal">
+        	<menu:item id="i_student_personal_work" url="/workefforts?mywork"/>
+        	<menu:item id="i_main_menu" url="/"/>
+        </menu:category>
+    </security:authorize>
+    
     </menu:menu>
 </div>

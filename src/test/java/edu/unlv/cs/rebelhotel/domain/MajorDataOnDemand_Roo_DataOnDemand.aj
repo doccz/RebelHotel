@@ -19,11 +19,7 @@ privileged aspect MajorDataOnDemand_Roo_DataOnDemand {
     public Major MajorDataOnDemand.getNewTransientMajor(int index) {
         edu.unlv.cs.rebelhotel.domain.Major obj = new edu.unlv.cs.rebelhotel.domain.Major();
         obj.setReachedMilestone(true);
-<<<<<<< HEAD
-        obj.setDepartment(null);
-=======
         obj.setDegreeCode(null);
->>>>>>> d260d0b9aac57113daaa3d0a3a0d60f3b0db779c
         obj.setCatalogTerm(null);
         obj.setCompleted_work_requirements(true);
         return obj;

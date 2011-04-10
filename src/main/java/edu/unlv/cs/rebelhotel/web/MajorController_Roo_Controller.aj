@@ -90,19 +90,6 @@ privileged aspect MajorController_Roo_Controller {
         return Term.findAllTerms();
     }
     
-<<<<<<< HEAD
-    @ModelAttribute("workrequirements")
-    public Collection<WorkRequirement> MajorController.populateWorkRequirements() {
-        return WorkRequirement.findAllWorkRequirements();
-    }
-    
-    @ModelAttribute("departmentses")
-    public Collection<Departments> MajorController.populateDepartmentses() {
-        return Arrays.asList(Departments.class.getEnumConstants());
-    }
-    
-=======
->>>>>>> d260d0b9aac57113daaa3d0a3a0d60f3b0db779c
     String MajorController.encodeUrlPathSegment(String pathSegment, HttpServletRequest request) {
         String enc = request.getCharacterEncoding();
         if (enc == null) {

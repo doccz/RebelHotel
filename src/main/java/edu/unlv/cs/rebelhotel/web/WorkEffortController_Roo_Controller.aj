@@ -54,14 +54,11 @@ privileged aspect WorkEffortController_Roo_Controller {
         model.addAttribute("page", (page == null) ? "1" : page.toString());
         model.addAttribute("size", (size == null) ? "10" : size.toString());
         return "redirect:/workefforts?page=" + ((page == null) ? "1" : page.toString()) + "&size=" + ((size == null) ? "10" : size.toString());
-<<<<<<< HEAD
-=======
     }
     
     @ModelAttribute("catalogrequirements")
     public Collection<CatalogRequirement> WorkEffortController.populateCatalogRequirements() {
         return CatalogRequirement.findAllCatalogRequirements();
->>>>>>> d260d0b9aac57113daaa3d0a3a0d60f3b0db779c
     }
     
     @ModelAttribute("students")
@@ -69,14 +66,6 @@ privileged aspect WorkEffortController_Roo_Controller {
         return Student.findAllStudents();
     }
     
-<<<<<<< HEAD
-    @ModelAttribute("workrequirements")
-    public Collection<WorkRequirement> WorkEffortController.populateWorkRequirements() {
-        return WorkRequirement.findAllWorkRequirements();
-    }
-    
-=======
->>>>>>> d260d0b9aac57113daaa3d0a3a0d60f3b0db779c
     @ModelAttribute("paystatuses")
     public Collection<PayStatus> WorkEffortController.populatePayStatuses() {
         return Arrays.asList(PayStatus.class.getEnumConstants());

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,8 +18,10 @@ import javax.validation.Valid;
 import org.joda.time.format.DateTimeFormat;
 
 import edu.unlv.cs.rebelhotel.domain.Major;
+import edu.unlv.cs.rebelhotel.domain.Progress;
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
+import edu.unlv.cs.rebelhotel.domain.WorkEffort;
 
 import edu.unlv.cs.rebelhotel.domain.enums.Semester;
 import edu.unlv.cs.rebelhotel.form.FormStudentQuery;
@@ -245,16 +248,29 @@ public class StudentController {
 	
 		Student student = Student.findStudent(userInformation.getStudent().getId());
 		Integer majorCount = 0;
+		
+		Major mjr = new Major("GAM", student.getAdmitTerm());
+		//mjr.setDegreeCode("GAM");
+		//mjr.setCatalogTerm(student.getAdmitTerm());
     	
-    	List<Major> majorsList = new ArrayList<Major>();
+    	//List<Major> majorsList = new ArrayList<Major>();
+		//List<Major> majorsList = Major.findAllMajors();
     	//List<Integer> approvedHoursList = new ArrayList<Integer>();
     	//List<Integer> remainingHoursList = new ArrayList<Integer>();
-    	Set<Major> majors = student.getMajors();
-    	Set<WorkEffort> workEfforts = student.getWorkEffort();
+    	Set<Major> majors = new HashSet<Major>(student.getMajors());
+		//majors = student.getMajors();
+    	majors.add(mjr);
+    	List<Major> majorsList = new ArrayList<Major>(majors);
+		List<WorkEffort> workEfforts = WorkEffort.findWorkEffortsByStudentEquals(student).getResultList();
+		
+		Set<Progress> progressSet = new HashSet<Progress>(student.calculateStudentProgress(majors, student.getWorkEffort()));
+		Progress prgrss = new Progress( mjr.getDegreeCode(), 0, 1000);
+		progressSet.add(prgrss);
+		List<Progress> progressList = new ArrayList<Progress>(progressSet);
     	
-    	for(WorkEffort workeffort : workEfforts){
+    	/*for(WorkEffort workeffort : workEfforts){
     		majorCount++;
-    	}
+    	}*/
 
     	for(Major major : majors){
     		majorCount++;
@@ -272,7 +288,9 @@ public class StudentController {
     	}
     	else{*/
     	model.addAttribute("student", student);
-    	//model.addAttribute("majors", majors);
+    	model.addAttribute("workEfforts", workEfforts);
+    	model.addAttribute("majorsList", majorsList);
+    	model.addAttribute("progressList", progressList);
     	//model.addAttribute("approvedHoursList", approvedHoursList);
     	//model.addAttribute("remainingHoursList", remainingHoursList);
     			
