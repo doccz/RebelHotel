@@ -14,6 +14,7 @@ import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.enums.Semester;
 
+
 @RooJavaBean
 @RooToString
 public class Line {
@@ -33,41 +34,33 @@ public class Line {
 		if (tokens.size() != EXPECTED_SIZE){
 			throw new InvalidLineException("Invalid number of elements.");
 		}
-		if (hasAtLeastOneMajor(tokens.get(5))) {
+		if (!StringUtils.isBlank(tokens.get(5))) {
 			this.setStudentId(tokens.get(0));
 			this.setLastName(tokens.get(1));
 			this.setFirstName(tokens.get(2));
 			this.setMiddleName(tokens.get(3));
 			this.setEmail(tokens.get(4));
-	
+
 			Set<Major> majors = this.getMajors();
 			Major major;
-			if (shouldInclude(tokens.get(5))) {
+			if (!StringUtils.isBlank(tokens.get(5))) {
 				major = makeMajor(tokens.get(5),tokens.get(6));
 				majors.add(major);
 			}
-			if (shouldInclude(tokens.get(7))) {
+			if (!StringUtils.isBlank(tokens.get(7))) {
 				major = makeMajor(tokens.get(7),tokens.get(8));
 				majors.add(major);
 			}
-			if (shouldInclude(tokens.get(9))) {
+			if (!StringUtils.isBlank(tokens.get(9))) {
 				major = makeMajor(tokens.get(9),tokens.get(10));
 				majors.add(major);
 			}
-		
+
 			this.setAdmitTerm(createOrFindTerm(tokens.get(11)));
 			if (!StringUtils.isBlank(tokens.get(12))){
 				this.setGradTerm(createOrFindTerm(tokens.get(12)));
 			}
 		}
-	}
-	
-	private boolean hasAtLeastOneMajor(String major1) {
-		return major1 == SPACE;
-	}
-	
-	private boolean shouldInclude(String major) {
-		return major == SPACE;
 	}
 
 	private Term createOrFindTerm(String yearAndTerm) {
@@ -94,7 +87,7 @@ public class Line {
 		}
 		return term;
 	}
-	
+
 	private Integer convertToYear(char century, char leftYear, char rightYear) {
 		Integer year = null;
 		if ('0' == century) { 
@@ -120,10 +113,17 @@ public class Line {
 			throw new InvalidTokenException("Invalid semester:" + semester);
 		}
 	} 
-	
+
 	private Major makeMajor(String amajor, String aterm) {
 		Term term = createOrFindTerm(aterm);
-		Major major = new Major(amajor,term);
+		Major major;
+		try {
+			major = Major.findMajorsByDegreeCodeAndCatalogTerm(amajor, term).getSingleResult();
+			return major;
+		} catch (EmptyResultDataAccessException e) {
+			major = new Major(amajor,term);
+			major.persist();
+		}
 		return major;
 	}
 }

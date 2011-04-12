@@ -44,6 +44,7 @@ public class UserAccount {
     	this.password = password;
     	this.email = fileStudent.getEmail();
     	this.userGroup = UserGroup.ROLE_USER;
+    	this.enabled=true;
     }
     
     public UserAccount(Student student, String password) {
@@ -51,6 +52,7 @@ public class UserAccount {
     	this.password = password;
     	this.email = student.getEmail();
     	this.userGroup = UserGroup.ROLE_USER;
+    	this.enabled=true;
     }
     
     public void setPassword(String password) {

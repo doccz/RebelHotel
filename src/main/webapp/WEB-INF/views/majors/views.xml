@@ -13,4 +13,7 @@
 <definition extends="default" name="majors/update">
         <put-attribute name="body" value="/WEB-INF/views/majors/update.jspx"/>
     </definition>
+<definition extends="default" name="majors/findMajorsByDegreeCodeAndCatalogTerm">
+        <put-attribute name="body" value="/WEB-INF/views/majors/findMajorsByDegreeCodeAndCatalogTerm.jspx"/>
+    </definition>
 </tiles-definitions>

@@ -9,7 +9,6 @@ import java.io.UnsupportedEncodingException;
 import java.lang.Integer;
 import java.lang.Long;
 import java.lang.String;
-import java.util.Arrays;
 import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -83,6 +82,18 @@ privileged aspect MajorController_Roo_Controller {
         model.addAttribute("page", (page == null) ? "1" : page.toString());
         model.addAttribute("size", (size == null) ? "10" : size.toString());
         return "redirect:/majors?page=" + ((page == null) ? "1" : page.toString()) + "&size=" + ((size == null) ? "10" : size.toString());
+    }
+    
+    @RequestMapping(params = { "find=ByDegreeCodeAndCatalogTerm", "form" }, method = RequestMethod.GET)
+    public String MajorController.findMajorsByDegreeCodeAndCatalogTermForm(Model model) {
+        model.addAttribute("terms", Term.findAllTerms());
+        return "majors/findMajorsByDegreeCodeAndCatalogTerm";
+    }
+    
+    @RequestMapping(params = "find=ByDegreeCodeAndCatalogTerm", method = RequestMethod.GET)
+    public String MajorController.findMajorsByDegreeCodeAndCatalogTerm(@RequestParam("degreeCode") String degreeCode, @RequestParam("catalogTerm") Term catalogTerm, Model model) {
+        model.addAttribute("majors", Major.findMajorsByDegreeCodeAndCatalogTerm(degreeCode, catalogTerm).getResultList());
+        return "majors/list";
     }
     
     @ModelAttribute("terms")

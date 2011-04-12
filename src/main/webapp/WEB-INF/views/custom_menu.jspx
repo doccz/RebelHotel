@@ -11,7 +11,7 @@
 			 <menu:item id="i_manage_jobs" url="/workefforts?page=1&amp;size=${empty param.size ? 10 : param.size}" z="WQqdpJpCu9io5O2NJD9cOLDm7tU="/>
 			 <menu:item id="i_fileupload" url="/file?upload"/>
 			 <menu:item id="i_manage_accounts" url="/useraccounts?page=1&amp;size=${empty param.size ? 10 : param.size}" z="nijRCp2PPYuD2D3D7hljcdDK4vs="/>
-			 <menu:item id="i_manage_worktemplates" url="/worktemplates?page=1&amp;size=${empty param.size ? 10 : param.size}" z="MGGtaSE2g/nOxu1RdzgEpNmfLt4="/> 
+			 <menu:item id="i_manage_catalogrequirements" url="/catalogrequirements?page=1&amp;size=${empty param.size ? 10 : param.size}" z="/m393zLhMg4a2R8WGTnw5sDZ63k="/>
 		 </menu:category>
 	</security:authorize>
     	<security:authorize access="hasRole('ROLE_ANONYMOUS')">

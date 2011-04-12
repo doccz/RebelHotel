@@ -15,6 +15,7 @@ public class UserAccountDataOnDemand {
         obj.setUserId("userId" + index);
         obj.setUserGroup(null);
         obj.setEnabled(Boolean.TRUE);
+        obj.setEmail("test@email.com");
         return obj;
     }
 	

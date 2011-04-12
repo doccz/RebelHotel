@@ -4,22 +4,15 @@
 package edu.unlv.cs.rebelhotel.domain;
 
 import edu.unlv.cs.rebelhotel.domain.Term;
-import java.util.Set;
+import java.lang.String;
 
-privileged aspect Major_Roo_JavaBean {    
-    public boolean Major.isReachedMilestone() {
-        return this.reachedMilestone;
-    }
-    
-    public void Major.setReachedMilestone(boolean reachedMilestone) {
-        this.reachedMilestone = reachedMilestone;
-    }
+privileged aspect Major_Roo_JavaBean {
     
     public String Major.getDegreeCode() {
         return this.degreeCode;
     }
     
-    public void Major.setDegreCode(String degreeCode) {
+    public void Major.setDegreeCode(String degreeCode) {
         this.degreeCode = degreeCode;
     }
     
@@ -29,14 +22,6 @@ privileged aspect Major_Roo_JavaBean {
     
     public void Major.setCatalogTerm(Term catalogTerm) {
         this.catalogTerm = catalogTerm;
-    }
-    
-    public boolean Major.isCompleted_work_requirements() {
-        return this.completed_work_requirements;
-    }
-    
-    public void Major.setCompleted_work_requirements(boolean completed_work_requirements) {
-        this.completed_work_requirements = completed_work_requirements;
     }
     
 }
