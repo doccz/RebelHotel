@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import java.io.File;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -37,22 +37,35 @@ public class DefaultStudentService implements StudentService{
 	}
 	
 	@Async
-	public void upload(File file){
-		List<List<String>> contents = Collections.emptyList();
+	@Transactional
+	public void upload(FileUpload fileUpload) {
+		fileUpload.beginExecution();
+		LOG.info("File upload began at: " + fileUpload.getStartOfExecution().toString());
 		try {
-			contents = lexer.tokenize(new FileReader(file));
-		} catch (IOException e) {
-			LOG.error("Could not upload student file", e);
-		}
-		Set<FileStudent> fileStudents = parser.parse(contents);
-		
-		for (FileStudent each : fileStudents) {
-			Student student = studentMapper.findOrReplace(each);
-			if (Student.findStudentsByUserIdEquals(each.getStudentId()).getResultList().size() > 0) {
-				student.merge();
-			} else {
-				student.persist();
+			List<List<String>> contents = Collections.emptyList();
+			contents = lexer.tokenize(new FileReader(fileUpload.getFile()));
+			
+			Set<FileStudent> fileStudents = parser.parse(contents);
+			
+			for (FileStudent each : fileStudents) {
+				Student student = studentMapper.findOrReplace(each);
+				student.setUserId(each.getStudentId());
+				if(student.exists()){
+					student.merge();
+					LOG.debug("Updating student: " + student.toString());
+				} else {
+					student.persist();
+					LOG.debug("Creating new student: " + student.toString());
+				}
 			}
+		} catch(Exception e){
+			LOG.error("Could not upload student file.", e);
+			throw e;
+		} finally {
+			fileUpload.endExecution();
+			fileUpload.persist();
+			// LOG message
+			LOG.info("File upload ended at: " + fileUpload.getEndOfExecution().toString());
 		}
 	}
 }

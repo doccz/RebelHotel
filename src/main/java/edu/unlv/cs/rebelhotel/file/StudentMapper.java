@@ -4,7 +4,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
-import edu.unlv.cs.rebelhotel.file.RandomPasswordGenerator;
+import edu.unlv.cs.rebelhotel.domain.enums.UserGroup;
 
 @Component
 public class StudentMapper {
@@ -14,7 +14,6 @@ public class StudentMapper {
 		student.setFirstName(fileStudent.getFirstName());
 		student.setLastName(fileStudent.getLastName());
 		student.setMiddleName(fileStudent.getMiddleName());
-		student.setEmail(fileStudent.getEmail());
 		student.setGradTerm(fileStudent.getGradTerm());
 		student.setAdmitTerm(fileStudent.getAdmitTerm());
 		student.updateMajors(fileStudent.getMajors());
@@ -43,8 +42,11 @@ public class StudentMapper {
 			studentAccount = UserAccount.findUserAccountsByUserId(fileStudent.getStudentId()).getSingleResult();
 			return studentAccount;
 		} catch(EmptyResultDataAccessException e) {
-			RandomPasswordGenerator rpg = new RandomPasswordGenerator();
-			studentAccount = new UserAccount(fileStudent,rpg.generateRandomPassword());
+			studentAccount = new UserAccount();
+			studentAccount.setUserId(fileStudent.getStudentId());
+			studentAccount.setEmail(fileStudent.getEmail());
+			studentAccount.setPassword(studentAccount.generateRandomPassword());
+			studentAccount.setUserGroup(UserGroup.ROLE_USER);
 			studentAccount.persist();
 		}
 		return studentAccount;

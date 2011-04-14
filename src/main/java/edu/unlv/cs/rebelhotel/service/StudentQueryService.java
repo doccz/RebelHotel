@@ -141,8 +141,8 @@ public class StudentQueryService {
 				}
 			}
 			if (formStudentQuery.getShowEmail()) {
-				if (student.getEmail() != null) {
-					entries.add(student.getEmail().toString());
+				if (student.getUserAccount().getEmail() != null) {
+					entries.add(student.getUserAccount().getEmail().toString());
 				}
 				else {
 					entries.add("");

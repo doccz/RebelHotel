@@ -20,7 +20,6 @@ import javax.persistence.TypedQuery;
 
 import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
-import edu.unlv.cs.rebelhotel.file.RandomPasswordGenerator;
 
 import java.util.Date;
 import javax.persistence.Temporal;
@@ -37,10 +36,6 @@ public class Student {
     @NotNull
     @Column(unique = true)
     private String userId;
-
-    @NotNull
-    @Size(min = 2)
-    private String email;
 
     @NotNull
     @Size(min = 2)
@@ -72,23 +67,9 @@ public class Student {
     private UserAccount userAccount;
     
     @PreUpdate
+    @PrePersist
     public void updateLastModified() {
     	lastModified = new Date();
-    }
-    
-    // THIS IS FOR THE STUDENT CREATE FORM
-    @PrePersist
-    public void initUserAccount(){
-    	TypedQuery<UserAccount> findUserAccountsByUserId = UserAccount.findUserAccountsByUserId(getUserId());
-    	try {
-    		UserAccount userAccount = findUserAccountsByUserId.getSingleResult();
-    		setUserAccount(userAccount);
-    	} catch(EmptyResultDataAccessException e) {
-			RandomPasswordGenerator rpg = new RandomPasswordGenerator();
-			UserAccount userAccount = new UserAccount(this,rpg.generateRandomPassword());
-			setUserAccount(userAccount);
-    	}
-    	updateLastModified();
     }
 
     public String toString() {
@@ -149,5 +130,9 @@ public class Student {
     @Transient
 	public boolean isNewStudent() {
 		return this.majors.isEmpty();
+	}
+
+	public boolean exists() {
+		return Student.findStudentsByUserIdEquals(getUserId()).getResultList().size() > 0;
 	}
 }

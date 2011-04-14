@@ -1,5 +1,7 @@
 package edu.unlv.cs.rebelhotel.domain;
 
+import java.util.Random;
+
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.roo.addon.entity.RooEntity;
@@ -36,24 +38,13 @@ public class UserAccount {
 
     private Boolean enabled = Boolean.TRUE;
 
-    public UserAccount() {
-    }
-    
-    public UserAccount(FileStudent fileStudent, String password) {
+   /* public UserAccount(FileStudent fileStudent) {
     	this.userId = fileStudent.getStudentId();
-    	this.password = password;
+    	setPasswordEncoder(new MessageDigestPasswordEncoder("SHA-256"));
+     	setPassword(generateRandomPassword());
     	this.email = fileStudent.getEmail();
     	this.userGroup = UserGroup.ROLE_USER;
-    	this.enabled=true;
-    }
-    
-    public UserAccount(Student student, String password) {
-    	this.userId = student.getUserId();
-    	this.password = password;
-    	this.email = student.getEmail();
-    	this.userGroup = UserGroup.ROLE_USER;
-    	this.enabled=true;
-    }
+    }*/
     
     public void setPassword(String password) {
         String encoded = passwordEncoder.encodePassword(password, null);
@@ -64,10 +55,28 @@ public class UserAccount {
         this.passwordEncoder = passwordEncoder;
     }
     
+    public String generateRandomPassword(){
+    	final int MAX_PASSWORD_LENGTH = 8;
+		final String charset = "12345ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&abcdefghijklmnopqrstuvwxyz67890";
+		final String firstcharset = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
+		Random random = new Random();
+		StringBuilder sb = new StringBuilder();
+
+		Integer pos;
+		pos = random.nextInt(firstcharset.length());
+		sb.append(firstcharset.charAt(pos));
+		for (int i = 1; i < MAX_PASSWORD_LENGTH; i++) {
+			pos = random.nextInt(charset.length());
+        	sb.append(charset.charAt(pos));
+		}
+		return sb.toString();
+    }
+    
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("UserId: ").append(getUserId()).append(", ");
         sb.append("UserGroup: ").append(getUserGroup());
         return sb.toString();
     }
+    
 }

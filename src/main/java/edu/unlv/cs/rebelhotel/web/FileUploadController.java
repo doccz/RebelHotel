@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.unlv.cs.rebelhotel.file.FileUpload;
 import edu.unlv.cs.rebelhotel.file.StudentService;
 
 @Controller
@@ -36,13 +37,15 @@ public class FileUploadController {
 		if (multipart_file.isEmpty()) {
 			return "file/upload";
 		}
-		byte[] file_data = multipart_file.getBytes();
+		byte[] fileData = multipart_file.getBytes();
 		
 		File file = File.createTempFile("students",".csv");
 		multipart_file.transferTo(file);
-		studentService.upload(file);
+		FileUpload fileUpload = new FileUpload(file);
+		fileUpload.persist();
+		studentService.upload(fileUpload);
 		
-		model.addAttribute("file_data", new String(file_data).toString());
+		model.addAttribute("fileData", new String(fileData).toString());
 		return "file/show";
 	}
 }

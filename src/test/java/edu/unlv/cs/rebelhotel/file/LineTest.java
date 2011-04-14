@@ -1,9 +1,6 @@
 package edu.unlv.cs.rebelhotel.file;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -11,8 +8,6 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import edu.unlv.cs.rebelhotel.domain.Major;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/META-INF/spring/applicationContext.xml")
@@ -26,7 +21,11 @@ public class LineTest {
 		Line instance = new Line(tokens);
 	}
 	
-	@Test
+	/* This test no longer valid, because now we allow anything to go through.
+	 * What determines if a major is tracked is dependent on the existence of a
+	 * corresponding catalog requirement.
+	 */
+	/*@Test
 	public void shouldHaveEmptyMajorSetIfMajorTokenIsInvalid() {
 		String line = "1000011622,Holmes,Katherine,Marilyn,HOLMESK4@UNLV.NEVADA.EDU,PSYMIN,2048, , , , ,2048, ";
 		List<String> tokens = Arrays.asList(line.split(","));
@@ -39,5 +38,5 @@ public class LineTest {
 	private Line createValidLine() {
 		List<String> tokens = Arrays.asList(VALID_DATA.split(","));
 		return new Line(tokens);
-	}
+	}*/
 }
