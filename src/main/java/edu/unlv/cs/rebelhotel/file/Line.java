@@ -19,8 +19,8 @@ import edu.unlv.cs.rebelhotel.domain.enums.Semester;
 @RooToString
 public class Line {
 	private static final int EXPECTED_SIZE = 13;
-	private static final String SPACE = " ";
 	private static final Logger LOG = Logger.getLogger(Line.class);
+	private int lineNumber;
 	private String studentId;
 	private String lastName;
 	private String firstName;
@@ -30,11 +30,18 @@ public class Line {
 	private Term admitTerm;
 	private Term gradTerm;
 
-	public Line(List<String> tokens){
+	public Line(List<String> tokens, int lineNumber){
+		setLineNumber(lineNumber);
+		
 		if (tokens.size() != EXPECTED_SIZE){
-			throw new InvalidLineException("Invalid number of elements.");
+			LOG.error("Line #" + lineNumber + " has invalid number of elements: " + tokens.toString());
+			throw new InvalidLineException("Line #" + lineNumber + " has invalid number of elements.");
 		}
-		if (!StringUtils.isBlank(tokens.get(5))) {
+		if (StringUtils.isBlank(tokens.get(5))) {
+			LOG.error("Line #" + lineNumber + " has student with no majors: " + tokens.toString());
+			throw new InvalidTokenException("Line #" + lineNumber + " has student with no majors.");
+		} else {
+			LOG.debug("Line #" + lineNumber + " is about to be processed: " + tokens.toString());
 			this.setStudentId(tokens.get(0));
 			this.setLastName(tokens.get(1));
 			this.setFirstName(tokens.get(2));
@@ -64,8 +71,9 @@ public class Line {
 	}
 
 	private Term createOrFindTerm(String yearAndTerm) {
-		if (yearAndTerm.equals(" ")){
-			throw new InvalidTokenException("Invalid Term:" + yearAndTerm);
+		if (StringUtils.isBlank(yearAndTerm)) {
+			LOG.error("Line #" + lineNumber + " has invalid Term: " + yearAndTerm);
+			throw new InvalidTokenException("Line #" + lineNumber + " has invalid Term: " + yearAndTerm);
 		}
 		char[] character = {0,0,0,0};
 		Integer termYear = null;
@@ -95,7 +103,8 @@ public class Line {
 		} else if ('2' == century) { 
 			year = 2000;
 		} else {
-			throw new InvalidTokenException("Invalid century:" + century);
+			LOG.error("Line #" + lineNumber + " has invalid Century: " + century);
+			throw new InvalidTokenException("Line #" + lineNumber + " has invalid Century: " + century);
 		}
 		String yearString = new StringBuilder().append(leftYear).append(rightYear).toString();
 		year += Integer.valueOf(yearString);
@@ -110,7 +119,8 @@ public class Line {
 		} else if ('5' == semester) {
 			return Semester.SUMMER;
 		} else {
-			throw new InvalidTokenException("Invalid semester:" + semester);
+			LOG.error("Line #" + lineNumber + " has invalid Semester: " + semester);
+			throw new InvalidTokenException("Line #" + lineNumber + " has invalid Semester: " + semester);
 		}
 	} 
 

@@ -12,6 +12,8 @@ import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 
+import edu.unlv.cs.rebelhotel.file.enums.FileUploadStatus;
+
 @RooJavaBean
 @RooToString
 @RooEntity
@@ -21,9 +23,9 @@ public class FileUpload {
 	
 	// this will probably contain a general message
 	// and then record/line at which the error occurred.
-	private String message;
+	private String message = FileUploadStatus.IN_PROGRESS.toString();
 
-	private Boolean successful = Boolean.FALSE;
+	private Boolean successful = Boolean.TRUE;
 	
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "S-")

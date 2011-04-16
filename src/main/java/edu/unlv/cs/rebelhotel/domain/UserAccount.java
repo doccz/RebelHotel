@@ -2,6 +2,7 @@ package edu.unlv.cs.rebelhotel.domain;
 
 import java.util.Random;
 
+import org.apache.log4j.Logger;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.roo.addon.entity.RooEntity;
@@ -9,11 +10,13 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 import javax.validation.constraints.NotNull;
 import edu.unlv.cs.rebelhotel.domain.enums.UserGroup;
-import edu.unlv.cs.rebelhotel.file.FileStudent;
 
 import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
+
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 @Configurable("userAccount")
 @RooJavaBean
@@ -21,6 +24,8 @@ import javax.persistence.EnumType;
 @RooEntity(finders = { "findUserAccountsByUserId" })
 public class UserAccount {
 
+	private static final Logger LOG = Logger.getLogger(UserAccount.class);
+	
     @NotNull
     @Column(unique = true)
     private String userId;
@@ -79,4 +84,13 @@ public class UserAccount {
         return sb.toString();
     }
     
+    @PrePersist
+    public void createNewUserAccount() {
+    	LOG.debug("Created new user account: " + toString());
+    }
+    
+    @PreUpdate
+    public void updateUserAccount() {
+    	LOG.debug("Updated user account: " + toString());
+    }
 }

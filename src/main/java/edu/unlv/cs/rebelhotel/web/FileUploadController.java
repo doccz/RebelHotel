@@ -37,15 +37,14 @@ public class FileUploadController {
 		if (multipart_file.isEmpty()) {
 			return "file/upload";
 		}
-		byte[] fileData = multipart_file.getBytes();
 		
 		File file = File.createTempFile("students",".csv");
 		multipart_file.transferTo(file);
 		FileUpload fileUpload = new FileUpload(file);
-		fileUpload.persist();
 		studentService.upload(fileUpload);
-		
-		model.addAttribute("fileData", new String(fileData).toString());
+
+		//Object history; // whatever i get back from query for all fileuploads finder on fileuploads
+		//model.addAttribute("fileUpload", history);
 		return "file/show";
 	}
 }

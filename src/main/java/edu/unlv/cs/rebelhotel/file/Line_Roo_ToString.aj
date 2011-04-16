@@ -9,6 +9,7 @@ privileged aspect Line_Roo_ToString {
     
     public String Line.toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("LineNumber: ").append(getLineNumber()).append(", ");
         sb.append("StudentId: ").append(getStudentId()).append(", ");
         sb.append("LastName: ").append(getLastName()).append(", ");
         sb.append("FirstName: ").append(getFirstName()).append(", ");

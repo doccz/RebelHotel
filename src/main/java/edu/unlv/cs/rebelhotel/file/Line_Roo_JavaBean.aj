@@ -10,6 +10,14 @@ import java.util.Set;
 
 privileged aspect Line_Roo_JavaBean {
     
+    public int Line.getLineNumber() {
+        return this.lineNumber;
+    }
+    
+    public void Line.setLineNumber(int lineNumber) {
+        this.lineNumber = lineNumber;
+    }
+    
     public String Line.getStudentId() {
         return this.studentId;
     }

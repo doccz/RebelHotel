@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 import edu.unlv.cs.rebelhotel.file.FileStudent;
 import edu.unlv.cs.rebelhotel.file.StudentMapper;
+import edu.unlv.cs.rebelhotel.file.enums.FileUploadStatus;
 import edu.unlv.cs.rebelhotel.domain.Student;
 
 
@@ -50,21 +51,19 @@ public class DefaultStudentService implements StudentService{
 			for (FileStudent each : fileStudents) {
 				Student student = studentMapper.findOrReplace(each);
 				student.setUserId(each.getStudentId());
-				if(student.exists()){
-					student.merge();
-					LOG.debug("Updating student: " + student.toString());
-				} else {
-					student.persist();
-					LOG.debug("Creating new student: " + student.toString());
-				}
+				student.upsert();
 			}
 		} catch(Exception e){
 			LOG.error("Could not upload student file.", e);
-			throw e;
+			fileUpload.setMessage("Upload FAILED." + e.getMessage());
+			fileUpload.setSuccessful(false);
+			throw new FileUploadException("Could not upload student file.",e);
 		} finally {
 			fileUpload.endExecution();
+			if (fileUpload.getSuccessful()) {
+				fileUpload.setMessage(FileUploadStatus.SUCCESSFUL.toString());
+			}
 			fileUpload.persist();
-			// LOG message
 			LOG.info("File upload ended at: " + fileUpload.getEndOfExecution().toString());
 		}
 	}

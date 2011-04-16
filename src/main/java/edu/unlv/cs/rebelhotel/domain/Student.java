@@ -1,5 +1,6 @@
 package edu.unlv.cs.rebelhotel.domain;
 
+import org.apache.log4j.Logger;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -16,7 +17,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
-import javax.persistence.TypedQuery;
 
 import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
@@ -25,7 +25,6 @@ import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @RooJavaBean
@@ -33,7 +32,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 @RooEntity(finders = { "findStudentsByFirstNameEquals", "findStudentsByFirstNameLike", "findStudentsByUserAccount", "findStudentsByUserIdEquals" })
 public class Student {
 
-    @NotNull
+    private static final Logger LOG = Logger.getLogger(Student.class);
+
+	@NotNull
     @Column(unique = true)
     private String userId;
 
@@ -67,9 +68,15 @@ public class Student {
     private UserAccount userAccount;
     
     @PreUpdate
-    @PrePersist
     public void updateLastModified() {
     	lastModified = new Date();
+    	LOG.debug("Updated existing student: " + toString());
+    }
+
+    @PrePersist
+    public void createNewStudent(){
+    	lastModified = new Date();
+    	LOG.debug("Created new student: " + toString());
     }
 
     public String toString() {
@@ -134,5 +141,13 @@ public class Student {
 
 	public boolean exists() {
 		return Student.findStudentsByUserIdEquals(getUserId()).getResultList().size() > 0;
+	}
+	
+	public void upsert() {
+		if(exists()){
+			merge();
+		} else {
+			persist();
+		}
 	}
 }
