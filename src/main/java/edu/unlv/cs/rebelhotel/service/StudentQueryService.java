@@ -140,14 +140,14 @@ public class StudentQueryService {
 					entries.add("");
 				}
 			}
-			if (formStudentQuery.getShowEmail()) {
-				if (student.getEmail() != null) {
-					entries.add(student.getEmail().toString());
-				}
-				else {
-					entries.add("");
-				}
-			}
+//			if (formStudentQuery.getShowEmail()) {
+//				if (student.getEmail() != null) {
+//					entries.add(student.getEmail().toString());
+//				}
+//				else {
+//					entries.add("");
+//				}
+//			}
 			if (formStudentQuery.getShowName()) {
 				entries.add(student.getName());
 			}

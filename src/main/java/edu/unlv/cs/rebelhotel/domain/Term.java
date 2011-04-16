@@ -37,7 +37,7 @@ public class Term {
         return sb.toString();
     }
     
-    @Override
+/*    @Override
     public boolean equals(Object obj) {
 		if (obj == null) {
 			return false;
@@ -64,5 +64,5 @@ public class Term {
 				.append(semester)
 				.append(termYear)
 				.toHashCode();
-    }
+    }*/
 }

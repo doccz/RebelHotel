@@ -78,16 +78,32 @@ public class WorkEffort {
 	 * before those hours from that work effort can be counted towards the
 	 * student's completed hours. This method returns true if that work effort
 	 * has been verified and validated
+	 * @param major 
 	 * 
 	 * @return
 	 */
-	public boolean isApplicable() {
+	public boolean isApplicable(Major major) {
 
-		if (this.validation.equals(Validation.NO_VALIDATION)) {
-			return isAccepted();
-		} else {
-			return isAccepted() && isValidated();
+		boolean applicableRequirement = hasApplicableCatalogRequirement(major);
+		boolean validation = hasValidation();
+		
+		boolean accepted = isAccepted();
+		boolean validated = isValidated();
+
+		return applicableRequirement && accepted && (validated || validation);
+	}
+
+	private boolean hasValidation() {
+		return this.validation.equals(Validation.NO_VALIDATION);
+	}
+	
+	private boolean hasApplicableCatalogRequirement(Major major){
+		boolean isApplicable = false;
+		
+		for(CatalogRequirement requirement : this.getCatalogRequirements()){
+			isApplicable |= major.appliesTo(requirement);
 		}
+		return isApplicable;
 	}
 
     @ManyToMany

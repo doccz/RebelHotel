@@ -7,8 +7,6 @@ import javax.validation.constraints.NotNull;
 import javax.persistence.Column;
 import javax.validation.constraints.Size;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 import javax.persistence.CascadeType;
@@ -41,9 +39,9 @@ public class Student {
     @Column(unique = true)
     private String userId;
 
-    @NotNull
-    @Size(min = 5)
-    private String email = "default";
+//    @NotNull
+//    @Size(min = 5)
+//    private String email = "default";
 
     @NotNull
     @Size(min = 2)
@@ -74,15 +72,6 @@ public class Student {
 
     @OneToOne(optional = false, cascade= { CascadeType.PERSIST, CascadeType.REMOVE } )
     private UserAccount userAccount;
-    
-    /*@ManyToOne
-    private Set<Integer> approvedHoursList = new HashSet<Integer>();
-    
-    @ManyToOne
-    private Set<Integer> remainingHoursList = new HashSet<Integer>();
-    
-	List<Integer> approvedHoursList = new ArrayList<Integer>();
-	List<Integer> remainingHoursList = new ArrayList<Integer>();*/
 	
     @PreUpdate
     //@PrePersist
@@ -117,14 +106,6 @@ public class Student {
     public void addWorkEffort(WorkEffort we) {
         workEffort.add(we);
     }
-    
-    /*public void addApprovedHours(Integer approvedHours){
-    	approvedHoursList.add(approvedHours);
-    }
-    
-    public void addRemainingHours(Integer remainingHours){
-    	remainingHoursList.add(remainingHours);
-    }    */
     
     public String getName() {
     	String name = firstName;
@@ -171,66 +152,14 @@ public class Student {
 	public boolean isNewStudent() {
 		return this.majors.isEmpty();
 	}
-    
-    public boolean compareDegreeCodes(String majorDegreeCode, Set<CatalogRequirement> workEffortCatalogRequirements){
-    	boolean hasMatchingCatalogRequirement = false;
-    	String majorDegreeCodePrefix;
-    	String workEffortDegreeCodePrefix;
-    	
-		for (CatalogRequirement workEffortCatalogRequirement : workEffortCatalogRequirements) {
-			if(!hasMatchingCatalogRequirement){
-				workEffortDegreeCodePrefix = workEffortCatalogRequirement.getDegreeCodePrefix();
-				hasMatchingCatalogRequirement = majorDegreeCode.equals(workEffortDegreeCodePrefix);
-			}
-		}
-    	
-    	return hasMatchingCatalogRequirement;
-    }
-    
-    public Integer calculateHoursWorkedPerMajor(Major major, Set<WorkEffort> workEfforts){
-    	
-    	Integer hoursWorkedPerMajor = 0;
-    	boolean haveMatchingDegreeCodes = false;
-
-    		for(WorkEffort workEffort : workEfforts){
-    			haveMatchingDegreeCodes = compareDegreeCodes(major.getDegreeCode(), workEffort.getCatalogRequirements());
-    			if(haveMatchingDegreeCodes){
-    				if(workEffort.isApplicable()){
-    					hoursWorkedPerMajor += workEffort.getDuration().getHours();
-    				}
-    			}
-    		}
-    	
-    	return hoursWorkedPerMajor;
-    }
-    
-//    Public Integer calculateHoursRemainingPerMajor(Major major, Set<WorkEffort> workEfforts){
-//    	boolean haveMatchingDegreeCodes = false;
-//
-//    }
-    
-    public Set<Progress> calculateStudentProgress(Set<Major> majors, Set<WorkEffort> workEfforts){
-    	Set<Progress> progressSet = new HashSet<Progress>();
-    	Progress progress = new Progress();
-    	
-    	for(Major major : majors){
-    		progress.setDegreeCode(major.getDegreeCode());
-    		progress.setApprovedHours(calculateHoursWorkedPerMajor(major, workEfforts));
-   
+                
+    public Set<Progress> calculateProgress(){
+    	Set<Progress> progressSet = new HashSet<Progress>();    	
+    	for(Major major : getMajors()){
+    		Progress progress = new Progress(major,getWorkEffort());
     		progressSet.add(progress);
     	}
     	
     	return progressSet;
     }
-    
-//    public Set<Integer> calculateHoursWorkedForAllMajors(Set<Major> majors, Set<WorkEffort> workEfforts){
-//    	Set<Integer> hoursWorkedPerMajorList = new HashSet<Integer>();
-//    	Integer totalHoursWorkedPerMajor;
-//    	
-//    	for(Major major: majors){
-//    		totalHoursWorkedPerMajor = calculateHoursWorkedPerMajor(major, workEfforts);
-//    		hoursWorkedPerMajorList.add(totalHoursWorkedPerMajor);
-//    	}
-//    	return hoursWorkedPerMajorList;
-//    }
 }

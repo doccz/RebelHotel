@@ -74,9 +74,7 @@ privileged aspect CatalogRequirement_Roo_Entity {
     
     @Transactional
     public CatalogRequirement CatalogRequirement.merge() {
-        if (this.entityManager == null) {
-        	this.entityManager = entityManager();
-        }
+        if (this.entityManager == null) this.entityManager = entityManager();
         CatalogRequirement merged = this.entityManager.merge(this);
         this.entityManager.flush();
         return merged;

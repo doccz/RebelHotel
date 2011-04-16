@@ -15,7 +15,7 @@ public class StudentMapper {
 		student.setFirstName(fileStudent.getFirstName());
 		student.setLastName(fileStudent.getLastName());
 		student.setMiddleName(fileStudent.getMiddleName());
-		student.setEmail(fileStudent.getEmail());
+		//student.setEmail(fileStudent.getEmail());
 		student.setGradTerm(fileStudent.getGradTerm());
 		student.setAdmitTerm(fileStudent.getAdmitTerm());
 		student.updateMajors(fileStudent.getMajors());

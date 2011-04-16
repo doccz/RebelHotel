@@ -2,13 +2,10 @@ package edu.unlv.cs.rebelhotel.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -18,10 +15,8 @@ import javax.validation.Valid;
 import org.joda.time.format.DateTimeFormat;
 
 import edu.unlv.cs.rebelhotel.domain.Major;
-import edu.unlv.cs.rebelhotel.domain.Progress;
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
-import edu.unlv.cs.rebelhotel.domain.WorkEffort;
 
 import edu.unlv.cs.rebelhotel.domain.enums.Semester;
 import edu.unlv.cs.rebelhotel.form.FormStudentQuery;
@@ -33,7 +28,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -241,59 +235,19 @@ public class StudentController {
 		return "students/query";
 	}
 
-	//@RequestMapping(value = "/{id}", params = "myprogress", method = RequestMethod.GET)
-	//public String showProgress(@PathVariable("id") Long id, Model model){
 	@RequestMapping(params = "myprogress", method = RequestMethod.GET)
 	public String myProgress(Model model) {	
 	
 		Student student = Student.findStudent(userInformation.getStudent().getId());
-		Integer majorCount = 0;
-		
-		Major mjr = new Major("GAM", student.getAdmitTerm());
-		//mjr.setDegreeCode("GAM");
-		//mjr.setCatalogTerm(student.getAdmitTerm());
-    	
-    	//List<Major> majorsList = new ArrayList<Major>();
-		//List<Major> majorsList = Major.findAllMajors();
-    	//List<Integer> approvedHoursList = new ArrayList<Integer>();
-    	//List<Integer> remainingHoursList = new ArrayList<Integer>();
-    	Set<Major> majors = new HashSet<Major>(student.getMajors());
-		//majors = student.getMajors();
-    	majors.add(mjr);
-    	List<Major> majorsList = new ArrayList<Major>(majors);
-		List<WorkEffort> workEfforts = WorkEffort.findWorkEffortsByStudentEquals(student).getResultList();
-		
-		Set<Progress> progressSet = new HashSet<Progress>(student.calculateStudentProgress(majors, student.getWorkEffort()));
-		Progress prgrss = new Progress( mjr.getDegreeCode(), 0, 1000);
-		progressSet.add(prgrss);
-		List<Progress> progressList = new ArrayList<Progress>(progressSet);
-    	
-    	/*for(WorkEffort workeffort : workEfforts){
-    		majorCount++;
-    	}*/
 
-    	for(Major major : majors){
-    		majorCount++;
-    		//majorsList.add(majorCount, major);
-    		//approvedHoursList.add(majorCount, major.calculateTotalHoursWorked());
-    		//remainingHoursList.add(majorCount, major.calculateTotalHoursRequired() - major.calculateTotalHoursWorked());
-    	}
-    	/*for(Major major : majors){
-    		student.addApprovedHours(major.calculateTotalHoursWorked());
-    		student.addRemainingHours(major.calculateTotalHoursRequired() - major.calculateTotalHoursWorked());
-    	}
-    	if(majorCount == 0){
-    		model.addAttribute("useraccount", student.getUserAccount());
-    		return "useraccounts/show";
-    	}
-    	else{*/
-    	model.addAttribute("student", student);
-    	model.addAttribute("workEfforts", workEfforts);
-    	model.addAttribute("majorsList", majorsList);
-    	model.addAttribute("progressList", progressList);
-    	//model.addAttribute("approvedHoursList", approvedHoursList);
-    	//model.addAttribute("remainingHoursList", remainingHoursList);
-    			
+		Major major = new Major();
+		major.setDegreeCode("HOSSINBSMS");
+		student.getMajors().add(major);
+		
+		model.addAttribute("student", student);
+    	model.addAttribute("majorsList", student.getMajors());
+    	model.addAttribute("progressList", student.calculateProgress());
+		
 		return "students/myprogress";
 	}
 	

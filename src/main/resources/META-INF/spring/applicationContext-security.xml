@@ -34,11 +34,13 @@
         <intercept-url pattern="/choices/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/member/**" access="isAuthenticated()" />
         <intercept-url pattern="/resources/**" access="permitAll" />
-        <intercept-url pattern="/workefforts" access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER','ROLE_USER')"/>
-        <intercept-url pattern="/students" access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER','ROLE_USER')"/>
-        <intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER','ROLE_ADMIN','ROLE_SUPERUSER')" />
+        <intercept-url pattern="/workefforts" access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER','ROLE_USER','ROLE_STUDENT')"/>
+        <intercept-url pattern="/students" access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER','ROLE_USER','ROLE_STUDENT')"/>
+
+        <intercept-url pattern="/students?myprogress" access="hasAnyRole('ROLE_STUDENT')"/>
+        <intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER','ROLE_ADMIN','ROLE_SUPERUSER','ROLE_STUDENT')" />
         <intercept-url pattern="/login" access="permitAll"/>
-        <intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')" />
+        <intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER','ROLE_STUDENT')" />
     </http>
 	
 	<!-- For now, the default implementation is (attempted to be) rebuilt here just in case it needs to be changed later -->

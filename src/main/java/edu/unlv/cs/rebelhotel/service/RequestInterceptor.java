@@ -37,7 +37,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 					username = principal.toString();
 				}
 				Collection<GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-				if (authorities.contains(UserGroup.ROLE_USER)) {
+				if (authorities.contains(UserGroup.ROLE_STUDENT)) {
 					// All students should have the ROLE_USER role and should also have usernames consisting of 10  digit numbers
 					try {
 						UserAccount ua = UserAccount.findUserAccountsByUserId(username).getSingleResult();

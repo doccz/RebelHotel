@@ -13,7 +13,7 @@
         </menu:category>
     </security:authorize>
     
-    <security:authorize access="hasRole('ROLE_USER')">
+    <security:authorize access="hasRole('ROLE_STUDENT')">
         <menu:category id="c_student_personal">
         	<menu:item id="i_student_personal_work" url="/workefforts?mywork"/>
         	<menu:item id="i_main_menu" url="/"/>

@@ -17,12 +17,7 @@
             <menu:item id="i_term_new" messageCode="global_menu_new" url="/terms?form" z="wgiKkyRDO0HpHhgEDihRQzUhP3k="/>
         	<menu:item id="i_term_list" messageCode="global_menu_list" url="/terms?page=1&amp;size=${empty param.size ? 10 : param.size}" z="ev5ds/cpGL+OtBUv9Kd6x/Ioqak="/>
         	<menu:item id="i_term_generate" url="/terms?generate"/>
-<<<<<<< HEAD
-        
             <menu:item id="fi_term_semester" messageCode="global_menu_find" url="/terms?find=BySemester&amp;form" z="N0dnziCmUVvr4CvPA/1i8qxFtV0="/>
-=======
-        <menu:item id="fi_term_semester" messageCode="global_menu_find" url="/terms?find=BySemester&amp;form" z="N0dnziCmUVvr4CvPA/1i8qxFtV0="/>
->>>>>>> d260d0b9aac57113daaa3d0a3a0d60f3b0db779c
             <menu:item id="fi_term_semesterandtermyearequals" messageCode="global_menu_find" url="/terms?find=BySemesterAndTermYearEquals&amp;form" z="ZvutSn3UsA2jKyZo1S+8ibDjbpE="/>
             </menu:category>
     	<menu:category id="c_workrequirement" z="BRAzcRCVcdWWTNOQXNpMuQUdr2k=">
@@ -83,6 +78,10 @@
     <menu:category id="c_randomvalidationbatch" z="fZBaVDTdGZEHi4ystPcpxzWeGFk=">
             <menu:item id="i_randomvalidationbatch_new" messageCode="global_menu_new" url="/randomvalidationbatches?form" z="ilQ2jLKc0Tn8zTBONmoFgwkNjJo="/>
         <menu:item id="i_randomvalidationbatch_list" messageCode="global_menu_list" url="/randomvalidationbatches?page=1&amp;size=${empty param.size ? 10 : param.size}" z="oWWX2TQAaKIKAQSQ6JWNetjMNtE="/>
+        </menu:category>
+    <menu:category id="c_progress" z="jgpYfwIqvQRUbM/M5p++paAfhyg=">
+            <menu:item id="i_progress_new" messageCode="global_menu_new" url="/progresses?form" z="RrKyhwpNbRtDPwmKA3hkd6ST/V0="/>
+        <menu:item id="i_progress_list" messageCode="global_menu_list" url="/progresses?page=1&amp;size=${empty param.size ? 10 : param.size}" z="fQEJX/RApI1Qwg2qApWCizn5pVM="/>
         </menu:category>
     </menu:menu>
 </div>

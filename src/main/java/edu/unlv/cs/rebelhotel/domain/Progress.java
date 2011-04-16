@@ -1,5 +1,7 @@
 package edu.unlv.cs.rebelhotel.domain;
 
+import java.util.Set;
+
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -14,29 +16,36 @@ public class Progress {
     private Integer approvedHours;
 
     private Integer remainingHours;
+    
+    private Integer generalHours;
 
 	public void setDegreeCode(String degreeCode) {
-		// TODO Auto-generated method stub
 		this.degreeCode = degreeCode;
 	}
-
+	
+	public String getDegreeCode() {
+		return this.degreeCode;
+	}
+	
 	public void setApprovedHours(Integer approvedHours) {
-		// TODO Auto-generated method stub
 		this.approvedHours = approvedHours;
 		
 	}
 	
-	private String getDegreeCode() {
-		// TODO Auto-generated method stub
-		return this.degreeCode;
+	public Integer getApprovedHours() {
+		return this.approvedHours;
 	}
 	
-//    public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append(getDegreeCode()).append(", ");
-//        return sb.toString();
-//    }
+	public void setRemainingHours(Integer remainingHours) {
+		this.remainingHours = remainingHours;
+	}
 
+	public Integer getRemainingHours() {
+		return this.remainingHours;
+	}
+
+
+	
 	public Progress(){}
 	
 	public Progress(String degreeCode, Integer approvedHours, Integer remainingHours) {
@@ -44,5 +53,13 @@ public class Progress {
 		this.approvedHours = approvedHours;
 		this.remainingHours = remainingHours;
 	}
+
+	public Progress(Major major, Set<WorkEffort> workHistory) {
+		this.degreeCode = major.getDegreeCode();
+		this.approvedHours = major.calculateHoursWorked(workHistory);
+		this.remainingHours = 0;//major.calculateHoursRemaining(workHistory);
+		this.generalHours = 0;//major.calculateGeneralHours(workHistory);
+	}
+
 	
 }

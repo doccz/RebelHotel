@@ -2,11 +2,7 @@ package edu.unlv.cs.rebelhotel.domain;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.StringTokenizer;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
@@ -26,65 +22,6 @@ public class Major {
 	@ManyToOne
 	private Term catalogTerm;
 	
-
-	//private boolean completed_work_requirements = false;
-	/**
-	 * The student has at least one major, and each major has to meet its own
-	 * work requirements in order to graduate. This method checks to see if each
-	 * work requirement for this major has been met. If each work requirement
-	 * has been met, the field 'completedWorRequirement' is set to True. False
-	 * if not met.
-	 */
-	/*public boolean updateMajorStatus() {
-
-		boolean completedWorkRequirement = true;
-		Set<WorkRequirement> workrequirements = this.getWorkRequirements();
-
-		for (WorkRequirement workrequirement : workrequirements) {
-
-			completedWorkRequirement &= workrequirement.isMet();
-		}
-		
-		return completedWorkRequirement;
-
-	}
-	
-	/**
-	 * This method adds up all the hours worked by a student with this major
-	 * in order to complete this major.
-	 * @return
-	 */
-	/*public Integer calculateTotalHoursWorked(){
-		
-		Integer totalHoursWorked = 0;
-		Set<WorkRequirement> workrequirements = this.getWorkRequirements();
-
-		for (WorkRequirement workrequirement : workrequirements) {
-
-			totalHoursWorked += workrequirement.getTotalApprovedHours();
-		}
-		
-		return totalHoursWorked;
-	}
-	
-	/**
-	 * This method adds up all the hours that need to be worked by a student with this major
-	 * in order to complete this major.
-	 * @return
-	 */
-	/*public Integer calculateTotalHoursRequired(){
-		
-		Integer totalHoursRequired = 0;
-		Set<WorkRequirement> workrequirements = this.getWorkRequirements();
-
-		for (WorkRequirement workrequirement : workrequirements) {
-			totalHoursRequired += workrequirement.getHours();
-		}
-		
-		return totalHoursRequired;
-	}*/
-
-
 	@Deprecated
 	private boolean completed_work_requirements = false;
 	
@@ -101,4 +38,51 @@ public class Major {
         sb.append(getDegreeCode()).append(", ");
         return sb.toString();
     }
+    
+    public int calculateHoursWorked(Set<WorkEffort> workHistory){
+    	int sum = 0;
+    	for(WorkEffort job : workHistory){
+    		if(job.isApplicable(this)){
+    			sum+=job.getDuration().getHours();
+    		}
+    	}
+    	return sum;
+    }
+
+	public int findMajorRequiredHours(){
+    	int hoursNeeded = 0;
+    	Set<CatalogRequirement> requirements = new HashSet<CatalogRequirement>(CatalogRequirement.findAllCatalogRequirements());
+    	for(CatalogRequirement requirement : requirements){
+    		if(this.appliesTo(requirement)){
+    			hoursNeeded = requirement.getTotalHoursNeeded();
+    		}
+    	}
+    	return hoursNeeded;
+	}
+	
+    public int calculateHoursRemaining(Set<WorkEffort> workHistory){
+    	int remainingHours = 0;
+    	
+    	int approvedHours = calculateHoursRemaining(workHistory);
+    	int totalHoursNeeded = findMajorRequiredHours();
+    	
+    	remainingHours = totalHoursNeeded - approvedHours;
+    	
+    	return remainingHours;	
+    }
+    
+    public int calculateGeneralHours(Set<WorkEffort> workHistory){
+    	int sum = 0;
+    	for(WorkEffort job : workHistory){
+    		if(!job.isApplicable(this)){
+    			sum+=job.getDuration().getHours();
+    		}
+    	}
+    	
+    	return sum;
+    }
+    
+	public boolean appliesTo(CatalogRequirement requirement) {
+		return getDegreeCode().startsWith(requirement.getDegreeCodePrefix());
+	}
 }
