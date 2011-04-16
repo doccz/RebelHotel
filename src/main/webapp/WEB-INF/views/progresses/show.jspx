@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_edu_unlv_cs_rebelhotel_domain_Progress" object="${progress}" path="/progresses" z="YX0Iutpja2LH1OfrB40o051aD6g=">
+        <field:display field="degreeCode" id="s_edu_unlv_cs_rebelhotel_domain_Progress_degreeCode" object="${progress}" z="veC/4yFuTgw44zZaAtf4juLDKzo="/>
+        <field:display field="approvedHours" id="s_edu_unlv_cs_rebelhotel_domain_Progress_approvedHours" object="${progress}" z="9WDX5NPzbLG12+2Pq2teM5qNqmY="/>
+        <field:display field="remainingHours" id="s_edu_unlv_cs_rebelhotel_domain_Progress_remainingHours" object="${progress}" z="R+83ir/qCsTPXkoapjsbyKJgRNc="/>
+    <field:display field="generalHours" id="s_edu_unlv_cs_rebelhotel_domain_Progress_generalHours" object="${progress}" z="EDsZfek1iFFP29Q1hozBBgy7bIo="/>
+    </page:show>
+</div>

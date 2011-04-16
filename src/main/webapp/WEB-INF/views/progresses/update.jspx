@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_edu_unlv_cs_rebelhotel_domain_Progress" modelAttribute="progress" path="/progresses" z="LooRf9iMyuJwS7nE4uEbf7VdvJQ=">
+        <field:input field="degreeCode" id="c_edu_unlv_cs_rebelhotel_domain_Progress_degreeCode" z="AczKo3g0IUKfJG5EeIzXvVNVf8g="/>
+        <field:input field="approvedHours" id="c_edu_unlv_cs_rebelhotel_domain_Progress_approvedHours" validationMessageCode="field_invalid_integer" z="mFUe1i1QWFo0AcNnd4lGkalAcIE="/>
+        <field:input field="remainingHours" id="c_edu_unlv_cs_rebelhotel_domain_Progress_remainingHours" validationMessageCode="field_invalid_integer" z="ELeH7ikZ7psZXOOtWPNBFypS++g="/>
+    <field:input field="generalHours" id="c_edu_unlv_cs_rebelhotel_domain_Progress_generalHours" validationMessageCode="field_invalid_integer" z="pC5rDGD1qRX8gu2YELdckTIEMwg="/>
+    </form:update>
+</div>
