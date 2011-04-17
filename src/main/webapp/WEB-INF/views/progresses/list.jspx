@@ -8,6 +8,7 @@
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_Progress_approvedHours" property="approvedHours" z="38y3zotO2D3T8R7lUGJcFJAi6DY="/>
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_Progress_remainingHours" property="remainingHours" z="XAZVxH6uaKXVGeydGLU59laGl0A="/>
         <table:column id="c_edu_unlv_cs_rebelhotel_domain_Progress_generalHours" property="generalHours" z="RPsUtdnn2VmQUjoy7+Q6LiTGsrA="/>
+        <table:column id="c_edu_unlv_cs_rebelhotel_domain_Progress_totalHours" property="totalHours" z="zjW4EgjhiaPESOeyoV0VbiYcr4I="/>
         </table:table>
     </page:list>
 </div>

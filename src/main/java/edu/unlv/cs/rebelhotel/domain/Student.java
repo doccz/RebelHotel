@@ -155,7 +155,7 @@ public class Student {
                 
     public Set<Progress> calculateProgress(){
     	Set<Progress> progressSet = new HashSet<Progress>();    	
-    	for(Major major : getMajors()){
+    	for(Major major : this.getMajors()){
     		Progress progress = new Progress(major,getWorkEffort());
     		progressSet.add(progress);
     	}

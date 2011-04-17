@@ -63,7 +63,7 @@ public class Major {
     public int calculateHoursRemaining(Set<WorkEffort> workHistory){
     	int remainingHours = 0;
     	
-    	int approvedHours = calculateHoursRemaining(workHistory);
+    	int approvedHours = calculateHoursWorked(workHistory);
     	int totalHoursNeeded = findMajorRequiredHours();
     	
     	remainingHours = totalHoursNeeded - approvedHours;
@@ -83,6 +83,7 @@ public class Major {
     }
     
 	public boolean appliesTo(CatalogRequirement requirement) {
-		return getDegreeCode().startsWith(requirement.getDegreeCodePrefix());
+		//return this.getDegreeCode().startsWith(requirement.getDegreeCodePrefix());
+		return this.getDegreeCode().equals(requirement.getDegreeCodePrefix());
 	}
 }

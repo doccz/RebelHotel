@@ -7,6 +7,7 @@
         <field:input field="approvedHours" id="c_edu_unlv_cs_rebelhotel_domain_Progress_approvedHours" validationMessageCode="field_invalid_integer" z="mFUe1i1QWFo0AcNnd4lGkalAcIE="/>
         <field:input field="remainingHours" id="c_edu_unlv_cs_rebelhotel_domain_Progress_remainingHours" validationMessageCode="field_invalid_integer" z="ELeH7ikZ7psZXOOtWPNBFypS++g="/>
     <field:input field="generalHours" id="c_edu_unlv_cs_rebelhotel_domain_Progress_generalHours" validationMessageCode="field_invalid_integer" z="pC5rDGD1qRX8gu2YELdckTIEMwg="/>
+    <field:input field="totalHours" id="c_edu_unlv_cs_rebelhotel_domain_Progress_totalHours" validationMessageCode="field_invalid_integer" z="IxzO2xLqYkXdc7aCbwlo/MRdtV0="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_edu_unlv_cs_rebelhotel_domain_Progress" render="${not empty dependencies}" z="3iRbVEMg8OU61dWcUU/GZwgDRV4="/>
 </div>

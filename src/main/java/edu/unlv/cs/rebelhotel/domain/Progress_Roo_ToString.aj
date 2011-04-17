@@ -12,7 +12,8 @@ privileged aspect Progress_Roo_ToString {
         sb.append("DegreeCode: ").append(getDegreeCode()).append(", ");
         sb.append("ApprovedHours: ").append(getApprovedHours()).append(", ");
         sb.append("RemainingHours: ").append(getRemainingHours()).append(", ");
-        sb.append("GeneralHours: ").append(getGeneralHours());
+        sb.append("GeneralHours: ").append(getGeneralHours()).append(", ");
+        sb.append("TotalHours: ").append(getTotalHours());
         return sb.toString();
     }
     

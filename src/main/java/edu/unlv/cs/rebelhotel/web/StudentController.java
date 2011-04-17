@@ -239,10 +239,6 @@ public class StudentController {
 	public String myProgress(Model model) {	
 	
 		Student student = Student.findStudent(userInformation.getStudent().getId());
-
-		Major major = new Major();
-		major.setDegreeCode("HOSSINBSMS");
-		student.getMajors().add(major);
 		
 		model.addAttribute("student", student);
     	model.addAttribute("majorsList", student.getMajors());

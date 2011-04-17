@@ -18,6 +18,8 @@ public class Progress {
     private Integer remainingHours;
     
     private Integer generalHours;
+    
+    private Integer totalHours;
 
 	public void setDegreeCode(String degreeCode) {
 		this.degreeCode = degreeCode;
@@ -57,8 +59,9 @@ public class Progress {
 	public Progress(Major major, Set<WorkEffort> workHistory) {
 		this.degreeCode = major.getDegreeCode();
 		this.approvedHours = major.calculateHoursWorked(workHistory);
-		this.remainingHours = 0;//major.calculateHoursRemaining(workHistory);
-		this.generalHours = 0;//major.calculateGeneralHours(workHistory);
+		this.remainingHours = major.calculateHoursRemaining(workHistory);
+		this.generalHours = major.calculateGeneralHours(workHistory);
+		this.totalHours = this.getApprovedHours() + this.getGeneralHours();
 	}
 
 	

@@ -28,6 +28,8 @@
         		<table:column property="degreeCode" id="c_edu_unlv_cs_rebelhotel_domain_Progress_degree"></table:column>
         		<table:column property="approvedHours" id="c_edu_unlv_cs_rebelhotel_domain_progress_approvedHours"></table:column>
 				<table:column property="remainingHours" id="c_edu_unlv_cs_rebelhotel_domain_progress_remainingHours"></table:column>
+				<table:column property="generalHours" id="c_edu_unlv_cs_rebelhotel_domain_progress_generalHours"></table:column>
+				<table:column property="totalHours" id="c_edu_unlv_cs_rebelhotel_domain_progress_totalHours"></table:column>
         	</table:table>
         </page:list>
     

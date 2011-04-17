@@ -15,4 +15,12 @@ privileged aspect Progress_Roo_JavaBean {
         this.generalHours = generalHours;
     }
     
+    public Integer Progress.getTotalHours() {
+        return this.totalHours;
+    }
+    
+    public void Progress.setTotalHours(Integer totalHours) {
+        this.totalHours = totalHours;
+    }
+    
 }
