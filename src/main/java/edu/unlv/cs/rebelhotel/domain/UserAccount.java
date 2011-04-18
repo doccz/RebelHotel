@@ -1,6 +1,11 @@
 package edu.unlv.cs.rebelhotel.domain;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -18,54 +23,74 @@ import javax.persistence.EnumType;
 @RooToString
 @RooEntity(finders = { "findUserAccountsByUserId" })
 public class UserAccount {
+	
+	private static final Logger LOG = LoggerFactory.getLogger("audit");
 
-    @NotNull
-    @Column(unique = true)
-    private String userId;
+	@NotNull
+	@Column(unique = true)
+	private String userId;
 
-    private transient MessageDigestPasswordEncoder passwordEncoder;
+	private transient MessageDigestPasswordEncoder passwordEncoder;
 
-    @NotNull
-    private String password;
+	@NotNull
+	private String password;
 
-    @NotNull
-    private String email;
-    
-    @Enumerated(EnumType.STRING)
-    private UserGroup userGroup;
+	@NotNull
+	private String email;
 
-    private Boolean enabled = Boolean.TRUE;
+	@Enumerated(EnumType.STRING)
+	private UserGroup userGroup;
 
-    public UserAccount() {
-    }
-    
-    public UserAccount(FileStudent fileStudent, String password) {
-    	this.userId = fileStudent.getStudentId();
-    	setPassword(password);
-    	this.email = fileStudent.getEmail();
-    	this.userGroup = UserGroup.ROLE_USER;
-    }
-    
-    public UserAccount(Student student, String password, String email) {
-    	this.userId = student.getUserId();
-    	setPassword(password);
-    	this.email = email;
-    	this.userGroup = UserGroup.ROLE_USER;
-    }
-    
-    public void setPassword(String password) {
-        String encoded = passwordEncoder.encodePassword(password, null);
-        this.password = encoded;
-    }
+	private Boolean enabled = Boolean.TRUE;
 
-    public void setPasswordEncoder(MessageDigestPasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
-    
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("UserId: ").append(getUserId()).append(", ");
-        sb.append("UserGroup: ").append(getUserGroup());
-        return sb.toString();
-    }
+	public UserAccount() {
+	}
+
+	public UserAccount(FileStudent fileStudent, String password) {
+		this.userId = fileStudent.getStudentId();
+		setPassword(password);
+		this.email = fileStudent.getEmail();
+		this.userGroup = UserGroup.ROLE_USER;
+	}
+
+	public UserAccount(Student student, String password, String email) {
+		this.userId = student.getUserId();
+		setPassword(password);
+		this.email = email;
+		this.userGroup = UserGroup.ROLE_USER;
+	}
+
+	public void setPassword(String password) {
+		String encoded = passwordEncoder.encodePassword(password, null);
+		this.password = encoded;
+	}
+
+	public void setPasswordEncoder(MessageDigestPasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("UserId: ").append(getUserId()).append(", ");
+		sb.append("UserGroup: ").append(getUserGroup());
+		return sb.toString();
+	}
+
+	//@PrePersist
+	//@PreUpdate
+	public void audit(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		boolean hasAuthentication = (null != authentication);
+		String userName = "";
+		if (hasAuthentication) {
+			Object principal = authentication.getPrincipal();
+			if (principal instanceof UserDetails) {
+				userName = ((UserDetails) principal).getUsername();
+			} else {
+				userName = principal.toString();
+			}
+		}
+
+		LOG.info("User {} updated student {}.", new Object[]{userName, userId});
+	}
 }

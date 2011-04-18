@@ -1,8 +1,14 @@
 package edu.unlv.cs.rebelhotel.domain;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.validation.constraints.NotNull;
 import javax.persistence.Column;
 import javax.validation.constraints.Size;
@@ -34,76 +40,79 @@ import org.springframework.format.annotation.DateTimeFormat;
 @RooEntity(finders = { "findStudentsByFirstNameEquals", "findStudentsByFirstNameLike", "findStudentsByUserAccount", "findStudentsByUserIdEquals" })
 public class Student {
 
-    @NotNull
-    @Column(unique = true)
-    private String userId;
+	private static final Logger LOG = LoggerFactory.getLogger("audit");
 
-    @NotNull
-    @Size(min = 2)
-    private String firstName;
+	@NotNull
+	@Column(unique = true)
+	private String userId;
 
-    private String middleName;
+	@NotNull
+	@Size(min = 2)
+	private String firstName;
 
-    private String lastName;
+	private String middleName;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    private Set<Major> majors = new HashSet<Major>();
+	private String lastName;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Term admitTerm;
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	private Set<Major> majors = new HashSet<Major>();
 
-    @ManyToOne
-    private Term gradTerm;
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	private Term admitTerm;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<WorkEffort> workEffort = new HashSet<WorkEffort>();
+	@ManyToOne
+	private Term gradTerm;
 
-    private Boolean codeOfConductSigned;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(style = "S-")
-    private Date lastModified;
+	@OneToMany(cascade = CascadeType.ALL)
+	private Set<WorkEffort> workEffort = new HashSet<WorkEffort>();
 
-    @OneToOne(optional = false, cascade= { CascadeType.PERSIST, CascadeType.REMOVE } )
-    private UserAccount userAccount;
-    
-    @PreUpdate
-    @PrePersist
-    public void onUpdate() {
-    	lastModified = new Date();
-    }
+	private Boolean codeOfConductSigned;
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("(" + userId + ")");
-        sb.append(" " + firstName);
-        if (lastName != null) {
-            sb.append(" " + lastName);
-        }
-        return sb.toString();
-    }
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(style = "S-")
+	private Date lastModified;
 
-    public void addWorkEffort(WorkEffort we) {
-        workEffort.add(we);
-    }
-    
-    public String getName() {
-    	String name = firstName;
-    	if (lastName != null) {
-    		name += " " + lastName;
-    	}
-    	return name;
-    }
-    
-    public void updateMajors(Set<Major> newMajors){
-    	if (isNewStudent()) {
-    		addMajors(newMajors);
-    	} else {
-    		updateMajorsAsExistingStudent(newMajors);
-    	}
-    }
-    
-    private void updateMajorsAsExistingStudent(Set<Major> newMajors) {
+	@OneToOne(optional = false, cascade= { CascadeType.PERSIST, CascadeType.REMOVE } )
+	private UserAccount userAccount;
+
+	@PreUpdate
+	@PrePersist
+	public void onUpdate() {
+		audit();
+		lastModified = new Date();
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("(" + userId + ")");
+		sb.append(" " + firstName);
+		if (lastName != null) {
+			sb.append(" " + lastName);
+		}
+		return sb.toString();
+	}
+
+	public void addWorkEffort(WorkEffort we) {
+		workEffort.add(we);
+	}
+
+	public String getName() {
+		String name = firstName;
+		if (lastName != null) {
+			name += " " + lastName;
+		}
+		return name;
+	}
+
+	public void updateMajors(Set<Major> newMajors){
+		if (isNewStudent()) {
+			addMajors(newMajors);
+		} else {
+			updateMajorsAsExistingStudent(newMajors);
+		}
+	}
+
+	private void updateMajorsAsExistingStudent(Set<Major> newMajors) {
 		for (Major newMajor : newMajors) {
 			if (!hasDeclaredMajor(newMajor)) {
 				addMajor(newMajor);
@@ -124,32 +133,49 @@ public class Student {
 	}
 
 	/**
-     * If the student has an empty set of majors, that means they are new to the system.
-     * 
-     * @return
-     */
-    @Transient
+	 * If the student has an empty set of majors, that means they are new to the system.
+	 * 
+	 * @return
+	 */
+	@Transient
 	public boolean isNewStudent() {
 		return this.majors.isEmpty();
 	}
-    
-    public String getEmail() {
-    	return userAccount.getEmail();
-    }
-    
-    public void setEmail(String email) {
-    	userAccount.setEmail(email);
-    	userAccount.merge();
-    }
-    
-    public void copyFromFormStudent(FormStudent formStudent) {
-    	setUserId(formStudent.getUserId());
-    	setEmail(formStudent.getEmail());
-    	setFirstName(formStudent.getFirstName());
-    	setMiddleName(formStudent.getMiddleName());
-    	setLastName(formStudent.getLastName());
-    	setAdmitTerm(formStudent.getAdmitTerm());
-    	setGradTerm(formStudent.getGradTerm());
-    	setCodeOfConductSigned(formStudent.getCodeOfConductSigned());
-    }
+
+	public String getEmail() {
+		return userAccount.getEmail();
+	}
+
+	public void setEmail(String email) {
+		userAccount.setEmail(email);
+		userAccount.merge();
+	}
+
+	public void copyFromFormStudent(FormStudent formStudent) {
+		setUserId(formStudent.getUserId());
+		setEmail(formStudent.getEmail());
+		setFirstName(formStudent.getFirstName());
+		setMiddleName(formStudent.getMiddleName());
+		setLastName(formStudent.getLastName());
+		setAdmitTerm(formStudent.getAdmitTerm());
+		setGradTerm(formStudent.getGradTerm());
+		setCodeOfConductSigned(formStudent.getCodeOfConductSigned());
+	}
+//@PrePersist
+//@PreUpdate
+	public void audit(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		boolean hasAuthentication = (null != authentication);
+		String userName = "";
+		if (hasAuthentication) {
+			Object principal = authentication.getPrincipal();
+			if (principal instanceof UserDetails) {
+				userName = ((UserDetails) principal).getUsername();
+			} else {
+				userName = principal.toString();
+			}
+		}
+
+		LOG.info("User {} updated student {}.", new Object[]{userName, userId});
+	}
 }
