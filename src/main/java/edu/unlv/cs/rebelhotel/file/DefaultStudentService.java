@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StopWatch;
 
 import java.io.FileReader;
 import java.util.Collections;
@@ -40,8 +41,10 @@ public class DefaultStudentService implements StudentService{
 	@Async
 	@Transactional
 	public void upload(FileUpload fileUpload) {
+		StopWatch watch = new StopWatch();
+		watch.start();
 		fileUpload.beginExecution();
-		LOG.info("File upload began at: " + fileUpload.getStartOfExecution().toString());
+		LOG.error("File upload began at: " + fileUpload.getStartOfExecution().toString());
 		try {
 			List<List<String>> contents = Collections.emptyList();
 			contents = lexer.tokenize(new FileReader(fileUpload.getFile()));
@@ -54,9 +57,11 @@ public class DefaultStudentService implements StudentService{
 				student.upsert();
 			}
 		} catch(Exception e){
-			LOG.error("Could not upload student file.", e);
-			fileUpload.setMessage("Upload FAILED." + e.getMessage());
+			StringBuilder sb = new StringBuilder();
+			sb.append("Upload FAILED.\n").append(e.getMessage());
+			fileUpload.setMessage(sb.toString());
 			fileUpload.setSuccessful(false);
+			LOG.error("Could not upload student file.", e);
 			throw new FileUploadException("Could not upload student file.",e);
 		} finally {
 			fileUpload.endExecution();
@@ -64,7 +69,13 @@ public class DefaultStudentService implements StudentService{
 				fileUpload.setMessage(FileUploadStatus.SUCCESSFUL.toString());
 			}
 			fileUpload.persist();
-			LOG.info("File upload ended at: " + fileUpload.getEndOfExecution().toString());
+			LOG.error("File upload ended at: " + fileUpload.getEndOfExecution().toString());
+			watch.stop();
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("Seconds: ").append(watch.getTotalTimeSeconds()).append("\n").
+			append("Short summary: ").append(watch.shortSummary());
+			LOG.error("Took this long... " + sb.toString());
 		}
 	}
 }

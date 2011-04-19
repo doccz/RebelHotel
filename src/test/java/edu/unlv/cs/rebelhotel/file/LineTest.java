@@ -22,7 +22,7 @@ public class LineTest {
 	private static final String INVALID_CENTURY = "1000011622,Holmes,Katherine,Marilyn,HOLMESK4@UNLV.NEVADA.EDU,HOSBSHA,3048, , , , ,2048, ";
 	private static final Logger LOG = Logger.getLogger(LineTest.class);
 	
-	/*@Test(expected=InvalidLineException.class)
+	@Test(expected=InvalidLineException.class)
 	public void shouldFailIfGivenIncorrectSize() {
 		int lineNumber = 1;
 		List<String> tokens = new ArrayList<String>();
@@ -59,5 +59,5 @@ public class LineTest {
 		int lineNumber = 1;
 		List<String> tokens = Arrays.asList(line.split(","));
 		return new Line(tokens,lineNumber);
-	}*/
+	}
 }

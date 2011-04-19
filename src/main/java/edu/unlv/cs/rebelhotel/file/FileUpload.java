@@ -28,11 +28,9 @@ public class FileUpload {
 	private Boolean successful = Boolean.TRUE;
 	
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(style = "S-")
 	private Date startOfExecution;
 	
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(style = "S-")
 	private Date endOfExecution;
 
     public FileUpload(){}

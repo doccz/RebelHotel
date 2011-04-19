@@ -76,10 +76,15 @@
         </security:authorize>
     <menu:category id="c_controller" z="nj8Dm3hojIyIEyPkwE1UMDIs+K8=">
             <menu:item id="i_controller__catalogrequirementindex_id" messageCode="global_generic" url="/catalogrequirement/index" z="uqtydX+4SJe/aP51FPUdI/aHJvk="/>
+        <menu:item id="i_controller__fileuploadindex_id" messageCode="global_generic" url="/fileupload/index" z="vdOsEfQD0I2vobhaaTpXtJ72gYw="/>
         </menu:category>
     <menu:category id="c_catalogrequirement" z="ho/exCiE0c7JCs0Cimmsrjf7w+c=">
             <menu:item id="i_catalogrequirement_new" messageCode="global_menu_new" url="/catalogrequirements?form" z="DTOPNfuJCl0dorRJoFQLrZQBN6A="/>
         <menu:item id="i_catalogrequirement_list" messageCode="global_menu_list" url="/catalogrequirements?page=1&amp;size=${empty param.size ? 10 : param.size}" z="/m393zLhMg4a2R8WGTnw5sDZ63k="/>
+        </menu:category>
+    <menu:category id="c_fileupload" z="3NqI1ksIi54O/syzntkI7opX5zc=">
+            <menu:item id="i_fileupload_new" messageCode="global_menu_new" url="/fileuploads?form" z="tU2MzkKv1JYkTjGmlvJDWD9oqbs="/>
+        <menu:item id="i_fileupload_list" messageCode="global_menu_list" url="/fileuploads?page=1&amp;size=${empty param.size ? 10 : param.size}" z="e+tXoLgWj8y0XyIesueyPIlsitM="/>
         </menu:category>
     </menu:menu>
 </div>

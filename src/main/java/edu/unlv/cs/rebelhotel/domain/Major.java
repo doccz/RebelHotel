@@ -39,6 +39,6 @@ public class Major {
     
     @PrePersist
     public void createNewMajor() {
-		LOG.debug("Created a new major: " + toString() + ", " + catalogTerm.toString());
+		//LOG.debug("Created a new major: " + toString() + ", " + catalogTerm.toString());
     }
 }
