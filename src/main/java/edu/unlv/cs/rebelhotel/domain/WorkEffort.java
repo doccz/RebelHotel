@@ -426,6 +426,6 @@ public class WorkEffort {
 		}
 		String studentId = student.getUserId();
 
-		LOG.info("User {} updated work effort {} for student {}.", new Object[]{userName, this.toString(), studentId});
+		LOG.info("User {} updated job {} for student {}.", new Object[]{userName, getWorkPosition(), studentId});
 	}
 }
