@@ -510,3 +510,7 @@ ERROR http-8080-1 edu.unlv.cs.rebelhotel.file.DefaultStudentService - File uploa
 ERROR http-8080-1 edu.unlv.cs.rebelhotel.file.DefaultStudentService - File upload ended at: Mon Apr 18 21:09:18 PDT 2011
 ERROR http-8080-1 edu.unlv.cs.rebelhotel.file.DefaultStudentService - Took this long... Seconds: 140.922
 Short summary: StopWatch '': running time (millis) = 140922
+ERROR http-8080-1 edu.unlv.cs.rebelhotel.file.DefaultStudentService - File upload began at: Mon Apr 18 21:13:10 PDT 2011
+ERROR http-8080-1 edu.unlv.cs.rebelhotel.file.DefaultStudentService - File upload ended at: Mon Apr 18 21:15:24 PDT 2011
+ERROR http-8080-1 edu.unlv.cs.rebelhotel.file.DefaultStudentService - Took this long... Seconds: 133.797
+Short summary: StopWatch '': running time (millis) = 133797

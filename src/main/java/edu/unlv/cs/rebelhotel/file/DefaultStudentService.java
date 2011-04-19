@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StopWatch;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -39,23 +41,13 @@ public class DefaultStudentService implements StudentService{
 	}
 	
 	@Async
-	@Transactional
 	public void upload(FileUpload fileUpload) {
 		StopWatch watch = new StopWatch();
 		watch.start();
 		fileUpload.beginExecution();
 		LOG.error("File upload began at: " + fileUpload.getStartOfExecution().toString());
 		try {
-			List<List<String>> contents = Collections.emptyList();
-			contents = lexer.tokenize(new FileReader(fileUpload.getFile()));
-			
-			Set<FileStudent> fileStudents = parser.parse(contents);
-			
-			for (FileStudent each : fileStudents) {
-				Student student = studentMapper.findOrReplace(each);
-				student.setUserId(each.getStudentId());
-				student.upsert();
-			}
+			fileToStudents(fileUpload);
 		} catch(Exception e){
 			StringBuilder sb = new StringBuilder();
 			sb.append("Upload FAILED.\n").append(e.getMessage());
@@ -76,6 +68,21 @@ public class DefaultStudentService implements StudentService{
 			sb.append("Seconds: ").append(watch.getTotalTimeSeconds()).append("\n").
 			append("Short summary: ").append(watch.shortSummary());
 			LOG.error("Took this long... " + sb.toString());
+		}
+	}
+
+	@Transactional
+	private void fileToStudents(FileUpload fileUpload) throws IOException,
+			FileNotFoundException {
+		List<List<String>> contents = Collections.emptyList();
+		contents = lexer.tokenize(new FileReader(fileUpload.getFile()));
+		
+		Set<FileStudent> fileStudents = parser.parse(contents);
+		
+		for (FileStudent each : fileStudents) {
+			Student student = studentMapper.findOrReplace(each);
+			student.setUserId(each.getStudentId());
+			student.upsert();
 		}
 	}
 }
