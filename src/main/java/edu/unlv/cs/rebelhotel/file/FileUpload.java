@@ -23,14 +23,16 @@ public class FileUpload {
 	
 	// this will probably contain a general message
 	// and then record/line at which the error occurred.
-	private String message = FileUploadStatus.IN_PROGRESS.toString();
+	private String message = FileUploadStatus.PENDING.toString();
 
 	private Boolean successful = Boolean.TRUE;
 	
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(style="S-")
 	private Date startOfExecution;
 	
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(style="S-")
 	private Date endOfExecution;
 
     public FileUpload(){}

@@ -75,6 +75,7 @@
 				<prop key=".TypeMismatchException">resourceNotFound</prop>
 				<prop key=".MissingServletRequestParameterException">resourceNotFound</prop>
 				<prop key = "org.springframework.security.access.AccessDeniedException">accessDenied</prop>
+				<prop key = "edu.unlv.cs.rebelhotel.file.FileUploadException">redirect:/fileuploads</prop>
 			</props>
 		</property>
 	</bean>

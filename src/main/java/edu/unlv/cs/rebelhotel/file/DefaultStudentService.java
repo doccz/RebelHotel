@@ -45,12 +45,13 @@ public class DefaultStudentService implements StudentService{
 		StopWatch watch = new StopWatch();
 		watch.start();
 		fileUpload.beginExecution();
+		fileUpload.persist();
 		LOG.error("File upload began at: " + fileUpload.getStartOfExecution().toString());
 		try {
 			fileToStudents(fileUpload);
 		} catch(Exception e){
 			StringBuilder sb = new StringBuilder();
-			sb.append("Upload FAILED.\n").append(e.getMessage());
+			sb.append(FileUploadStatus.FAILED.toString()).append(" ").append(e.getMessage());
 			fileUpload.setMessage(sb.toString());
 			fileUpload.setSuccessful(false);
 			LOG.error("Could not upload student file.", e);
@@ -60,7 +61,7 @@ public class DefaultStudentService implements StudentService{
 			if (fileUpload.getSuccessful()) {
 				fileUpload.setMessage(FileUploadStatus.SUCCESSFUL.toString());
 			}
-			fileUpload.persist();
+			fileUpload.merge();
 			LOG.error("File upload ended at: " + fileUpload.getEndOfExecution().toString());
 			watch.stop();
 			
