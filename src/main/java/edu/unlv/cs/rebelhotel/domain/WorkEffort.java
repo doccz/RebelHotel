@@ -93,10 +93,20 @@ public class WorkEffort {
 		return applicableRequirement && accepted && (validated || validation);
 	}
 
+	/**
+	 * Returns true if this job is NOT selected for random validation
+	 * @return
+	 */
 	private boolean hasValidation() {
 		return this.validation.equals(Validation.NO_VALIDATION);
 	}
 	
+	/**
+	 * This method returns true if this job satisfies the catalog requirement
+	 * of a given major. Returns false otherwise
+	 * @param major
+	 * @return
+	 */
 	private boolean hasApplicableCatalogRequirement(Major major){
 		boolean isApplicable = false;
 		

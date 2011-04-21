@@ -16,7 +16,7 @@
     </page:show>
 
 		<page:list items="${majorsList}" id="ps_edu_unlv_cs_rebelhotel_domain_Major" z="?">
-			<table:table id="l_edu_unlv_cs_rebelhotel_domain_Major" data="${majorsList}" path="/students" create="false" update="false" delete="false" z="?">
+			<table:table id="l_edu_unlv_cs_rebelhotel_domain_Major" data="${majorsList}" path="/students" create="false" update="false" delete="false" show="false" z="?">
 				<table:column property="degreeCode" id="c_edu_unlv_cs_rebelhotel_domain_Major_degree" z="?"></table:column>
 				<table:column property="catalogTerm" id="c_edu_unlv_cs_rebelhotel_domain_Major_catalogTerm" z="?"></table:column>
 				<table:column property="reachedMilestone" id="c_edu_unlv_cs_rebelhotel_domain_Major_reachedMilestone" z="?"></table:column>
@@ -24,11 +24,10 @@
 		</page:list>
 		
         <page:list items="${progressList}" id="ps_edu_unlv_cs_rebelhotel_domain_Progress">
-        	<table:table id="l_edu_unlv_cs_rebelhotel_domain_Progress" data="${progressList}" path="/students">
+        	<table:table id="l_edu_unlv_cs_rebelhotel_domain_Progress" data="${progressList}" path="/students" update="false" create="false" delete="false" show="false">
         		<table:column property="degreeCode" id="c_edu_unlv_cs_rebelhotel_domain_Progress_degree"></table:column>
         		<table:column property="approvedHours" id="c_edu_unlv_cs_rebelhotel_domain_progress_approvedHours"></table:column>
 				<table:column property="remainingHours" id="c_edu_unlv_cs_rebelhotel_domain_progress_remainingHours"></table:column>
-				<table:column property="generalHours" id="c_edu_unlv_cs_rebelhotel_domain_progress_generalHours"></table:column>
 				<table:column property="totalHours" id="c_edu_unlv_cs_rebelhotel_domain_progress_totalHours"></table:column>
         	</table:table>
         </page:list>

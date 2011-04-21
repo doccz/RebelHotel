@@ -7,14 +7,6 @@ import java.lang.Integer;
 
 privileged aspect Progress_Roo_JavaBean {
     
-    public Integer Progress.getGeneralHours() {
-        return this.generalHours;
-    }
-    
-    public void Progress.setGeneralHours(Integer generalHours) {
-        this.generalHours = generalHours;
-    }
-    
     public Integer Progress.getTotalHours() {
         return this.totalHours;
     }

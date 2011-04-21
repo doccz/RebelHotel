@@ -152,11 +152,17 @@ public class Student {
 	public boolean isNewStudent() {
 		return this.majors.isEmpty();
 	}
-                
+    
+    /**
+     * This method creates a list of progress reports for each
+     * of a given student's majors and returns this list as a
+     * java set.
+     * @return
+     */
     public Set<Progress> calculateProgress(){
     	Set<Progress> progressSet = new HashSet<Progress>();    	
     	for(Major major : this.getMajors()){
-    		Progress progress = new Progress(major,getWorkEffort());
+    		Progress progress = new Progress(major,this.getWorkEffort());
     		progressSet.add(progress);
     	}
     	

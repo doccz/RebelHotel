@@ -10,9 +10,8 @@ privileged aspect Progress_Roo_ToString {
     public String Progress.toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("DegreeCode: ").append(getDegreeCode()).append(", ");
-        sb.append("ApprovedHours: ").append(getApprovedHours()).append(", ");
+        sb.append("RelatedHours: ").append(getRelatedHours()).append(", ");
         sb.append("RemainingHours: ").append(getRemainingHours()).append(", ");
-        sb.append("GeneralHours: ").append(getGeneralHours()).append(", ");
         sb.append("TotalHours: ").append(getTotalHours());
         return sb.toString();
     }

@@ -49,7 +49,6 @@ public class UserAccount {
     public UserAccount(Student student, String password) {
     	this.userId = student.getUserId();
     	this.password = password;
-    	//this.email = student.getEmail();
     	this.userGroup = UserGroup.ROLE_USER;
     }
     

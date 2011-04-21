@@ -9,6 +9,7 @@
   <jsp:directive.attribute name="create" type="java.lang.Boolean" required="false" description="Include 'create' link into table (default true)" />
   <jsp:directive.attribute name="update" type="java.lang.Boolean" required="false" description="Include 'update' link into table (default true)" />
   <jsp:directive.attribute name="delete" type="java.lang.Boolean" required="false" description="Include 'delete' link into table (default true)" />
+  <jsp:directive.attribute name="show" type="java.lang.Boolean" required="false" description="Include 'show' link into table (default true)" />
   <jsp:directive.attribute name="render" type="java.lang.Boolean" required="false" description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
   <jsp:directive.attribute name="z" type="java.lang.String" required="false" description="Used for checking if element has been modified (to recalculate simply provide empty string value)" />
 
@@ -31,6 +32,10 @@
     <c:if test="${empty delete}">
       <c:set var="delete" value="true" />
     </c:if>
+    
+    <c:if test="${empty show}">
+      <c:set var="show" value="true" />
+    </c:if>    
 
     <c:set var="typeName" value="${fn:split(id,'_')[fn:length(fn:split(id,'_')) - 1]}" />
     <c:set var="lengths" value="${fn:split(columnMaxLengths, ',')}" scope="request" />
@@ -68,6 +73,7 @@
               </c:choose>
             </td>
           </c:forTokens>
+          <c:if test="${show}">          
           <td>
             <spring:url value="${path}/${item[typeIdFieldName]}" var="show_form_url" />
             <spring:url value="/resources/images/show.png" var="show_image_url" />
@@ -76,6 +82,7 @@
               <img alt="${fn:escapeXml(show_label)}" class="image" src="${fn:escapeXml(show_image_url)}" title="${fn:escapeXml(show_label)}" />
             </a>
           </td>
+          </c:if>          
           <c:if test="${update}">
             <td>
               <spring:url value="${path}/${item[typeIdFieldName]}" var="update_form_url">

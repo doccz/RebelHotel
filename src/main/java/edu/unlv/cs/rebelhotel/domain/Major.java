@@ -21,69 +21,104 @@ public class Major {
 
 	@ManyToOne
 	private Term catalogTerm;
-	
+
 	@Deprecated
 	private boolean completed_work_requirements = false;
-	
-	public Major(){}
-	
+
+	public Major() {
+	}
+
 	public Major(String degreeCode, Term catalogTerm) {
 		this.degreeCode = degreeCode;
 		this.catalogTerm = catalogTerm;
 		this.reachedMilestone = false;
 	}
-	
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getDegreeCode()).append(", ");
-        return sb.toString();
-    }
-    
-    public int calculateHoursWorked(Set<WorkEffort> workHistory){
-    	int sum = 0;
-    	for(WorkEffort job : workHistory){
-    		if(job.isApplicable(this)){
-    			sum+=job.getDuration().getHours();
-    		}
-    	}
-    	return sum;
-    }
 
-	public int findMajorRequiredHours(){
-    	int hoursNeeded = 0;
-    	Set<CatalogRequirement> requirements = new HashSet<CatalogRequirement>(CatalogRequirement.findAllCatalogRequirements());
-    	for(CatalogRequirement requirement : requirements){
-    		if(this.appliesTo(requirement)){
-    			hoursNeeded = requirement.getTotalHoursNeeded();
-    		}
-    	}
-    	return hoursNeeded;
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getDegreeCode()).append(", ");
+		return sb.toString();
 	}
-	
-    public int calculateHoursRemaining(Set<WorkEffort> workHistory){
-    	int remainingHours = 0;
-    	
-    	int approvedHours = calculateHoursWorked(workHistory);
-    	int totalHoursNeeded = findMajorRequiredHours();
-    	
-    	remainingHours = totalHoursNeeded - approvedHours;
-    	
-    	return remainingHours;	
-    }
-    
-    public int calculateGeneralHours(Set<WorkEffort> workHistory){
-    	int sum = 0;
-    	for(WorkEffort job : workHistory){
-    		if(!job.isApplicable(this)){
-    			sum+=job.getDuration().getHours();
-    		}
-    	}
-    	
-    	return sum;
-    }
-    
+
+	/**
+	 * If a job is related to a major, the hours worked in that job
+	 * count towards related hours worked for that major.
+	 * @param workHistory
+	 * @return
+	 */
+	public int calculateRelatedHoursWorked(Set<WorkEffort> workHistory) {
+		int sum = 0;
+		for (WorkEffort job : workHistory) {
+			if (job.isApplicable(this)) {
+				sum += job.getDuration().getHours();
+			}
+		}
+		return sum;
+	}
+
+	/**
+	 * This method searches through the existing catalog requirements to find
+	 * the hours needed to complete for this major
+	 * @return
+	 */
+	public int findMajorRequiredHours() {
+		int hoursNeeded = 0;
+		Set<CatalogRequirement> requirements = new HashSet<CatalogRequirement>(
+				CatalogRequirement.findAllCatalogRequirements());
+		for (CatalogRequirement requirement : requirements) {
+			if (this.appliesTo(requirement)) {
+				hoursNeeded = Math.max(requirement.getTotalRelatedHoursNeeded(),
+						hoursNeeded);
+			}
+		}
+		return hoursNeeded;
+	}
+
+	/**
+	 * The work hours remaining in order to complete a major. It is the
+	 * difference between the approved hours for that major and catalog
+	 * requirement hours
+	 * 
+	 * @param workHistory
+	 * @return remaining hours for the major
+	 */
+	public int calculateHoursRemaining(Set<WorkEffort> workHistory) {
+		int remainingHours = 0;
+
+		int approvedHours = calculateRelatedHoursWorked(workHistory);
+		int totalHoursNeeded = findMajorRequiredHours();
+
+		remainingHours = totalHoursNeeded - approvedHours;
+
+		return remainingHours;
+	}
+
+	/**
+	 * This method adds up all the hours worked by a given student
+	 * in the jobs and counts it towards total hours worked. 
+	 * @param workHistory
+	 * @return
+	 */
+	public int calculateTotalHours(Set<WorkEffort> workHistory){
+		int totalHours = 0;
+		for (WorkEffort job : workHistory) {
+				totalHours += job.getDuration().getHours();
+		}
+
+		return totalHours;
+	}
+
+	/**
+	 * This method returns true if a catalog requirement applies to this major.
+	 * False otherwise
+	 * 
+	 * @param requirement
+	 * @return
+	 */
 	public boolean appliesTo(CatalogRequirement requirement) {
-		//return this.getDegreeCode().startsWith(requirement.getDegreeCodePrefix());
-		return this.getDegreeCode().equals(requirement.getDegreeCodePrefix());
+		return this.getDegreeCode().startsWith(
+				requirement.getDegreeCodePrefix())
+				&& catalogTerm.isBetween(requirement.getStartTerm(),
+						requirement.getEndTerm());
 	}
 }
