@@ -33,6 +33,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -166,6 +167,15 @@ public class StudentController {
 		}
 		return properties;
 	}
+	
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String show(@PathVariable("id") Long id, Model model) {
+        addDateTimeFormatPatterns(model);
+        model.addAttribute("student", Student.findStudent(id));
+        model.addAttribute("itemId", id);
+        model.addAttribute("progressList", Student.findStudent(id).calculateProgress());
+        return "students/show";
+    }
 	
 	@RequestMapping(params = "query", method = RequestMethod.POST)
 	public String queryList(@Valid FormStudentQuery form, BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {

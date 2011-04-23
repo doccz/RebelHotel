@@ -149,7 +149,7 @@ public class WorkEffortController {
 	}*/
 	
 	
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_STUDENT')")
 	@RequestMapping(params = "mywork", method = RequestMethod.GET)
 	public String listPersonalWork(Model model) {
 		model.addAttribute("str", "A list to contain your completed jobs");

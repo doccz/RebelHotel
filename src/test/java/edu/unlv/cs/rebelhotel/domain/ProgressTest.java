@@ -44,7 +44,6 @@ public class ProgressTest {
 	
 	@Before
 	public void setup(){
-		//instance = new Progress();
 		
 		major = new Major();
 		major.setDegreeCode(DEGREE_CODE);

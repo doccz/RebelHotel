@@ -45,14 +45,6 @@ privileged aspect StudentController_Roo_Controller {
         return "students/create";
     }
     
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String StudentController.show(@PathVariable("id") Long id, Model model) {
-        addDateTimeFormatPatterns(model);
-        model.addAttribute("student", Student.findStudent(id));
-        model.addAttribute("itemId", id);
-        return "students/show";
-    }
-    
     @RequestMapping(method = RequestMethod.GET)
     public String StudentController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
         if (page != null || size != null) {

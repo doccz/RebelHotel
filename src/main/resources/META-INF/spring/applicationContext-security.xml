@@ -36,8 +36,6 @@
         <intercept-url pattern="/resources/**" access="permitAll" />
         <intercept-url pattern="/workefforts" access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER','ROLE_USER','ROLE_STUDENT')"/>
         <intercept-url pattern="/students" access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER','ROLE_USER','ROLE_STUDENT')"/>
-
-        <intercept-url pattern="/students?myprogress" access="hasAnyRole('ROLE_STUDENT')"/>
         <intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER','ROLE_ADMIN','ROLE_SUPERUSER','ROLE_STUDENT')" />
         <intercept-url pattern="/login" access="permitAll"/>
         <intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER','ROLE_STUDENT')" />
