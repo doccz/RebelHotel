@@ -126,14 +126,7 @@ public class Line {
 
 	private Major makeMajor(String amajor, String aterm) {
 		Term term = createOrFindTerm(aterm);
-		Major major;
-		try {
-			major = Major.findMajorsByDegreeCodeAndCatalogTerm(amajor, term).getSingleResult();
-			return major;
-		} catch (EmptyResultDataAccessException e) {
-			major = new Major(amajor,term);
-			major.persist();
-		}
+		Major major = new Major(amajor,term);
 		return major;
 	}
 }

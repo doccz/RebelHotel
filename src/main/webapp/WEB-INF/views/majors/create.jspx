@@ -10,6 +10,8 @@
     
     
     <field:input field="degreeCode" id="c_edu_unlv_cs_rebelhotel_domain_Major_degreeCode" required="true" z="LrEUQ7pLt7e0xD/4MLmY7/F6DAE="/>
+    <field:select field="student" id="c_edu_unlv_cs_rebelhotel_domain_Major_student" itemValue="id" items="${students}" path="/students" required="true" z="Vxdc+zA7Z+Cic2XzjWZ/h+gHSaA="/>
+        <field:checkbox field="reachedMilestone" id="c_edu_unlv_cs_rebelhotel_domain_Major_reachedMilestone" z="bu4iCSmnMX8F2S83eopoiWp2gqw="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_edu_unlv_cs_rebelhotel_domain_Major" render="${not empty dependencies}" z="JlPPZi0H8V4blsOH6MLrquC7XRA="/>
 </div>

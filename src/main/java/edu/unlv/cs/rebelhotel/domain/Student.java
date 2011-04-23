@@ -44,7 +44,7 @@ public class Student {
 
     private String lastName;
 
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @OneToMany(cascade = {CascadeType.ALL})
     private Set<Major> majors = new HashSet<Major>();
 
     @ManyToOne(cascade = {CascadeType.MERGE})
@@ -108,11 +108,28 @@ public class Student {
     }
     
     private void updateMajorsAsExistingStudent(Set<Major> newMajors) {
+    	Set<Major> oldMajors = getMajors();
+    	Set<Major> stillDeclaredMajors = new HashSet<Major>();
+    	for (Major oldMajor : oldMajors) {
+    		if (stillDeclaredMajor(oldMajor,newMajors)){
+    			stillDeclaredMajors.add(oldMajor);
+    		}
+    	}
+    	setMajors(stillDeclaredMajors);
+    	
 		for (Major newMajor : newMajors) {
 			if (!hasDeclaredMajor(newMajor)) {
 				addMajor(newMajor);
 			}
 		}
+	}
+
+	private void removeMajor(Major oldMajor) {
+		getMajors().remove(oldMajor);
+	}
+
+	private boolean stillDeclaredMajor(Major oldMajor, Set<Major> newMajors) {
+		return newMajors.contains(oldMajor);
 	}
 
 	private boolean hasDeclaredMajor(Major newMajor) {

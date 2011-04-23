@@ -11,6 +11,8 @@
         
         
         <table:column id="c_edu_unlv_cs_rebelhotel_domain_Major_degreeCode" property="degreeCode" z="kDDCTtIrK1bCDtDRRMOTMoV9TAE="/>
+        <table:column id="c_edu_unlv_cs_rebelhotel_domain_Major_student" property="student" z="hFLmtWJF58A3jq49LT4GtJTOgls="/>
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_Major_reachedMilestone" property="reachedMilestone" z="kWru6OrCZUB5eiEkHllUX0WCE+E="/>
         </table:table>
     </page:list>
 </div>

@@ -23,6 +23,12 @@ public class Major {
 
 	@ManyToOne(cascade = {CascadeType.MERGE})
     private Term catalogTerm;
+	
+    @NotNull
+    @ManyToOne
+    private Student student;
+    
+    private boolean reachedMilestone = Boolean.FALSE;
 
 	public Major(){}
 

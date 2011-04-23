@@ -4,12 +4,15 @@
 package edu.unlv.cs.rebelhotel.web;
 
 import edu.unlv.cs.rebelhotel.domain.Major;
+import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.Term;
 import java.io.UnsupportedEncodingException;
 import java.lang.Integer;
 import java.lang.Long;
 import java.lang.String;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.ui.Model;
@@ -37,6 +40,11 @@ privileged aspect MajorController_Roo_Controller {
     @RequestMapping(params = "form", method = RequestMethod.GET)
     public String MajorController.createForm(Model model) {
         model.addAttribute("major", new Major());
+        List dependencies = new ArrayList();
+        if (Student.countStudents() == 0) {
+            dependencies.add(new String[]{"student", "students"});
+        }
+        model.addAttribute("dependencies", dependencies);
         return "majors/create";
     }
     
@@ -94,6 +102,11 @@ privileged aspect MajorController_Roo_Controller {
     public String MajorController.findMajorsByDegreeCodeAndCatalogTerm(@RequestParam("degreeCode") String degreeCode, @RequestParam("catalogTerm") Term catalogTerm, Model model) {
         model.addAttribute("majors", Major.findMajorsByDegreeCodeAndCatalogTerm(degreeCode, catalogTerm).getResultList());
         return "majors/list";
+    }
+    
+    @ModelAttribute("students")
+    public Collection<Student> MajorController.populateStudents() {
+        return Student.findAllStudents();
     }
     
     @ModelAttribute("terms")
