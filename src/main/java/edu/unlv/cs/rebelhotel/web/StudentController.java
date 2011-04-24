@@ -16,9 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.hibernate.Hibernate;
 import org.joda.time.format.DateTimeFormat;
 
 import edu.unlv.cs.rebelhotel.domain.CatalogRequirement;
+import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
 import edu.unlv.cs.rebelhotel.domain.enums.Semester;
@@ -86,16 +88,6 @@ public class StudentController {
 	@ModelAttribute("query_semesters")
     public Collection<Semester> populateQuerySemesters() {
         return Arrays.asList(Semester.class.getEnumConstants());
-    }
-	
-	@ModelAttribute("degree")
-    public Collection<String> populateDegree() {
-        Set<String> degrees = new HashSet<String>();
-        Collection<CatalogRequirement> crs = CatalogRequirement.findAllCatalogRequirements();
-        for (CatalogRequirement cr : crs) {
-        	degrees.add(cr.getDegreeCodePrefix());
-        }
-        return degrees;
     }
 	
 	@ModelAttribute("validations")
@@ -268,12 +260,11 @@ public class StudentController {
 		}
 		
 		List<Object> queryResult;
-		if (page != null || size != null) {
+		if ((page != null || size != null) && !form.getOutputCsv()) {
             int sizeNo = size == null ? 10 : size.intValue();
-            model.addAttribute("students", Student.findStudentEntries(page == null ? 0 : (page.intValue() - 1) * sizeNo, sizeNo));
             float nrOfPages = (float) Student.countStudents() / sizeNo;
             model.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
-            queryResult = studentQueryService.queryStudentsLimited(form, sorting, (page.intValue() - 1) * sizeNo, sizeNo);
+            queryResult = studentQueryService.queryStudents(form, sorting, (page.intValue() - 1) * sizeNo, sizeNo);
 		}
 		else {
 			queryResult = studentQueryService.queryStudents(form, sorting);
@@ -306,6 +297,7 @@ public class StudentController {
 					queryString += queryStringArray[i];
 				}
 			}
+			
 			model.addAttribute("sortId", sorting);
 			model.addAttribute("queryString", queryString);
 			model.addAttribute("counted", resultCount);

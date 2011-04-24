@@ -5,10 +5,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -30,6 +33,7 @@ import org.springframework.stereotype.Service;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
+import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
 import edu.unlv.cs.rebelhotel.domain.enums.Verification;
@@ -40,206 +44,11 @@ import edu.unlv.cs.rebelhotel.web.StudentController;
 public class StudentQueryService {	
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPERUSER'")
 	public List<Object> queryStudents(FormStudentQuery formStudentQuery, String sorting) throws Exception {
-DetachedCriteria search = DetachedCriteria.forClass(Student.class, "oq"); // aliased oq ("outer query"); obviously the iqs are inner queries
-		
-		if (formStudentQuery.getUseUserId()) {
-			search.add(Restrictions.eq("userId", formStudentQuery.getUserId()));
-		}
-		if (formStudentQuery.getUseModified()) {
-			search.add(Restrictions.between("lastModified", formStudentQuery.getLastModifiedStart(), formStudentQuery.getLastModifiedEnd()));
-		}
-		if (formStudentQuery.getUseCatalogTerm()) {
-			search.createCriteria("majors")
-			.createCriteria("catalogTerm")
-			.add(Example.create(formStudentQuery.getCatalogTerm()));
-		}
-		if (formStudentQuery.getUseGradTerm()) {
-			search.createCriteria("gradTerm")
-			.add(Example.create(formStudentQuery.getGradTerm()));
-		}
-		if (formStudentQuery.getUseMajor() || formStudentQuery.getUseMilestone() || formStudentQuery.getStudentUseHours()) {
-			DetachedCriteria majorSearch = search.createCriteria("majors");
-			if (formStudentQuery.getStudentUseHours()) {
-				DetachedCriteria innerQuery = DetachedCriteria.forClass(Student.class, "iq")
-				.createAlias("majors", "major")
-				.setProjection(Projections.projectionList()
-						.add(Projections.max("major.totalHours")))
-						.add(Restrictions.eqProperty("iq.id", "oq.id"));
-				if (formStudentQuery.getUseMajor()) {
-					innerQuery.add(Restrictions.eq("major.degreeCode", formStudentQuery.getDegreeCode()));
-				}
-				if (formStudentQuery.getUseMilestone()) {
-					innerQuery.add(Restrictions.eq("major.reachedMilestone", formStudentQuery.getHasMilestone()));
-				}
-				
-				if (formStudentQuery.getStudentHoursLow() != null) {
-					majorSearch.add(Subqueries.le(new Long(formStudentQuery.getStudentHoursLow()), innerQuery));
-				}
-				if (formStudentQuery.getStudentHoursHigh() != null) {
-					majorSearch.add(Subqueries.ge(new Long(formStudentQuery.getStudentHoursHigh()), innerQuery));
-				}
-			}
-			else {
-				if (formStudentQuery.getUseMajor()) {
-					majorSearch.add(Restrictions.eq("major.degreeCode", formStudentQuery.getDegreeCode()));
-				}
-				if (formStudentQuery.getUseMilestone()) {
-					majorSearch.add(Restrictions.eq("major.reachedMilestone", formStudentQuery.getHasMilestone()));
-				}
-			}
-		}
-		if (formStudentQuery.getUseFirstName()) {
-			String firstName = formStudentQuery.getFirstName();
-			if (firstName.length() > 0) {
-				firstName = "%" + firstName + "%";
-			}
-			else {
-				firstName = "%";
-			}
-			search.add(Restrictions.like("firstName", firstName));
-		}
-		if (formStudentQuery.getUseMiddleName()) {
-			String middleName = formStudentQuery.getMiddleName();
-			if (middleName.length() > 0) {
-				middleName = "%" + middleName + "%";
-			}
-			else {
-				middleName = "%";
-			}
-			search.add(Restrictions.like("middleName", middleName));
-		}
-		if (formStudentQuery.getUseLastName()) {
-			String lastName = formStudentQuery.getLastName();
-			if (lastName.length() > 0) {
-				lastName = "%" + lastName + "%";
-			}
-			else {
-				lastName = "%";
-			}
-			search.add(Restrictions.like("lastName", lastName));
-		}
-		
-		// this is so grossly inefficient that it should be replaced with an HQL query or a "totalHours" property should be stored on students
-		// left in for now because it has the correct functionality
-		if (formStudentQuery.getUseHours()) {
-			DetachedCriteria innerQuery = DetachedCriteria.forClass(Student.class, "iq")
-			.createAlias("workEffort", "we")
-			.setProjection(Projections.projectionList()
-					.add(Projections.sum("we.duration.hours")))
-					.add(Restrictions.eqProperty("iq.id", "oq.id"));
-			if (formStudentQuery.getValidationSelected()) {
-				innerQuery.add(Restrictions.eq("we.validation", formStudentQuery.getValidation()));
-			}
-			if (formStudentQuery.getVerificationSelected()) {
-				innerQuery.add(Restrictions.eq("we.verification", formStudentQuery.getVerification()));
-			}
-			
-			search.createAlias("workEffort", "owe")
-			.setProjection(Projections.projectionList()
-					.add(Projections.sum("owe.duration.hours").as("totalHours"))
-					.add(Projections.groupProperty("id"))
-					.add(Projections.property("id")))
-			.setResultTransformer(Transformers.aliasToBean(Student.class)); // this will have no visual effect due to "search" being a subquery
-			if (formStudentQuery.getValidationSelected()) {
-				search.add(Restrictions.eq("owe.validation", formStudentQuery.getValidation()));
-			}
-			if (formStudentQuery.getVerificationSelected()) {
-				search.add(Restrictions.eq("owe.verification", formStudentQuery.getVerification()));
-			}
-			if (formStudentQuery.getHoursLow() != null) {
-				search.add(Subqueries.le(new Long(formStudentQuery.getHoursLow()), innerQuery));
-			}
-			if (formStudentQuery.getHoursHigh() != null) {
-				search.add(Subqueries.ge(new Long(formStudentQuery.getHoursHigh()), innerQuery));
-			}
-			if (formStudentQuery.getEmployerName() != "") {
-				search.add(Restrictions.like("owe.employer.name", "%" + formStudentQuery.getEmployerName() + "%"));
-			}
-			if (formStudentQuery.getEmployerLocation() != "") {
-				search.add(Restrictions.like("owe.employer.location", "%" + formStudentQuery.getEmployerLocation() + "%"));
-			}
-			if (formStudentQuery.getWorkEffortStartDate() != null) {
-				search.add(Restrictions.ge("owe.duration.startDate", formStudentQuery.getWorkEffortStartDate()));
-			}
-			if (formStudentQuery.getWorkEffortEndDate() != null) {
-				search.add(Restrictions.le("owe.duration.endDate", formStudentQuery.getWorkEffortEndDate()));
-			}
-		}
-		else {
-			DetachedCriteria jobCriteria = search.createCriteria("workEffort");
-			if (formStudentQuery.getVerificationSelected()) {
-				jobCriteria.add(Restrictions.eq("verification", formStudentQuery.getVerification()));
-			}
-			if (formStudentQuery.getValidationSelected()) {
-				jobCriteria.add(Restrictions.eq("validation", formStudentQuery.getValidation()));
-			}
-			if (formStudentQuery.getEmployerName() != "") {
-				jobCriteria.add(Restrictions.like("owe.employer.name", "%" + formStudentQuery.getEmployerName() + "%"));
-			}
-			if (formStudentQuery.getEmployerLocation() != "") {
-				jobCriteria.add(Restrictions.like("owe.employer.location", "%" + formStudentQuery.getEmployerLocation() + "%"));
-			}
-			if (formStudentQuery.getWorkEffortStartDate() != null) {
-				jobCriteria.add(Restrictions.ge("owe.duration.startDate", formStudentQuery.getWorkEffortStartDate()));
-			}
-			if (formStudentQuery.getWorkEffortEndDate() != null) {
-				jobCriteria.add(Restrictions.le("owe.duration.endDate", formStudentQuery.getWorkEffortEndDate()));
-			}
-		}
-		
-		List students;
-		
-		DetachedCriteria rootQuery = DetachedCriteria.forClass(Student.class);
-		search.setProjection(Projections.distinct(Projections.projectionList().add(Projections.alias(Projections.property("id"), "id"))));
-		rootQuery.add(Subqueries.propertyIn("id", search));
-		DetachedCriteria countQuery = DetachedCriteria.forClass(Student.class);
-		countQuery.add(Subqueries.propertyIn("id", search));
-		countQuery.setProjection(Projections.rowCount());
-		
-		if (sorting != null) {
-			if (sorting != "") {
-				int sort_value = Integer.parseInt(sorting.trim());
-				String property = getPropertyFromIndex(formStudentQuery, sort_value);
-				if (sort_value % 2 == 0) {
-					rootQuery.addOrder(Order.asc(property));
-					
-				}
-				else {
-					rootQuery.addOrder(Order.desc(property));
-				}
-			}
-		}
-		
-		Session session = ((Session) Student.entityManager().unwrap(Session.class)).getSessionFactory().openSession();
-		Criteria query = rootQuery.getExecutableCriteria(session);
-		Transaction transaction = null;
-		Long count;
-		
-		try {
-			transaction = session.beginTransaction();
-			students = query.list();
-			count = (Long) countQuery.getExecutableCriteria(session).list().get(0);
-			transaction.commit();
-		}
-		catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			throw e;
-		}
-		finally {
-			session.close();
-		}
-		
-		List<Object> resultList = new LinkedList<Object>();
-		resultList.add(count);
-		resultList.add(students);
-		
-		return resultList;
+		return queryStudents(formStudentQuery, sorting, null, null);
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPERUSER'")
-	public List<Object> queryStudentsLimited(FormStudentQuery formStudentQuery, String sorting, Integer start, Integer size) throws Exception {
+	public List<Object> queryStudents(FormStudentQuery formStudentQuery, String sorting, Integer start, Integer size) throws Exception {
 		DetachedCriteria search = DetachedCriteria.forClass(Student.class, "oq");
 		
 		if (formStudentQuery.getUseUserId()) {
@@ -257,35 +66,13 @@ DetachedCriteria search = DetachedCriteria.forClass(Student.class, "oq"); // ali
 			search.createCriteria("gradTerm")
 			.add(Example.create(formStudentQuery.getGradTerm()));
 		}
-		if (formStudentQuery.getUseMajor() || formStudentQuery.getUseMilestone() || formStudentQuery.getStudentUseHours()) {
+		if (formStudentQuery.getUseMajor() || formStudentQuery.getUseMilestone()) {
 			DetachedCriteria majorSearch = search.createCriteria("majors");
-			if (formStudentQuery.getStudentUseHours()) {
-				DetachedCriteria innerQuery = DetachedCriteria.forClass(Student.class, "iq")
-				.createAlias("majors", "major")
-				.setProjection(Projections.projectionList()
-						.add(Projections.max("major.totalHours")))
-						.add(Restrictions.eqProperty("iq.id", "oq.id"));
-				if (formStudentQuery.getUseMajor()) {
-					innerQuery.add(Restrictions.eq("major.degreeCode", formStudentQuery.getDegreeCode()));
-				}
-				if (formStudentQuery.getUseMilestone()) {
-					innerQuery.add(Restrictions.eq("major.reachedMilestone", formStudentQuery.getHasMilestone()));
-				}
-				
-				if (formStudentQuery.getStudentHoursLow() != null) {
-					majorSearch.add(Subqueries.le(new Long(formStudentQuery.getStudentHoursLow()), innerQuery));
-				}
-				if (formStudentQuery.getStudentHoursHigh() != null) {
-					majorSearch.add(Subqueries.ge(new Long(formStudentQuery.getStudentHoursHigh()), innerQuery));
-				}
+			if (formStudentQuery.getUseMajor()) {
+				majorSearch.add(Restrictions.eq("major.degreeCode", formStudentQuery.getDegreeCode()));
 			}
-			else {
-				if (formStudentQuery.getUseMajor()) {
-					majorSearch.add(Restrictions.eq("major.degreeCode", formStudentQuery.getDegreeCode()));
-				}
-				if (formStudentQuery.getUseMilestone()) {
-					majorSearch.add(Restrictions.eq("major.reachedMilestone", formStudentQuery.getHasMilestone()));
-				}
+			if (formStudentQuery.getUseMilestone()) {
+				majorSearch.add(Restrictions.eq("major.reachedMilestone", formStudentQuery.getHasMilestone()));
 			}
 		}
 		if (formStudentQuery.getUseFirstName()) {
@@ -412,8 +199,10 @@ DetachedCriteria search = DetachedCriteria.forClass(Student.class, "oq"); // ali
 		
 		Session session = ((Session) Student.entityManager().unwrap(Session.class)).getSessionFactory().openSession();
 		Criteria query = rootQuery.getExecutableCriteria(session);
-		query.setFirstResult(start);
-		query.setMaxResults(size);
+		if (start != null && size != null) {
+			query.setFirstResult(start);
+			query.setMaxResults(size);
+		}
 		Transaction transaction = null;
 		Long count;
 		
@@ -422,6 +211,11 @@ DetachedCriteria search = DetachedCriteria.forClass(Student.class, "oq"); // ali
 			students = query.list();
 			count = (Long) countQuery.getExecutableCriteria(session).list().get(0);
 			transaction.commit();
+			
+			for (Student student : (List<Student>) students) {
+				Hibernate.initialize(student);
+				Hibernate.initialize(student.getMajors());
+			}
 		}
 		catch (Exception e) {
 			if (transaction != null) {
@@ -554,7 +348,32 @@ DetachedCriteria search = DetachedCriteria.forClass(Student.class, "oq"); // ali
 		CSVWriter writer = new CSVWriter(new OutputStreamWriter(byteStream), ',');
 		// commas cannot be in the locale messages in the comma-separated label string, just so you know
 		String[] columns = buildLabelsString(formStudentQuery, messageSource).split(",");
-		writer.writeNext(columns);
+		if (formStudentQuery.getShowMajor()) {
+			String[] columnsMajor = new String[columns.length + 15];
+			int i;
+			for (i = 0; i < columns.length; i++) {
+				columnsMajor[i] = columns[i];
+			}
+			columnsMajor[i++] = "Major 1";
+			columnsMajor[i++] = "Catalog Term";
+			columnsMajor[i++] = "Total Hours";
+			columnsMajor[i++] = "Related Hours";
+			columnsMajor[i++] = "Milestone";
+			columnsMajor[i++] = "Major 2";
+			columnsMajor[i++] = "Catalog Term";
+			columnsMajor[i++] = "Total Hours";
+			columnsMajor[i++] = "Related Hours";
+			columnsMajor[i++] = "Milestone";
+			columnsMajor[i++] = "Major 3";
+			columnsMajor[i++] = "Catalog Term";
+			columnsMajor[i++] = "Total Hours";
+			columnsMajor[i++] = "Related Hours";
+			columnsMajor[i++] = "Milestone";
+			writer.writeNext(columnsMajor);
+		}
+		else {
+			writer.writeNext(columns);
+		}
 		for (Student student: students) {
 			ArrayList<String> entries = new ArrayList();
 			entries.add(student.getId().toString());
@@ -620,6 +439,40 @@ DetachedCriteria search = DetachedCriteria.forClass(Student.class, "oq"); // ali
 					entries.add(student.getUserAccount().toString());
 				}
 				else {
+					entries.add("");
+				}
+			}
+			if (formStudentQuery.getShowMajor()) {
+				List<Major> majors = new LinkedList<Major>(student.getMajors());
+				Major majorArray[] = new Major[majors.size()];
+				
+				int position = 0;
+				for (int i = 0; i < majors.size(); i++) {
+					int lowest = i;
+					for (int j = 0; j < majors.size(); j++) {
+						if (majors.get(j).getId().longValue() < majors.get(i).getId().longValue()) {
+							lowest = j;
+						}
+					}
+					majorArray[position++] = majors.get(lowest);
+					majors.remove(lowest);
+					i--;
+				}
+				
+				for (int i = 0; i < majorArray.length; i++) {
+					entries.add(majorArray[i].getDegreeCode() != null ? majorArray[i].getDegreeCode() : "");
+					entries.add(majorArray[i].getCatalogTerm() != null ? majorArray[i].getCatalogTerm().toString() : "");
+					entries.add(majorArray[i].getTotalHours() != null ? majorArray[i].getTotalHours().toString() : "");
+					entries.add(majorArray[i].getMajorHours() != null ? majorArray[i].getMajorHours().toString() : "");
+					entries.add(majorArray[i].isReachedMilestone() ? "yes" : "no");
+				}
+				
+				// NOTE assumed major limit of 3 hard coded
+				for (int i = 3-majorArray.length; i > 0; i--) {
+					entries.add("");
+					entries.add("");
+					entries.add("");
+					entries.add("");
 					entries.add("");
 				}
 			}

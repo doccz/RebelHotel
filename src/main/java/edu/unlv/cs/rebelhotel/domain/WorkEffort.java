@@ -109,7 +109,7 @@ public class WorkEffort {
     			boolean found = false;
     			Set<CatalogRequirement> catalogRequirements = job.getCatalogRequirements();
     			for (CatalogRequirement catalogRequirement : catalogRequirements) {
-    				if (catalogRequirement.getDegreeCodePrefix().equals(majorArray[i].getDegreeCode())) {
+    				if (catalogRequirement.matchesMajor(majorArray[i])) {
     					found = true;
     					break;
     				}
@@ -123,9 +123,15 @@ public class WorkEffort {
     	
     	for (int i = 0; i < majorArray.length; i++) {
 			boolean found = false;
+			if (validation.equals(Validation.FAILED_VALIDATION)) {
+				break; // do not count the job if it failed validation
+    		}
+    		if (verification.equals(Verification.DENIED)) {
+    			break; // likewise, if the job failed verification, skip
+    		}
 			if (catalogRequirements != null) {
 				for (CatalogRequirement catalogRequirement : catalogRequirements) {
-					if (catalogRequirement.getDegreeCodePrefix().equals(majorArray[i].getDegreeCode())) {
+					if (catalogRequirement.matchesMajor(majorArray[i])) {
 						found = true;
 						break;
 					}
@@ -137,55 +143,10 @@ public class WorkEffort {
 			totalHours[i] += duration.getHours();
 		}
     	
-    	Session session = ((Session) CatalogRequirement.entityManager().unwrap(Session.class)).getSessionFactory().openSession();
-    	session.beginTransaction();
     	for (int i = 0; i < majorArray.length; i++) {
-        	Criteria query = session.createCriteria(CatalogRequirement.class)
-        	.add(Restrictions.eq("degreeCodePrefix", majorArray[i].getDegreeCode()));
-        	List<CatalogRequirement> reqs = query.list();
-        	// return the first catalog that matches degree + term restrictions
-        	CatalogRequirement cr = null;
-        	for (CatalogRequirement catalogRequirement : reqs) {
-        		Major major = majorArray[i];
-        		if (major.getCatalogTerm().getTermYear().compareTo(catalogRequirement.getStartTerm().getTermYear()) < 0) {
-        			continue; // if major's catalog term is before the catalog requirement's term then it cannot possibly be part of that catalog
-        		}
-        		if (major.getCatalogTerm().getTermYear().equals(catalogRequirement.getStartTerm().getTermYear()) 
-        				&& major.getCatalogTerm().getSemester().compareTo(catalogRequirement.getStartTerm().getSemester()) < 0) {
-        			continue; // continuation of the above
-        		}
-        		if (major.getCatalogTerm().getTermYear().compareTo(catalogRequirement.getEndTerm().getTermYear()) > 0) {
-        			continue; // cannot be in the catalog requirement if beyond the end applicable date of the catalog
-        		}
-        		if (major.getCatalogTerm().getTermYear().equals(catalogRequirement.getEndTerm().getTermYear())
-        				&& major.getCatalogTerm().getSemester().compareTo(catalogRequirement.getEndTerm().getSemester()) > 0) {
-        			continue; // continuation of the above
-        		}
-        		
-        		// if still in this loop iteration, then this catalog requirement is usable
-        		cr = catalogRequirement;
-        		break;
-        	}
-        	
-        	if (cr == null) {
-        		session.close();
-        		return; // if no applicable catalog requirement was found then exit now
-        	}
-        	
-        	// first sum "total" and "related" hours as separate components with a ceiling, then sum together
-        	// the result should be capped at cr.getTotalHoursNeeded()
-    		Integer totalNeeded = cr.getTotalHoursNeeded();
-    		Integer relatedNeeded = cr.getTotalRelatedHoursNeeded();
-    		
-    		Integer totalOffseted = totalNeeded - relatedNeeded;
-    		
-    		Integer relatedValue = Math.min(relatedNeeded.intValue(), majorHours[i].intValue());
-    		totalHours[i] -= relatedValue;
-    		Integer totalValue = Math.min(totalOffseted.intValue(), totalHours[i].intValue());
-    		
-    		majorArray[i].setTotalHours(new Long(totalValue+relatedValue));
+    		majorArray[i].setTotalHours(new Long(totalHours[i]));
+    		majorArray[i].setMajorHours(new Long(majorHours[i]));
     	}
-    	session.close();
     }
     
     @PreUpdate
@@ -210,14 +171,14 @@ public class WorkEffort {
     		if (job.getVerification().equals(Verification.DENIED)) {
     			continue; // likewise, if the job failed verification, skip
     		}
-    		if (job.getId().equals(getId())) {
-    			continue; // skip "this" job since the data might be outdated (may need verification)
+    		if (job.getId().equals(getId())) { // skip this job in this loop's calculations
+    			continue;
     		}
     		for (int i = 0; i < majorArray.length; i++) {
     			boolean found = false;
     			Set<CatalogRequirement> catalogRequirements = job.getCatalogRequirements();
     			for (CatalogRequirement catalogRequirement : catalogRequirements) {
-    				if (catalogRequirement.getDegreeCodePrefix().equals(majorArray[i].getDegreeCode())) {
+    				if (catalogRequirement.matchesMajor(majorArray[i])) {
     					found = true;
     					break;
     				}
@@ -231,9 +192,15 @@ public class WorkEffort {
     	
     	for (int i = 0; i < majorArray.length; i++) {
 			boolean found = false;
+			if (validation.equals(Validation.FAILED_VALIDATION)) {
+    			break; // do not count the job if it failed validation
+    		}
+    		if (verification.equals(Verification.DENIED)) {
+    			break; // likewise, if the job failed verification, skip
+    		}
 			if (catalogRequirements != null) {
 				for (CatalogRequirement catalogRequirement : catalogRequirements) {
-					if (catalogRequirement.getDegreeCodePrefix().equals(majorArray[i].getDegreeCode())) {
+					if (catalogRequirement.matchesMajor(majorArray[i])) {
 						found = true;
 						break;
 					}
@@ -245,55 +212,10 @@ public class WorkEffort {
 			totalHours[i] += duration.getHours();
 		}
     	
-    	Session session = ((Session) CatalogRequirement.entityManager().unwrap(Session.class)).getSessionFactory().openSession();
-    	session.beginTransaction();
     	for (int i = 0; i < majorArray.length; i++) {
-        	Criteria query = session.createCriteria(CatalogRequirement.class)
-        	.add(Restrictions.eq("degreeCodePrefix", majorArray[i].getDegreeCode()));
-        	List<CatalogRequirement> reqs = query.list();
-        	// return the first catalog that matches degree + term restrictions
-        	CatalogRequirement cr = null;
-        	for (CatalogRequirement catalogRequirement : reqs) {
-        		Major major = majorArray[i];
-        		if (major.getCatalogTerm().getTermYear().compareTo(catalogRequirement.getStartTerm().getTermYear()) < 0) {
-        			continue; // if major's catalog term is before the catalog requirement's term then it cannot possibly be part of that catalog
-        		}
-        		if (major.getCatalogTerm().getTermYear().equals(catalogRequirement.getStartTerm().getTermYear()) 
-        				&& major.getCatalogTerm().getSemester().compareTo(catalogRequirement.getStartTerm().getSemester()) < 0) {
-        			continue; // continuation of the above
-        		}
-        		if (major.getCatalogTerm().getTermYear().compareTo(catalogRequirement.getEndTerm().getTermYear()) > 0) {
-        			continue; // cannot be in the catalog requirement if beyond the end applicable date of the catalog
-        		}
-        		if (major.getCatalogTerm().getTermYear().equals(catalogRequirement.getEndTerm().getTermYear())
-        				&& major.getCatalogTerm().getSemester().compareTo(catalogRequirement.getEndTerm().getSemester()) > 0) {
-        			continue; // continuation of the above
-        		}
-        		
-        		// if still in this loop iteration, then this catalog requirement is usable
-        		cr = catalogRequirement;
-        		break;
-        	}
-        	
-        	if (cr == null) {
-        		session.close();
-        		return; // if no applicable catalog requirement was found then exit now
-        	}
-        	
-        	// first sum "total" and "related" hours as separate components with a ceiling, then sum together
-        	// the result should be capped at cr.getTotalHoursNeeded()
-    		Integer totalNeeded = cr.getTotalHoursNeeded();
-    		Integer relatedNeeded = cr.getTotalRelatedHoursNeeded();
-    		
-    		Integer totalOffseted = totalNeeded - relatedNeeded;
-    		
-    		Integer relatedValue = Math.min(relatedNeeded.intValue(), majorHours[i].intValue());
-    		totalHours[i] -= relatedValue;
-    		Integer totalValue = Math.min(totalOffseted.intValue(), totalHours[i].intValue());
-    		
-    		majorArray[i].setTotalHours(new Long(totalValue+relatedValue));
+    		majorArray[i].setTotalHours(new Long(totalHours[i]));
+    		majorArray[i].setMajorHours(new Long(majorHours[i]));
     	}
-    	session.close();
     }
     
     @PreRemove
@@ -318,14 +240,14 @@ public class WorkEffort {
     		if (job.getVerification().equals(Verification.DENIED)) {
     			continue; // likewise, if the job failed verification, skip
     		}
-    		if (job.getId().equals(getId())) {
-    			continue; // skip "this" job since the data might be outdated (may need verification)
+    		if (job.getId().equals(getId())) { // skip this job in this loop's calculations
+    			continue;
     		}
     		for (int i = 0; i < majorArray.length; i++) {
     			boolean found = false;
     			Set<CatalogRequirement> catalogRequirements = job.getCatalogRequirements();
     			for (CatalogRequirement catalogRequirement : catalogRequirements) {
-    				if (catalogRequirement.getDegreeCodePrefix().equals(majorArray[i].getDegreeCode())) {
+    				if (catalogRequirement.matchesMajor(majorArray[i])) {
     					found = true;
     					break;
     				}
@@ -337,55 +259,10 @@ public class WorkEffort {
     		}
     	}
     	
-    	Session session = ((Session) CatalogRequirement.entityManager().unwrap(Session.class)).getSessionFactory().openSession();
-    	session.beginTransaction();
     	for (int i = 0; i < majorArray.length; i++) {
-        	Criteria query = session.createCriteria(CatalogRequirement.class)
-        	.add(Restrictions.eq("degreeCodePrefix", majorArray[i].getDegreeCode()));
-        	List<CatalogRequirement> reqs = query.list();
-        	// return the first catalog that matches degree + term restrictions
-        	CatalogRequirement cr = null;
-        	for (CatalogRequirement catalogRequirement : reqs) {
-        		Major major = majorArray[i];
-        		if (major.getCatalogTerm().getTermYear().compareTo(catalogRequirement.getStartTerm().getTermYear()) < 0) {
-        			continue; // if major's catalog term is before the catalog requirement's term then it cannot possibly be part of that catalog
-        		}
-        		if (major.getCatalogTerm().getTermYear().equals(catalogRequirement.getStartTerm().getTermYear()) 
-        				&& major.getCatalogTerm().getSemester().compareTo(catalogRequirement.getStartTerm().getSemester()) < 0) {
-        			continue; // continuation of the above
-        		}
-        		if (major.getCatalogTerm().getTermYear().compareTo(catalogRequirement.getEndTerm().getTermYear()) > 0) {
-        			continue; // cannot be in the catalog requirement if beyond the end applicable date of the catalog
-        		}
-        		if (major.getCatalogTerm().getTermYear().equals(catalogRequirement.getEndTerm().getTermYear())
-        				&& major.getCatalogTerm().getSemester().compareTo(catalogRequirement.getEndTerm().getSemester()) > 0) {
-        			continue; // continuation of the above
-        		}
-        		
-        		// if still in this loop iteration, then this catalog requirement is usable
-        		cr = catalogRequirement;
-        		break;
-        	}
-        	
-        	if (cr == null) {
-        		session.close();
-        		return; // if no applicable catalog requirement was found then exit now
-        	}
-        	
-        	// first sum "total" and "related" hours as separate components with a ceiling, then sum together
-        	// the result should be capped at cr.getTotalHoursNeeded()
-    		Integer totalNeeded = cr.getTotalHoursNeeded();
-    		Integer relatedNeeded = cr.getTotalRelatedHoursNeeded();
-    		
-    		Integer totalOffseted = totalNeeded - relatedNeeded;
-    		
-    		Integer relatedValue = Math.min(relatedNeeded.intValue(), majorHours[i].intValue());
-    		totalHours[i] -= relatedValue;
-    		Integer totalValue = Math.min(totalOffseted.intValue(), totalHours[i].intValue());
-    		
-    		majorArray[i].setTotalHours(new Long(totalValue+relatedValue));
+    		majorArray[i].setTotalHours(new Long(totalHours[i]));
+    		majorArray[i].setMajorHours(new Long(majorHours[i]));
     	}
-    	session.close();
     }
     
     public String toString() {

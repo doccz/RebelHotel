@@ -50,6 +50,14 @@ privileged aspect Major_Roo_JavaBean {
         this.totalHours = totalHours;
     }
     
+    public Long Major.getMajorHours() {
+        return this.majorHours;
+    }
+    
+    public void Major.setMajorHours(Long majorHours) {
+        this.majorHours = majorHours;
+    }
+    
     public boolean Major.isCompleted_work_requirements() {
         return this.completed_work_requirements;
     }

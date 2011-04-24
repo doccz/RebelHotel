@@ -23,6 +23,7 @@ privileged aspect MajorDataOnDemand_Roo_DataOnDemand {
         obj.setCatalogTerm(null);
         obj.setStudent(null);
         obj.setTotalHours(new Integer(index).longValue());
+        obj.setMajorHours(new Integer(index).longValue());
         obj.setCompleted_work_requirements(true);
         return obj;
     }

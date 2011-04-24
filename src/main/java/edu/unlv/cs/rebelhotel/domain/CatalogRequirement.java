@@ -25,6 +25,23 @@ public class CatalogRequirement {
     
     public CatalogRequirement(){}
     
+    public boolean matchesMajor(Major major) {
+    	byte prefixBytes[] = degreeCodePrefix.getBytes();
+    	byte majorBytes[] = major.getDegreeCode().getBytes();
+    	
+    	if (major.getDegreeCode().length() < degreeCodePrefix.length()) {
+    		return false;
+    	}
+    	
+    	for (int i = 0; i < degreeCodePrefix.length(); i++) {
+    		if (prefixBytes[i] != majorBytes[i]) {
+    			return false;
+    		}
+    	}
+    	
+    	return true;
+    }
+    
     /*public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Degree: ").append(getDegreeCodePrefix()).append(" ").append(getName());

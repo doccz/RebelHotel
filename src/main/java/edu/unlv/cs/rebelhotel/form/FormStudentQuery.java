@@ -43,6 +43,7 @@ public class FormStudentQuery {
 	private boolean showCodeOfConductSigned;
 	private boolean showLastModified;
 	private boolean showUserAccount;
+	private boolean showMajor;
 	
 	private boolean outputCsv;
 	
@@ -78,10 +79,6 @@ public class FormStudentQuery {
 	private boolean useHours;
 	private Integer hoursLow;
 	private Integer hoursHigh;
-	
-	private boolean studentUseHours;
-	private Integer studentHoursLow;
-	private Integer studentHoursHigh;
 			
 	public boolean getUseUserId() {
 		return useUserId;
@@ -271,6 +268,14 @@ public class FormStudentQuery {
 		this.showUserAccount = showUserAccount;
 	}
 	
+	public boolean getShowMajor() {
+		return showMajor;
+	}
+	
+	public void setShowMajor(boolean showMajor) {
+		this.showMajor = showMajor;
+	}
+	
 	public boolean getOutputCsv() {
 		return outputCsv;
 	}
@@ -413,29 +418,5 @@ public class FormStudentQuery {
 	
 	public void setHoursHigh(Integer hoursHigh) {
 		this.hoursHigh = hoursHigh;
-	}
-	
-	public boolean getStudentUseHours() {
-		return studentUseHours;
-	}
-	
-	public void setStudentUseHours(boolean studentUseHours) {
-		this.studentUseHours = studentUseHours;
-	}
-	
-	public Integer getStudentHoursLow() {
-		return studentHoursLow;
-	}
-	
-	public void setStudentHoursLow(Integer studentHoursLow) {
-		this.studentHoursLow = studentHoursLow;
-	}
-	
-	public Integer getStudentHoursHigh() {
-		return studentHoursHigh;
-	}
-	
-	public void setStudentHoursHigh(Integer studentHoursHigh) {
-		this.studentHoursHigh = studentHoursHigh;
 	}
 }

@@ -98,7 +98,6 @@ public class StudentQueryTest extends AbstractTransactionalJUnit4SpringContextTe
 		expect(form.getUseMiddleName()).andReturn(false);
 		expect(form.getUseLastName()).andReturn(false);
 		expect(form.getUseHours()).andReturn(false);
-		expect(form.getStudentUseHours()).andReturn(false);
 		expect(form.getShowUserId()).andReturn(false);
 		expect(form.getShowFirstName()).andReturn(false);
 		expect(form.getShowMiddleName()).andReturn(false);
@@ -119,7 +118,7 @@ public class StudentQueryTest extends AbstractTransactionalJUnit4SpringContextTe
 		
 		List result = null;
 		try {
-			result = queryService.queryStudentsLimited(form, "0", 0, 25);
+			result = queryService.queryStudents(form, "0", 0, 25);
 		}
 		catch (Exception e) {
 			fail("There was an error with the query");
