@@ -85,19 +85,19 @@ public class WorkEffort {
 	public boolean isApplicable(Major major) {
 
 		boolean applicableRequirement = hasApplicableCatalogRequirement(major);
-		boolean validation = hasValidation();
+		boolean validationNotNeeded = doesntNeedValidation();
 		
 		boolean accepted = isAccepted();
 		boolean validated = isValidated();
 
-		return applicableRequirement && accepted && (validated || validation);
+		return applicableRequirement && accepted && (validated || validationNotNeeded);
 	}
 
 	/**
 	 * Returns true if this job is NOT selected for random validation
 	 * @return
 	 */
-	private boolean hasValidation() {
+	private boolean doesntNeedValidation() {
 		return this.validation.equals(Validation.NO_VALIDATION);
 	}
 	
