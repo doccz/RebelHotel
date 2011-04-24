@@ -42,11 +42,11 @@ public class CatalogRequirement {
     	return true;
     }
     
-    /*public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Degree: ").append(getDegreeCodePrefix()).append(" ").append(getName());
-        sb.append("TotalHoursNeeded: ").append(getTotalHoursNeeded()).append(", ");
-        sb.append("Term: ").append(getTerm());
+        sb.append(getDegreeCodePrefix()).append(": ");
+        sb.append(getStartTerm()).append(" - ");
+        sb.append(getEndTerm());
         return sb.toString();
-    }*/
+    }
 }

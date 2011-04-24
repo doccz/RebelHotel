@@ -18,13 +18,13 @@
         <field:input field="supervisor.phone" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_supervisor_phone"/>
         <br />
         <field:select field="verificationType" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_verificationType" items="${verificationtypes}" path="verificationtypes" z="Kr/5QpSvA7DJVKYxvMEeGemJFiw="/>
-        <field:select field="validation" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_validation" items="${validations}" path="validations" z="vO3fjwp/J0bttFwf4Y2RRFqN9f0="/>
-        <field:select field="verification" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_verification" items="${verifications}" path="verifications" z="AwKiAFujqkR5ZMQv560AxraxL74="/>
         <field:select field="payStatus" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_payStatus" items="${paystatuses}" path="paystatuses" z="Y/234bX/lvLoqut2yWTDLlr2rEg="/>
         <field:simple field="workeffortduration" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_duration" text="Work Effort Duration"/>
 		<field:datetime dateTimePattern="${workEffortDuration_startdate_date_format}" field="duration.startDate" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_duration_startDate" z="e1NnqzkemAXKA+kNm1HTZ7hquPw="/>
 		<field:datetime dateTimePattern="${workEffortDuration_enddate_date_format}" field="duration.endDate" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_duration_endDate" z="sq/AE9soB8d+B1rhARMLA9KwpqY="/>
 		<field:input field="duration.hours" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_duration_hours" validationMessageCode="field_invalid_integer" z="l3C/BiPrL+qL4qBAbC7fzFTV+m4="/>
+		<field:select field="validation" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_validation" items="${validations}" path="validations" z="vO3fjwp/J0bttFwf4Y2RRFqN9f0="/>
+        <field:select field="verification" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_verification" items="${verifications}" path="verifications" z="AwKiAFujqkR5ZMQv560AxraxL74="/>
     <field:select field="catalogRequirements" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_catalogRequirements" itemValue="id" items="${catalogrequirements}" multiple="true" path="/catalogrequirements" z="wg4QYQgUBQSBmnQA9y+BOAHZjtg="/>
     
     </form:update>

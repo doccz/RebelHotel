@@ -65,4 +65,14 @@ public class Term {
 				.append(termYear)
 				.toHashCode();
     }
+    
+    public boolean isBetween(final Term start, final Term end) {
+    	boolean between = start.termYear <= termYear;
+    	between &= end.termYear >= termYear;
+    	if(between){
+    	between = semester.compareTo(start.semester)>=0;
+    	between &= semester.compareTo(end.semester)<=0;
+    	}
+    	return between;
+	}
 }
