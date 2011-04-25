@@ -51,15 +51,16 @@ public class DefaultStudentService implements StudentService{
 			fileToStudents(fileUpload);
 		} catch(Exception e){
 			StringBuilder sb = new StringBuilder();
-			sb.append(FileUploadStatus.FAILED.toString()).append(" ").append(e.getMessage());
+			sb.append(e.getMessage());
 			fileUpload.setMessage(sb.toString());
+			fileUpload.setFileUploadStatus(FileUploadStatus.FAILED);
 			fileUpload.setSuccessful(false);
 			LOG.error("Could not upload student file.", e);
 			throw new FileUploadException("Could not upload student file.",e);
 		} finally {
 			fileUpload.endExecution();
 			if (fileUpload.getSuccessful()) {
-				fileUpload.setMessage(FileUploadStatus.SUCCESSFUL.toString());
+				fileUpload.setFileUploadStatus(FileUploadStatus.SUCCESSFUL);
 			}
 			fileUpload.merge();
 			LOG.error("File upload ended at: " + fileUpload.getEndOfExecution().toString());
@@ -73,8 +74,7 @@ public class DefaultStudentService implements StudentService{
 	}
 
 	@Transactional
-	private void fileToStudents(FileUpload fileUpload) throws IOException,
-			FileNotFoundException {
+	private void fileToStudents(FileUpload fileUpload) throws IOException, FileNotFoundException {
 		List<List<String>> contents = Collections.emptyList();
 		contents = lexer.tokenize(new FileReader(fileUpload.getFile()));
 		

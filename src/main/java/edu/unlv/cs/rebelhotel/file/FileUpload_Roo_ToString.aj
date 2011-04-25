@@ -10,6 +10,7 @@ privileged aspect FileUpload_Roo_ToString {
     public String FileUpload.toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("File: ").append(getFile()).append(", ");
+        sb.append("FileUploadStatus: ").append(getFileUploadStatus()).append(", ");
         sb.append("Message: ").append(getMessage()).append(", ");
         sb.append("Successful: ").append(getSuccessful()).append(", ");
         sb.append("StartOfExecution: ").append(getStartOfExecution()).append(", ");

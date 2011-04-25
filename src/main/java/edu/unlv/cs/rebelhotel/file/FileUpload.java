@@ -21,10 +21,10 @@ public class FileUpload {
 	@Transient
 	private transient File file;
 	
-	// this will probably contain a general message
-	// and then record/line at which the error occurred.
-	private String message = FileUploadStatus.PENDING.toString();
-
+	private FileUploadStatus fileUploadStatus = FileUploadStatus.PENDING;
+	
+	private String message = "N/A";
+	
 	private Boolean successful = Boolean.TRUE;
 	
     @Temporal(TemporalType.TIMESTAMP)

@@ -3,11 +3,20 @@
 
 package edu.unlv.cs.rebelhotel.file;
 
+import edu.unlv.cs.rebelhotel.file.enums.FileUploadStatus;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Date;
 
 privileged aspect FileUpload_Roo_JavaBean {
+    
+    public FileUploadStatus FileUpload.getFileUploadStatus() {
+        return this.fileUploadStatus;
+    }
+    
+    public void FileUpload.setFileUploadStatus(FileUploadStatus fileUploadStatus) {
+        this.fileUploadStatus = fileUploadStatus;
+    }
     
     public String FileUpload.getMessage() {
         return this.message;

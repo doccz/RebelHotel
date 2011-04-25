@@ -73,6 +73,12 @@ privileged aspect FileUpload_Roo_Entity {
     }
     
     @Transactional
+    public void FileUpload.clear() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        this.entityManager.clear();
+    }
+    
+    @Transactional
     public FileUpload FileUpload.merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
         FileUpload merged = this.entityManager.merge(this);

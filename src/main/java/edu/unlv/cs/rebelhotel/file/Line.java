@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -19,7 +20,7 @@ import edu.unlv.cs.rebelhotel.domain.enums.Semester;
 @RooToString
 public class Line {
 	private static final int EXPECTED_SIZE = 13;
-	private static final Logger LOG = Logger.getLogger(Line.class);
+	private static final Logger LOG = LoggerFactory.getLogger(Line.class);
 	private int lineNumber;
 	private String studentId;
 	private String lastName;

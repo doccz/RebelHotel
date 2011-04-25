@@ -130,7 +130,7 @@ public class StudentQueryService {
 		String[] columns = buildLabelsString(formStudentQuery, messageSource).split(",");
 		writer.writeNext(columns);
 		for (Student student: students) {
-			ArrayList<String> entries = new ArrayList();
+			ArrayList<String> entries = new ArrayList<String>();
 			entries.add(student.getId().toString());
 			if (formStudentQuery.getShowUserId()) {
 				if (student.getUserId() != null) {

@@ -2,7 +2,8 @@ package edu.unlv.cs.rebelhotel.file;
 
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ import edu.unlv.cs.rebelhotel.domain.enums.UserGroup;
 
 @Component
 public class StudentMapper {
-	private static final Logger LOG = Logger.getLogger(StudentMapper.class);
+	private static final Logger LOG = LoggerFactory.getLogger(StudentMapper.class);
 	public Student findOrReplace(FileStudent fileStudent){
 		Student student = existingOrNewStudent(fileStudent);
 		
