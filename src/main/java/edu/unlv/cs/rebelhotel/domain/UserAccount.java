@@ -87,4 +87,9 @@ public class UserAccount {
 		
 		return sb.toString();
 	}
+	
+	    public boolean matchesCurrentPassword (String unencryptedPassword){
+    	 String encryptedPassword = passwordEncoder.encodePassword(unencryptedPassword, null);
+    	 return encryptedPassword.equals(password);
+    }
 }
