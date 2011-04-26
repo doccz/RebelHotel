@@ -10,8 +10,11 @@ import javax.validation.Valid;
 
 import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.Student;
+import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
+import edu.unlv.cs.rebelhotel.domain.enums.Semester;
 import edu.unlv.cs.rebelhotel.email.UserEmailService;
+import edu.unlv.cs.rebelhotel.service.RandomValidationService;
 import edu.unlv.cs.rebelhotel.service.UserInformation;
 import edu.unlv.cs.rebelhotel.validators.WorkEffortValidator;
 
@@ -41,9 +44,16 @@ public class WorkEffortController {
 	
 	@Autowired
 	private WorkEffortValidator workEffortValidator;
+	
+	@Autowired
+	private RandomValidationService randomValidationService;
 		
 	public void setWorkEffortValidator(WorkEffortValidator workEffortValidator) {
 		this.workEffortValidator = workEffortValidator;
+	}
+	
+	public void setRandomValidationService (RandomValidationService randomValidationService) {
+		this.randomValidationService = randomValidationService;
 	}
 	
 	@PreAuthorize("hasRole('ROLE_STUDENT')") // only students should have a list of work efforts ... though a different error than "access denied" might be desirable to admins
@@ -181,11 +191,34 @@ public class WorkEffortController {
         return "workefforts/show";
     }
 	
-	/*@RequestMapping(value= "/{id}", params = "forstudent" , method=RequestMethod.GET)
-	public String randomValidation(@PathVariable("id") Long id, Model model) {
-	 
-		return "";
-	}*/
+	/* ===================================
+	 * Random Validation Controller Actions
+	 * Alan Chapman
+	 * Last Updated: 4-23-11
+	 * =================================== 
+	 */
+		
+		@RequestMapping(params = "random", method = RequestMethod.GET)
+		@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+		public String randomValidationForm(Model model) {
+			List<Term> terms = Term.findAllTerms();
+			model.addAttribute("terms", terms);
+			return "workefforts/random_validation_form";
+		}
+		
+		@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+		@RequestMapping(params = "random", method = RequestMethod.POST)
+		public String randomValidation(@RequestParam("semester") String semester, @RequestParam("year") Integer year, 
+				@RequestParam("sampleSize") Integer sampleSize, Model model) {
+		    
+		    Semester sem = randomValidationService.getSemester(semester);
+		    Term currentTerm = Term.findTermsBySemesterAndTermYearEquals(sem, year).getSingleResult();
+		    
+		    List<WorkEffort> randomResultList = randomValidationService.getRandomValidationList(currentTerm, sampleSize);
+			
+			model.addAttribute("randomResultList", randomResultList );
+			return "workefforts/random";
+		}
 	
 	void addDateTimeFormatPatterns(Model model) {
         model.addAttribute("workEffortDuration_startdate_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));

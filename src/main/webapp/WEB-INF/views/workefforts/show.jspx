@@ -17,5 +17,6 @@
     
     <field:display field="catalogRequirements" id="s_edu_unlv_cs_rebelhotel_domain_WorkEffort_catalogRequirements" object="${workeffort}" z="viyMVVRoZ0bi5eb9t5SI9159Az0="/>
     
+    <field:display field="termSubmitted" id="s_edu_unlv_cs_rebelhotel_domain_WorkEffort_termSubmitted" object="${workeffort}" z="yqsp+aCMF3mh02UEQNAI09H1388="/>
     </page:show>
 </div>

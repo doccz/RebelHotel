@@ -5,6 +5,7 @@ package edu.unlv.cs.rebelhotel.web;
 
 import edu.unlv.cs.rebelhotel.domain.CatalogRequirement;
 import edu.unlv.cs.rebelhotel.domain.Student;
+import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
 import edu.unlv.cs.rebelhotel.domain.enums.PayStatus;
 import edu.unlv.cs.rebelhotel.domain.enums.Validation;
@@ -47,6 +48,11 @@ privileged aspect WorkEffortController_Roo_Controller {
     @ModelAttribute("students")
     public Collection<Student> WorkEffortController.populateStudents() {
         return Student.findAllStudents();
+    }
+    
+    @ModelAttribute("terms")
+    public Collection<Term> WorkEffortController.populateTerms() {
+        return Term.findAllTerms();
     }
     
     @ModelAttribute("paystatuses")

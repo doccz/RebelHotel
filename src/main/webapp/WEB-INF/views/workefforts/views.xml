@@ -27,4 +27,12 @@
     	<put-attribute name = "body" value = "/WEB-INF/views/workefforts/personalList.jspx" />
     	<put-attribute name = "menu" value="/WEB-INF/views/custom_menu.jspx" />
     </definition>
+    <!-- Random validation View Definitions -->
+    
+    <definition extends="workefforts.default" name="workefforts/random_validation_form">
+        <put-attribute name="body" value="/WEB-INF/views/workefforts/random_validation_form.jspx"/>
+    </definition>
+    <definition extends="workefforts.default" name="workefforts/random">
+    	<put-attribute name="body" value="/WEB-INF/views/workefforts/random.jspx"/>
+    </definition>
 </tiles-definitions>
