@@ -57,4 +57,5 @@ privileged aspect Major_Roo_JavaBean {
     public void Major.setMajorHours(Long majorHours) {
         this.majorHours = majorHours;
     }
+    
 }

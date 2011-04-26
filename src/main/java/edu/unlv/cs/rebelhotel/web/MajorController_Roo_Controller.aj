@@ -10,9 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.Integer;
 import java.lang.Long;
 import java.lang.String;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -45,11 +43,6 @@ privileged aspect MajorController_Roo_Controller {
         return "majors/list";
     }
     
-    @ModelAttribute("students")
-    public Collection<Student> MajorController.populateStudents() {
-        return Student.findAllStudents();
-    }
-    
     @RequestMapping(params = { "find=ByDegreeCodeAndCatalogTerm", "form" }, method = RequestMethod.GET)
     public String MajorController.findMajorsByDegreeCodeAndCatalogTermForm(Model model) {
         model.addAttribute("terms", Term.findAllTerms());
@@ -60,6 +53,11 @@ privileged aspect MajorController_Roo_Controller {
     public String MajorController.findMajorsByDegreeCodeAndCatalogTerm(@RequestParam("degreeCode") String degreeCode, @RequestParam("catalogTerm") Term catalogTerm, Model model) {
         model.addAttribute("majors", Major.findMajorsByDegreeCodeAndCatalogTerm(degreeCode, catalogTerm).getResultList());
         return "majors/list";
+    }
+    
+    @ModelAttribute("students")
+    public Collection<Student> MajorController.populateStudents() {
+        return Student.findAllStudents();
     }
     
     @ModelAttribute("terms")

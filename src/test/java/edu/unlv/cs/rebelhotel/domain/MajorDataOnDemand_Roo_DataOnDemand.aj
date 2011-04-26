@@ -4,10 +4,8 @@
 package edu.unlv.cs.rebelhotel.domain;
 
 import edu.unlv.cs.rebelhotel.domain.Major;
-import edu.unlv.cs.rebelhotel.domain.StudentDataOnDemand;
 import java.util.List;
 import java.util.Random;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 privileged aspect MajorDataOnDemand_Roo_DataOnDemand {
@@ -17,9 +15,6 @@ privileged aspect MajorDataOnDemand_Roo_DataOnDemand {
     private Random MajorDataOnDemand.rnd = new java.security.SecureRandom();
     
     private List<Major> MajorDataOnDemand.data;
-    
-    @Autowired
-    private StudentDataOnDemand MajorDataOnDemand.studentDataOnDemand;
     
     public Major MajorDataOnDemand.getNewTransientMajor(int index) {
         edu.unlv.cs.rebelhotel.domain.Major obj = new edu.unlv.cs.rebelhotel.domain.Major();

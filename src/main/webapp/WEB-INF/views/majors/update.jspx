@@ -7,7 +7,7 @@
         <field:checkbox field="reachedMilestone" id="c_edu_unlv_cs_rebelhotel_domain_Major_reachedMilestone" z="bu4iCSmnMX8F2S83eopoiWp2gqw="/>
         
         <field:select field="catalogTerm" id="c_edu_unlv_cs_rebelhotel_domain_Major_catalogTerm" itemValue="id" items="${terms}" path="/terms" z="lrTyjeVuYuc8J17hqp/trmR04Zk="/>
-        <field:checkbox field="completed_work_requirements" id="c_edu_unlv_cs_rebelhotel_domain_Major_completed_work_requirements" z="sTX1jPhJrWq5LKP1gzKu6BEO3lE="/>
+        
     <field:input field="degreeCode" id="c_edu_unlv_cs_rebelhotel_domain_Major_degreeCode" required="true" z="LrEUQ7pLt7e0xD/4MLmY7/F6DAE="/>
     
     
