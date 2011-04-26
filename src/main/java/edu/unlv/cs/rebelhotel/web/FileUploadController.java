@@ -4,18 +4,23 @@ import java.io.File;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.unlv.cs.rebelhotel.file.FileUpload;
+import edu.unlv.cs.rebelhotel.file.FileUploadException;
 import edu.unlv.cs.rebelhotel.file.StudentService;
 
+@RooWebScaffold(path = "fileuploads", formBackingObject = FileUpload.class)
+@RequestMapping("/fileuploads")
 @Controller
-@RequestMapping("/file")
 public class FileUploadController {
 	private StudentService studentService;
 
@@ -27,22 +32,22 @@ public class FileUploadController {
 	@RequestMapping(params = "upload", method = RequestMethod.GET)
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
 	public String uploadForm(Model model) {
-		return "file/upload";
+		return "fileuploads/upload";
 	}
 
 	@RequestMapping(params = "upload", method = RequestMethod.POST)
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
 	public String uploadFormHandler(@RequestParam("file") MultipartFile multipartFile, Model model) throws IOException {
 		if (multipartFile.isEmpty()) {
-			return "file/upload";
+			return "fileuploads/upload";
 		}
-		byte[] fileData = multipartFile.getBytes();
 		
 		File file = File.createTempFile("students",".csv");
 		multipartFile.transferTo(file);
-		studentService.upload(file);
+		FileUpload fileUpload = new FileUpload(file);
+		studentService.upload(fileUpload);
 		
-		model.addAttribute("file_data", new String(fileData).toString());
-		return "file/show";
+		model.addAttribute("fileuploads", FileUpload.findAllFileUploads());
+		return "fileuploads/list";
 	}
 }

@@ -1,7 +1,7 @@
 package edu.unlv.cs.rebelhotel.file;
 
-import java.io.File;
+import edu.unlv.cs.rebelhotel.file.FileUpload;
 
 public interface StudentService {
-	public void upload(File file);
+	public void upload(FileUpload fileUpload);
 }

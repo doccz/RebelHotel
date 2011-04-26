@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -14,12 +15,13 @@ import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.enums.Semester;
 
+
 @RooJavaBean
 @RooToString
 public class Line {
 	private static final int EXPECTED_SIZE = 13;
-	private static final String SPACE = " ";
-	private static final Logger LOG = Logger.getLogger(Line.class);
+	private static final Logger LOG = LoggerFactory.getLogger(Line.class);
+	private int lineNumber;
 	private String studentId;
 	private String lastName;
 	private String firstName;
@@ -29,50 +31,51 @@ public class Line {
 
 	private Term admitTerm;
 	private Term gradTerm;
-	
-	public Line(List<String> tokens){
+
+	public Line(List<String> tokens, int lineNumber){
+		setLineNumber(lineNumber);
+		
 		if (tokens.size() != EXPECTED_SIZE){
-			throw new InvalidLineException("Invalid number of elements.");
+			LOG.error("Line #" + lineNumber + " has invalid number of elements: " + tokens.toString());
+			throw new InvalidLineException("Line #" + lineNumber + " has invalid number of elements.");
 		}
-		if (hasAtLeastOneMajor(tokens.get(5))) {
+		if (StringUtils.isBlank(tokens.get(5))) {
+			LOG.error("Line #" + lineNumber + " has student with no majors: " + tokens.toString());
+			throw new InvalidTokenException("Line #" + lineNumber + " has student with no majors.");
+		} else {
+			LOG.debug("Line #" + lineNumber + " is about to be processed: " + tokens.toString());
 			this.setStudentId(tokens.get(0));
 			this.setLastName(tokens.get(1));
 			this.setFirstName(tokens.get(2));
 			this.setMiddleName(tokens.get(3));
 			this.setEmail(tokens.get(4));
-	
+
 			Set<Major> majors = this.getMajors();
 			Major major;
-			if (shouldInclude(tokens.get(5))) {
+			if (!StringUtils.isBlank(tokens.get(5))) {
 				major = makeMajor(tokens.get(5),tokens.get(6));
 				majors.add(major);
 			}
-			if (shouldInclude(tokens.get(7))) {
+			if (!StringUtils.isBlank(tokens.get(7))) {
 				major = makeMajor(tokens.get(7),tokens.get(8));
 				majors.add(major);
 			}
-			if (shouldInclude(tokens.get(9))) {
+			if (!StringUtils.isBlank(tokens.get(9))) {
 				major = makeMajor(tokens.get(9),tokens.get(10));
 				majors.add(major);
 			}
-		
+
 			this.setAdmitTerm(createOrFindTerm(tokens.get(11)));
 			if (!StringUtils.isBlank(tokens.get(12))){
 				this.setGradTerm(createOrFindTerm(tokens.get(12)));
 			}
 		}
 	}
-	
-	private boolean hasAtLeastOneMajor(String major1) {
-		return major1 == SPACE;
-	}
-	
-	private boolean shouldInclude(String major) {
-		return major == SPACE;
-	}
+
 	private Term createOrFindTerm(String yearAndTerm) {
-		if (yearAndTerm.equals(" ")){
-			throw new InvalidTokenException("Invalid Term:" + yearAndTerm);
+		if (StringUtils.isBlank(yearAndTerm)) {
+			LOG.error("Line #" + lineNumber + " has invalid Term: " + yearAndTerm);
+			throw new InvalidTokenException("Line #" + lineNumber + " has invalid Term: " + yearAndTerm);
 		}
 		char[] character = {0,0,0,0};
 		Integer termYear = null;
@@ -102,7 +105,7 @@ public class Line {
 		
 		return term;
 	}
-	
+
 	private Integer convertToYear(char century, char leftYear, char rightYear) {
 		Integer year = null;
 		if ('0' == century) { 
@@ -110,7 +113,8 @@ public class Line {
 		} else if ('2' == century) { 
 			year = 2000;
 		} else {
-			throw new InvalidTokenException("Invalid century:" + century);
+			LOG.error("Line #" + lineNumber + " has invalid Century: " + century);
+			throw new InvalidTokenException("Line #" + lineNumber + " has invalid Century: " + century);
 		}
 		String yearString = new StringBuilder().append(leftYear).append(rightYear).toString();
 		year += Integer.valueOf(yearString);
@@ -125,10 +129,11 @@ public class Line {
 		} else if ('5' == semester) {
 			return Semester.SUMMER;
 		} else {
-			throw new InvalidTokenException("Invalid semester:" + semester);
+			LOG.error("Line #" + lineNumber + " has invalid Semester: " + semester);
+			throw new InvalidTokenException("Line #" + lineNumber + " has invalid Semester: " + semester);
 		}
 	} 
-	
+
 	private Major makeMajor(String amajor, String aterm) {
 		Term term = createOrFindTerm(aterm);
 		Major major = new Major(amajor,term);

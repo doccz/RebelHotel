@@ -3,23 +3,27 @@ package edu.unlv.cs.rebelhotel.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
 import edu.unlv.cs.rebelhotel.domain.Term;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RooJavaBean
-@RooEntity
+@RooEntity(finders = {"findMajorsByDegreeCodeAndCatalogTerm"})
 public class Major {
 	private boolean reachedMilestone;
 
 	@NotNull
 	private String degreeCode;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE})
     	private Term catalogTerm;
 	
 	@ManyToOne
@@ -29,16 +33,12 @@ public class Major {
 	private Long majorHours; // major related hours (50% requirement)
 
 
-	@Deprecated
-	private boolean completed_work_requirements = false;
-
 	public Major() {
 	}
 
 	public Major(String degreeCode, Term catalogTerm) {
 		this.degreeCode = degreeCode;
 		this.catalogTerm = catalogTerm;
-		this.reachedMilestone = false;
 	}
 
 	public String toString() {

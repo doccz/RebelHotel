@@ -1,0 +1,35 @@
+2011 Apr 25 21:03 - Line #1 has invalid number of elements: []
+2011 Apr 25 21:03 - WOO HOO TEST PASSED FOR LINE: 1000011622,Holmes,Katherine,Marilyn,HOLMESK4@UNLV.NEVADA.EDU,HOSBSHA,2048, , , , ,2048, 
+2011 Apr 25 21:03 - Line #1 has student with no majors: [1000011622, Holmes, Katherine, Marilyn, HOLMESK4@UNLV.NEVADA.EDU,  ,  ,  ,  ,  ,  , 2048,  ]
+2011 Apr 25 21:03 - Line #1 has invalid Term:  
+2011 Apr 25 21:03 - Line #1 has invalid Semester: 9
+2011 Apr 25 21:03 - Line #1 has invalid Century: 3
+2011 Apr 25 21:05 - Line #1 has invalid number of elements: []
+2011 Apr 25 21:05 - WOO HOO TEST PASSED FOR LINE: 1000011622,Holmes,Katherine,Marilyn,HOLMESK4@UNLV.NEVADA.EDU,HOSBSHA,2048, , , , ,2048, 
+2011 Apr 25 21:05 - Line #1 has student with no majors: [1000011622, Holmes, Katherine, Marilyn, HOLMESK4@UNLV.NEVADA.EDU,  ,  ,  ,  ,  ,  , 2048,  ]
+2011 Apr 25 21:05 - Line #1 has invalid Term:  
+2011 Apr 25 21:05 - Line #1 has invalid Semester: 9
+2011 Apr 25 21:05 - Line #1 has invalid Century: 3
+2011 Apr 25 21:07 - Line #1 has invalid number of elements: []
+2011 Apr 25 21:07 - WOO HOO TEST PASSED FOR LINE: 1000011622,Holmes,Katherine,Marilyn,HOLMESK4@UNLV.NEVADA.EDU,HOSBSHA,2048, , , , ,2048, 
+2011 Apr 25 21:07 - Line #1 has student with no majors: [1000011622, Holmes, Katherine, Marilyn, HOLMESK4@UNLV.NEVADA.EDU,  ,  ,  ,  ,  ,  , 2048,  ]
+2011 Apr 25 21:07 - Line #1 has invalid Term:  
+2011 Apr 25 21:07 - Line #1 has invalid Semester: 9
+2011 Apr 25 21:07 - Line #1 has invalid Century: 3
+2011 Apr 25 21:11 - You are running with Spring Security Core 3.0.5.RELEASE
+2011 Apr 25 21:11 - Spring Security 'config' module version is 3.0.5.RELEASE
+2011 Apr 25 21:11 - Creating access control expression attribute 'hasRole('ROLE_ADMIN')' for /useraccounts/**
+2011 Apr 25 21:11 - Creating access control expression attribute 'hasRole('ROLE_ADMIN')' for /choices/**
+2011 Apr 25 21:11 - Creating access control expression attribute 'isAuthenticated()' for /member/**
+2011 Apr 25 21:11 - Creating access control expression attribute 'permitAll' for /resources/**
+2011 Apr 25 21:11 - Creating access control expression attribute 'hasAnyRole('ROLE_ANONYMOUS','ROLE_USER','ROLE_ADMIN','ROLE_SUPERUSER')' for /
+2011 Apr 25 21:11 - Creating access control expression attribute 'permitAll' for /login
+2011 Apr 25 21:11 - Creating access control expression attribute 'hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')' for /**
+2011 Apr 25 21:11 - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 300, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 400, Root bean: class [org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 800, Root bean: class [org.springframework.security.web.authentication.www.BasicAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1200, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1300, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1400, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1800, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 1900]
+2011 Apr 25 21:11 - Validated configuration attributes
+2011 Apr 25 21:11 - Spring Security 'config' module version is 3.0.5.RELEASE
+2011 Apr 25 21:11 - Expressions were enabled for method security but no SecurityExpressionHandler was configured. All hasPermision() expressions will evaluate to false.
+2011 Apr 25 21:11 - Validated configuration attributes
+2011 Apr 25 21:13 - Sending emails to new students.
+2011 Apr 25 21:13 - Sending email to: HOLMESK4@UNLV.NEVADA.EDU with password a4b3lDVb
+2011 Apr 25 21:14 - Sending emails to new students.

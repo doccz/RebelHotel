@@ -45,7 +45,6 @@ import javax.persistence.ManyToMany;
 @RooToString
 @RooEntity(finders = { "findWorkEffortsByStudentEquals", "findWorkEffortsByValidationAndTermSubmitted" })
 public class WorkEffort {
-
     @NotNull
     @ManyToOne
     private Student student;

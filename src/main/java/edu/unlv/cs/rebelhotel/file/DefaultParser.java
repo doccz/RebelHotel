@@ -24,8 +24,9 @@ public class DefaultParser implements Parser {
 		Map<String,List<Line>> entries = new HashMap<String,List<Line>>();
 		Set<FileStudent> fileStudents = new HashSet<FileStudent>();
 
+		int lineNumber = 1;
 		for (List<String> tokens : contents) {
-			Line newline = new Line(tokens);
+			Line newline = new Line(tokens,lineNumber);
 			if (!newline.getMajors().isEmpty()) {
 				String studentId = newline.getStudentId();
 				List<Line> tempLineSet;
@@ -37,6 +38,7 @@ public class DefaultParser implements Parser {
 				tempLineSet.add(newline);
 				entries.put(studentId,tempLineSet);
 			}
+			lineNumber++;
 		}
 		FileStudent fs = new FileStudent();
 		fileStudents.addAll(fs.convert(entries.values()));

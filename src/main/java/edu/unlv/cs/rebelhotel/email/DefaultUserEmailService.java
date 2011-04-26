@@ -53,7 +53,6 @@ public class DefaultUserEmailService implements UserEmailService{
 	}
 
 	private void send(MimeMessagePreparator preparator){
-		
 		try{
 			this.mailSender.send(preparator);
 		} 

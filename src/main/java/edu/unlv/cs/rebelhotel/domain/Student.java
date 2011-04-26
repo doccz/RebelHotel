@@ -23,7 +23,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
-import javax.persistence.TypedQuery;
 
 import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
@@ -33,7 +32,6 @@ import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @RooJavaBean
@@ -41,7 +39,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 @RooEntity(finders = { "findStudentsByFirstNameEquals", "findStudentsByFirstNameLike", "findStudentsByUserAccount", "findStudentsByUserIdEquals" })
 public class Student {
 
-    @NotNull
+    private static final Logger LOG = LoggerFactory.getLogger(Student.class);
+
+	@NotNull
     @Column(unique = true)
     private String userId;
 
@@ -54,14 +54,13 @@ public class Student {
 
     private String lastName;
 
-    //@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Major> majors = new HashSet<Major>();
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Term admitTerm;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Term gradTerm;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -79,10 +78,17 @@ public class Student {
     private static final Logger LOG = LoggerFactory.getLogger("audit");
 	
     @PreUpdate
-    @PrePersist
-    public void onUpdate() {
-    	audit();
+    public void updateLastModified() {
     	lastModified = new Date();
+    	LOG.debug("Updated existing student: " + toString());
+	audit();
+    }
+    
+    @PrePersist
+    public void createNewStudent(){
+    	lastModified = new Date();
+    	LOG.debug("Created new student: " + toString());
+	audit();
     }
 
     public String toString() {
@@ -116,11 +122,24 @@ public class Student {
     }
     
     private void updateMajorsAsExistingStudent(Set<Major> newMajors) {
+    	Set<Major> oldMajors = getMajors();
+    	Set<Major> stillDeclaredMajors = new HashSet<Major>();
+    	for (Major oldMajor : oldMajors) {
+    		if (stillDeclaredMajor(oldMajor,newMajors)){
+    			stillDeclaredMajors.add(oldMajor);
+    		}
+    	}
+    	setMajors(stillDeclaredMajors);
+    	
 		for (Major newMajor : newMajors) {
 			if (!hasDeclaredMajor(newMajor)) {
 				addMajor(newMajor);
 			}
 		}
+	}
+
+	private boolean stillDeclaredMajor(Major oldMajor, Set<Major> newMajors) {
+		return newMajors.contains(oldMajor);
 	}
 
 	private boolean hasDeclaredMajor(Major newMajor) {
@@ -195,5 +214,18 @@ public class Student {
 		}
 
 		LOG.info("User {} updated student {}.", new Object[]{userName, userId});
+	}
+}
+
+	public boolean exists() {
+		return Student.findStudentsByUserIdEquals(getUserId()).getResultList().size() > 0;
+	}
+	
+	public void upsert() {
+		if(exists()){
+			merge();
+		} else {
+			persist();
+		}
 	}
 }

@@ -14,12 +14,13 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 import javax.validation.constraints.NotNull;
 import edu.unlv.cs.rebelhotel.domain.enums.UserGroup;
-import edu.unlv.cs.rebelhotel.file.FileStudent;
 
 import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
 
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 @Configurable("userAccount")
 @RooJavaBean
@@ -32,7 +33,9 @@ public class UserAccount {
     private static final int MAX_PASSWORD_LENGTH = 8;
 
 
-	@NotNull
+	private static final Logger LOG = LoggerFactory.getLogger(UserAccount.class);
+	
+    @NotNull
     @Column(unique = true)
     private String userId;
 
@@ -76,7 +79,24 @@ public class UserAccount {
     public void setPasswordEncoder(MessageDigestPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
+    
+    public String generateRandomPassword(){
+    	final int MAX_PASSWORD_LENGTH = 8;
+		final String charset = "12345ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&abcdefghijklmnopqrstuvwxyz67890";
+		final String firstcharset = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
+		Random random = new Random();
+		StringBuilder sb = new StringBuilder();
 
+		Integer pos;
+		pos = random.nextInt(firstcharset.length());
+		sb.append(firstcharset.charAt(pos));
+		for (int i = 1; i < MAX_PASSWORD_LENGTH; i++) {
+			pos = random.nextInt(charset.length());
+        	sb.append(charset.charAt(pos));
+		}
+		return sb.toString();
+    }
+    
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("UserId: ").append(getUserId()).append(", ");
@@ -85,22 +105,6 @@ public class UserAccount {
     }
 
   
-    public String generatePassword() {
-    	String charset = "12345ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&abcdefghijklmnopqrstuvwxyz67890";
-		Random random = new Random();
-		StringBuilder sb = new StringBuilder();
-		
-		Integer pos;
-		for (int i = 0; i < MAX_PASSWORD_LENGTH; i++) {
-			pos = random.nextInt(charset.length());
-        	sb.append(charset.charAt(pos));
-		}
-		
-		 String password = sb.toString();
-		 setPassword(password);
-		 return password;
-	}
-	
 	    public boolean matchesCurrentPassword (String unencryptedPassword){
     	 String encryptedPassword = passwordEncoder.encodePassword(unencryptedPassword, null);
     	 return encryptedPassword.equals(password);
@@ -120,4 +124,14 @@ public class UserAccount {
 
 		LOG.info("User {} updated student {}.", new Object[]{userName, userId});
 	}
+    
+    @PrePersist
+    public void createNewUserAccount() {
+    	LOG.debug("Created new user account: " + toString());
+    }
+    
+    @PreUpdate
+    public void updateUserAccount() {
+    	LOG.debug("Updated user account: " + toString());
+    }
 }

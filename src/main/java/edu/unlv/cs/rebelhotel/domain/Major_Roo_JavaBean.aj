@@ -62,8 +62,16 @@ privileged aspect Major_Roo_JavaBean {
         return this.completed_work_requirements;
     }
     
-    public void Major.setCompleted_work_requirements(boolean completed_work_requirements) {
-        this.completed_work_requirements = completed_work_requirements;
+    public void Major.setStudent(Student student) {
+        this.student = student;
+    }
+    
+    public boolean Major.isReachedMilestone() {
+        return this.reachedMilestone;
+    }
+    
+    public void Major.setReachedMilestone(boolean reachedMilestone) {
+        this.reachedMilestone = reachedMilestone;
     }
     
 }

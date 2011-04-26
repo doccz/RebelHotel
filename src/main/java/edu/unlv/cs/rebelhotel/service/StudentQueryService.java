@@ -375,7 +375,7 @@ public class StudentQueryService {
 			writer.writeNext(columns);
 		}
 		for (Student student: students) {
-			ArrayList<String> entries = new ArrayList();
+			ArrayList<String> entries = new ArrayList<String>();
 			entries.add(student.getId().toString());
 			if (formStudentQuery.getShowUserId()) {
 				if (student.getUserId() != null) {
@@ -386,8 +386,8 @@ public class StudentQueryService {
 				}
 			}
 			if (formStudentQuery.getShowEmail()) {
-				if (student.getEmail() != null) {
-					entries.add(student.getEmail().toString());
+				if (student.getUserAccount().getEmail() != null) {
+					entries.add(student.getUserAccount().getEmail().toString());
 				}
 				else {
 					entries.add("");

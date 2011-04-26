@@ -3,14 +3,12 @@ package edu.unlv.cs.rebelhotel.web;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.support.FormattingConversionServiceFactoryBean;
 import org.springframework.roo.addon.web.mvc.controller.RooConversionService;
-import org.springframework.validation.MessageCodesResolver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.convert.converter.Converter;
 
-import edu.unlv.cs.rebelhotel.service.SpringApplicationContext;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -95,6 +93,14 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 		};
 	}
 	
+	Converter<edu.unlv.cs.rebelhotel.domain.CatalogRequirement, String> getCatalogRequirementConverter() {
+		return new Converter<edu.unlv.cs.rebelhotel.domain.CatalogRequirement, String>() {
+			public String convert(edu.unlv.cs.rebelhotel.domain.CatalogRequirement param) {
+				return param.toString();
+			}
+		};
+	}
+	
 	Converter<edu.unlv.cs.rebelhotel.domain.enums.PayStatus, String> getPayStatusConverter() {
 		return new Converter<edu.unlv.cs.rebelhotel.domain.enums.PayStatus, String>() {
 			public String convert(edu.unlv.cs.rebelhotel.domain.enums.PayStatus param) {
@@ -156,7 +162,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 		registry.addConverter(getWorkEffortDurationConverter());
 		registry.addConverter(getUserAccountConverter());
 		registry.addConverter(getMajorConverter());
-		
+		registry.addConverter(getCatalogRequirementConverter());
 		registry.addConverter(getVerificationTypeConverter());
 		registry.addConverter(getValidationConverter());
 		registry.addConverter(getSemesterConverter());

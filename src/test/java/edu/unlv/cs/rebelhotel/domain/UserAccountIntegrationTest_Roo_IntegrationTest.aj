@@ -3,10 +3,8 @@
 
 package edu.unlv.cs.rebelhotel.domain;
 
-import edu.unlv.cs.rebelhotel.domain.UserAccountDataOnDemand;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +16,6 @@ privileged aspect UserAccountIntegrationTest_Roo_IntegrationTest {
     declare @type: UserAccountIntegrationTest: @ContextConfiguration(locations = "classpath:/META-INF/spring/applicationContext.xml");
     
     declare @type: UserAccountIntegrationTest: @Transactional;
-    
-    @Autowired
-    private UserAccountDataOnDemand UserAccountIntegrationTest.dod;
     
     @Test
     public void UserAccountIntegrationTest.testCountUserAccounts() {
@@ -87,17 +82,6 @@ privileged aspect UserAccountIntegrationTest_Roo_IntegrationTest {
         obj.flush();
         org.junit.Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getId(), id);
         org.junit.Assert.assertTrue("Version for 'UserAccount' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
-    }
-    
-    @Test
-    public void UserAccountIntegrationTest.testPersist() {
-        org.junit.Assert.assertNotNull("Data on demand for 'UserAccount' failed to initialize correctly", dod.getRandomUserAccount());
-        edu.unlv.cs.rebelhotel.domain.UserAccount obj = dod.getNewTransientUserAccount(Integer.MAX_VALUE);
-        org.junit.Assert.assertNotNull("Data on demand for 'UserAccount' failed to provide a new transient entity", obj);
-        org.junit.Assert.assertNull("Expected 'UserAccount' identifier to be null", obj.getId());
-        obj.persist();
-        obj.flush();
-        org.junit.Assert.assertNotNull("Expected 'UserAccount' identifier to no longer be null", obj.getId());
     }
     
 }
