@@ -18,7 +18,8 @@ privileged aspect FileUploadDataOnDemand_Roo_DataOnDemand {
     
     public FileUpload FileUploadDataOnDemand.getNewTransientFileUpload(int index) {
         edu.unlv.cs.rebelhotel.file.FileUpload obj = new edu.unlv.cs.rebelhotel.file.FileUpload();
-        obj.setMessage("pending_" + index);
+        obj.setFileUploadStatus(null);
+        obj.setMessage("message_" + index);
         obj.setSuccessful(Boolean.TRUE);
         obj.setStartOfExecution(new java.util.GregorianCalendar(java.util.Calendar.getInstance().get(java.util.Calendar.YEAR), java.util.Calendar.getInstance().get(java.util.Calendar.MONTH), java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH), java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY), java.util.Calendar.getInstance().get(java.util.Calendar.MINUTE), java.util.Calendar.getInstance().get(java.util.Calendar.SECOND) + new Double(Math.random() * 1000).intValue()).getTime());
         obj.setEndOfExecution(new java.util.GregorianCalendar(java.util.Calendar.getInstance().get(java.util.Calendar.YEAR), java.util.Calendar.getInstance().get(java.util.Calendar.MONTH), java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH), java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY), java.util.Calendar.getInstance().get(java.util.Calendar.MINUTE), java.util.Calendar.getInstance().get(java.util.Calendar.SECOND) + new Double(Math.random() * 1000).intValue()).getTime());

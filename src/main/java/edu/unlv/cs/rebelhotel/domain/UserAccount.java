@@ -2,7 +2,8 @@ package edu.unlv.cs.rebelhotel.domain;
 
 import java.util.Random;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.roo.addon.entity.RooEntity;
@@ -24,7 +25,7 @@ import javax.persistence.PreUpdate;
 @RooEntity(finders = { "findUserAccountsByUserId" })
 public class UserAccount {
 
-	private static final Logger LOG = Logger.getLogger(UserAccount.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UserAccount.class);
 	
     @NotNull
     @Column(unique = true)
@@ -43,13 +44,6 @@ public class UserAccount {
 
     private Boolean enabled = Boolean.TRUE;
 
-   /* public UserAccount(FileStudent fileStudent) {
-    	this.userId = fileStudent.getStudentId();
-    	setPasswordEncoder(new MessageDigestPasswordEncoder("SHA-256"));
-     	setPassword(generateRandomPassword());
-    	this.email = fileStudent.getEmail();
-    	this.userGroup = UserGroup.ROLE_USER;
-    }*/
     
     public void setPassword(String password) {
         String encoded = passwordEncoder.encodePassword(password, null);

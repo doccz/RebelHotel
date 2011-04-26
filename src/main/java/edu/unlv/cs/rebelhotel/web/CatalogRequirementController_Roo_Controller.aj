@@ -25,80 +25,72 @@ import org.springframework.web.util.WebUtils;
 privileged aspect CatalogRequirementController_Roo_Controller {
     
     @RequestMapping(method = RequestMethod.POST)
-    public String CatalogRequirementController.create(@Valid CatalogRequirement catalogRequirement, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("catalogRequirement", catalogRequirement);
+    public String CatalogRequirementController.create(@Valid CatalogRequirement catalogRequirement, BindingResult result, Model model, HttpServletRequest request) {
+        if (result.hasErrors()) {
+            model.addAttribute("catalogRequirement", catalogRequirement);
             return "catalogrequirements/create";
         }
-        uiModel.asMap().clear();
         catalogRequirement.persist();
-        return "redirect:/catalogrequirements/" + encodeUrlPathSegment(catalogRequirement.getId().toString(), httpServletRequest);
+        return "redirect:/catalogrequirements/" + encodeUrlPathSegment(catalogRequirement.getId().toString(), request);
     }
     
     @RequestMapping(params = "form", method = RequestMethod.GET)
-    public String CatalogRequirementController.createForm(Model uiModel) {
-        uiModel.addAttribute("catalogRequirement", new CatalogRequirement());
+    public String CatalogRequirementController.createForm(Model model) {
+        model.addAttribute("catalogRequirement", new CatalogRequirement());
         return "catalogrequirements/create";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String CatalogRequirementController.show(@PathVariable("id") Long id, Model uiModel) {
-        uiModel.addAttribute("catalogrequirement", CatalogRequirement.findCatalogRequirement(id));
-        uiModel.addAttribute("itemId", id);
+    public String CatalogRequirementController.show(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("catalogrequirement", CatalogRequirement.findCatalogRequirement(id));
+        model.addAttribute("itemId", id);
         return "catalogrequirements/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)
-    public String CatalogRequirementController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
+    public String CatalogRequirementController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
-            uiModel.addAttribute("catalogrequirements", CatalogRequirement.findCatalogRequirementEntries(page == null ? 0 : (page.intValue() - 1) * sizeNo, sizeNo));
+            model.addAttribute("catalogrequirements", CatalogRequirement.findCatalogRequirementEntries(page == null ? 0 : (page.intValue() - 1) * sizeNo, sizeNo));
             float nrOfPages = (float) CatalogRequirement.countCatalogRequirements() / sizeNo;
-            uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
+            model.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
         } else {
-            uiModel.addAttribute("catalogrequirements", CatalogRequirement.findAllCatalogRequirements());
+            model.addAttribute("catalogrequirements", CatalogRequirement.findAllCatalogRequirements());
         }
         return "catalogrequirements/list";
     }
     
     @RequestMapping(method = RequestMethod.PUT)
-    public String CatalogRequirementController.update(@Valid CatalogRequirement catalogRequirement, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("catalogRequirement", catalogRequirement);
+    public String CatalogRequirementController.update(@Valid CatalogRequirement catalogRequirement, BindingResult result, Model model, HttpServletRequest request) {
+        if (result.hasErrors()) {
+            model.addAttribute("catalogRequirement", catalogRequirement);
             return "catalogrequirements/update";
         }
-        uiModel.asMap().clear();
         catalogRequirement.merge();
-        return "redirect:/catalogrequirements/" + encodeUrlPathSegment(catalogRequirement.getId().toString(), httpServletRequest);
+        return "redirect:/catalogrequirements/" + encodeUrlPathSegment(catalogRequirement.getId().toString(), request);
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
-    public String CatalogRequirementController.updateForm(@PathVariable("id") Long id, Model uiModel) {
-        uiModel.addAttribute("catalogRequirement", CatalogRequirement.findCatalogRequirement(id));
+    public String CatalogRequirementController.updateForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("catalogRequirement", CatalogRequirement.findCatalogRequirement(id));
         return "catalogrequirements/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String CatalogRequirementController.delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
+    public String CatalogRequirementController.delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
         CatalogRequirement.findCatalogRequirement(id).remove();
-        uiModel.asMap().clear();
-        uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
-        uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/catalogrequirements";
-    }
-    
-    @ModelAttribute("catalogrequirements")
-    public Collection<CatalogRequirement> CatalogRequirementController.populateCatalogRequirements() {
-        return CatalogRequirement.findAllCatalogRequirements();
+        model.addAttribute("page", (page == null) ? "1" : page.toString());
+        model.addAttribute("size", (size == null) ? "10" : size.toString());
+        return "redirect:/catalogrequirements?page=" + ((page == null) ? "1" : page.toString()) + "&size=" + ((size == null) ? "10" : size.toString());
     }
     
     @ModelAttribute("terms")
-    public java.util.Collection<Term> CatalogRequirementController.populateTerms() {
+    public Collection<Term> CatalogRequirementController.populateTerms() {
         return Term.findAllTerms();
     }
     
-    String CatalogRequirementController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
-        String enc = httpServletRequest.getCharacterEncoding();
+    String CatalogRequirementController.encodeUrlPathSegment(String pathSegment, HttpServletRequest request) {
+        String enc = request.getCharacterEncoding();
         if (enc == null) {
             enc = WebUtils.DEFAULT_CHARACTER_ENCODING;
         }

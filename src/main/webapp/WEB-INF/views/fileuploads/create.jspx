@@ -7,7 +7,7 @@
         <field:checkbox field="successful" id="c_edu_unlv_cs_rebelhotel_file_FileUpload_successful" z="WqmeZqRMRfLljkOXBVRu90UucLs="/>
         <field:datetime dateTimePattern="${fileUpload_startofexecution_date_format}" field="startOfExecution" id="c_edu_unlv_cs_rebelhotel_file_FileUpload_startOfExecution" z="pY+VV1EeXBitSFyopCQCSUDeC2w="/>
         <field:datetime dateTimePattern="${fileUpload_endofexecution_date_format}" field="endOfExecution" id="c_edu_unlv_cs_rebelhotel_file_FileUpload_endOfExecution" z="7J7+012YSSR5EkjFCf9/FEmm4d0="/>
-    <field:select field="fileUploadStatus" id="c_edu_unlv_cs_rebelhotel_file_FileUpload_fileUploadStatus" items="${fileuploadstatuses}" path="fileuploadstatuses" z="wIsCrpS8Dy+jYDpAUtZAnJKM9Tg="/>
+    <field:input field="fileUploadStatus" id="c_edu_unlv_cs_rebelhotel_file_FileUpload_fileUploadStatus" z="Qq/FcpXjFvY1V22K3KLCC9xetYs="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_edu_unlv_cs_rebelhotel_file_FileUpload" render="${not empty dependencies}" z="SNibv5JcdKGEhECk6bZ1d6I8qFQ="/>
 </div>

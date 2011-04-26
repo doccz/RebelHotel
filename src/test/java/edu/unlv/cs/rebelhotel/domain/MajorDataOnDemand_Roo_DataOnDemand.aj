@@ -5,7 +5,6 @@ package edu.unlv.cs.rebelhotel.domain;
 
 import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.StudentDataOnDemand;
-import edu.unlv.cs.rebelhotel.domain.TermDataOnDemand;
 import java.util.List;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +19,14 @@ privileged aspect MajorDataOnDemand_Roo_DataOnDemand {
     private List<Major> MajorDataOnDemand.data;
     
     @Autowired
-    private TermDataOnDemand MajorDataOnDemand.termDataOnDemand;
-    
-    @Autowired
     private StudentDataOnDemand MajorDataOnDemand.studentDataOnDemand;
     
     public Major MajorDataOnDemand.getNewTransientMajor(int index) {
         edu.unlv.cs.rebelhotel.domain.Major obj = new edu.unlv.cs.rebelhotel.domain.Major();
         obj.setDegreeCode("degreeCode_" + index);
-        obj.setCatalogTerm(termDataOnDemand.getRandomTerm());
+        obj.setCatalogTerm(null);
         obj.setStudent(studentDataOnDemand.getRandomStudent());
-        obj.setReachedMilestone(Boolean.FALSE);
+        obj.setReachedMilestone(true);
         return obj;
     }
     

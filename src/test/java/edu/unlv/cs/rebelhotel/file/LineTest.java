@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,7 +21,7 @@ public class LineTest {
 	private static final String INVALID_TERM = "1000011622,Holmes,Katherine,Marilyn,HOLMESK4@UNLV.NEVADA.EDU,HOSBSHA, , , , , ,2048, ";
 	private static final String INVALID_SEMESTER = "1000011622,Holmes,Katherine,Marilyn,HOLMESK4@UNLV.NEVADA.EDU,HOSBSHA,2049, , , , ,2048, ";
 	private static final String INVALID_CENTURY = "1000011622,Holmes,Katherine,Marilyn,HOLMESK4@UNLV.NEVADA.EDU,HOSBSHA,3048, , , , ,2048, ";
-	private static final Logger LOG = Logger.getLogger(LineTest.class);
+	private static final Logger LOG = LoggerFactory.getLogger(LineTest.class);
 	
 	@Test(expected=InvalidLineException.class)
 	public void shouldFailIfGivenIncorrectSize() {

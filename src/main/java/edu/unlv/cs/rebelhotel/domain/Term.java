@@ -1,14 +1,12 @@
 package edu.unlv.cs.rebelhotel.domain;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 import javax.validation.constraints.NotNull;
 import edu.unlv.cs.rebelhotel.domain.enums.Semester;
-import edu.unlv.cs.rebelhotel.file.Line;
 
 import javax.persistence.Enumerated;
 import javax.persistence.PrePersist;
@@ -21,7 +19,7 @@ import javax.persistence.UniqueConstraint;
 @RooEntity(finders = { "findTermsBySemester", "findTermsBySemesterAndTermYearEquals" })
 public class Term {
 
-	private static final Logger LOG = Logger.getLogger(Term.class);
+	private static final Logger LOG = LoggerFactory.getLogger(Term.class);
 	
     @NotNull
     private Integer termYear;
@@ -42,35 +40,6 @@ public class Term {
         sb.append(getSemester() + " " + getTermYear());
         return sb.toString();
     }
-    
-   /* @Override
-    public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
-		if (obj == this) {
-			return true;
-		}
-		if (obj.getClass() != getClass()) {
-			return false;
-		}
-		Term rhs = (Term) obj;
-		return new EqualsBuilder()
-				.append(this, rhs)
-				.append(semester, rhs.semester)
-				.append(termYear, rhs.termYear)
-				.isEquals();
-    }
-    
-    @Override
-    public int hashCode() {
-		// you pick a hard-coded, randomly chosen, non-zero, odd number
-		// ideally different for each class
-		return new HashCodeBuilder(27, 99)
-				.append(semester)
-				.append(termYear)
-				.toHashCode();
-    }*/
     
     @PrePersist
     public void createNewTerm() {

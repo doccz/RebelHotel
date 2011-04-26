@@ -12,12 +12,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import edu.unlv.cs.rebelhotel.email.UserEmailService;
 import edu.unlv.cs.rebelhotel.file.FileStudent;
 import edu.unlv.cs.rebelhotel.file.StudentMapper;
 import edu.unlv.cs.rebelhotel.file.enums.FileUploadStatus;
-import edu.unlv.cs.rebelhotel.domain.Student;
 
 
 // As with this class...
@@ -32,23 +34,35 @@ public class DefaultStudentService implements StudentService{
 	private Parser parser;
 	private Lexer lexer;
 	private StudentMapper studentMapper;
+	private UserEmailService userEmailService;
 	
 	@Autowired
-	public DefaultStudentService(Parser parser, Lexer lexer, StudentMapper studentMapper){
+	public DefaultStudentService(Parser parser, Lexer lexer, StudentMapper studentMapper, UserEmailService userEmailService){
 		this.parser = parser;
 		this.lexer = lexer;
 		this.studentMapper = studentMapper;
+		this.userEmailService = userEmailService;
 	}
 	
 	@Async
 	public void upload(FileUpload fileUpload) {
 		StopWatch watch = new StopWatch();
 		watch.start();
+		
 		fileUpload.beginExecution();
 		fileUpload.persist();
-		LOG.error("File upload began at: " + fileUpload.getStartOfExecution().toString());
+		
+		LOG.info("File upload began at: " + fileUpload.getStartOfExecution().toString());
+		
+		Set<EmailInformation> emailsToSend;
 		try {
-			fileToStudents(fileUpload);
+			emailsToSend = fileToStudents(fileUpload);
+			LOG.error("Sending emails to new students.");
+			for (EmailInformation student : emailsToSend) {
+				if (student.isNewStudent()) {
+					userEmailService.sendStudentConfirmation(student.getUserAccount(), student.getPassword());
+				}
+			}
 		} catch(Exception e){
 			StringBuilder sb = new StringBuilder();
 			sb.append(e.getMessage());
@@ -63,27 +77,28 @@ public class DefaultStudentService implements StudentService{
 				fileUpload.setFileUploadStatus(FileUploadStatus.SUCCESSFUL);
 			}
 			fileUpload.merge();
-			LOG.error("File upload ended at: " + fileUpload.getEndOfExecution().toString());
+			LOG.info("File upload ended at: " + fileUpload.getEndOfExecution().toString());
 			watch.stop();
 			
 			StringBuilder sb = new StringBuilder();
 			sb.append("Seconds: ").append(watch.getTotalTimeSeconds()).append("\n").
 			append("Short summary: ").append(watch.shortSummary());
-			LOG.error("Took this long... " + sb.toString());
+			LOG.info("File Upload took this long... " + sb.toString());
 		}
 	}
 
 	@Transactional
-	private void fileToStudents(FileUpload fileUpload) throws IOException, FileNotFoundException {
+	private Set<EmailInformation> fileToStudents(FileUpload fileUpload) throws IOException, FileNotFoundException {
 		List<List<String>> contents = Collections.emptyList();
 		contents = lexer.tokenize(new FileReader(fileUpload.getFile()));
+		Set<EmailInformation> emailsToSend = new HashSet<EmailInformation>();
 		
 		Set<FileStudent> fileStudents = parser.parse(contents);
 		
 		for (FileStudent each : fileStudents) {
-			Student student = studentMapper.findOrReplace(each);
-			student.setUserId(each.getStudentId());
-			student.upsert();
+			EmailInformation emailInformation = studentMapper.findOrReplace(each);
+			emailsToSend.add(emailInformation);
 		}
+		return emailsToSend;
 	}
 }

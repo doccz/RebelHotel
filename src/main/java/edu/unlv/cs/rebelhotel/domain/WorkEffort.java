@@ -32,7 +32,7 @@ import javax.persistence.ManyToMany;
 @RooToString
 @RooEntity(finders = { "findWorkEffortsByStudentEquals" })
 public class WorkEffort {
-    //private static final Logger LOG = LoggerFactory.getLogger("audit");
+    private static final Logger LOG = LoggerFactory.getLogger("audit");
 	
     @NotNull
     @ManyToOne

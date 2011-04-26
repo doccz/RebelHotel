@@ -2,10 +2,10 @@
 <div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
-    <form:update id="fu_edu_unlv_cs_rebelhotel_domain_Major" modelAttribute="major" path="/majors" versionField="Version" z="MI+uUEoeSjlEK5a60eoeIwuFJH4=">
+    <form:update id="fu_edu_unlv_cs_rebelhotel_domain_Major" modelAttribute="major" path="/majors" z="HXqZJUL9Huvv3eDikiP7KKgLo/s=">
+        <field:input field="degreeCode" id="c_edu_unlv_cs_rebelhotel_domain_Major_degreeCode" required="true" z="LrEUQ7pLt7e0xD/4MLmY7/F6DAE="/>
+        <field:select field="catalogTerm" id="c_edu_unlv_cs_rebelhotel_domain_Major_catalogTerm" itemValue="id" items="${terms}" path="/terms" z="lrTyjeVuYuc8J17hqp/trmR04Zk="/>
         <field:select field="student" id="c_edu_unlv_cs_rebelhotel_domain_Major_student" itemValue="id" items="${students}" path="/students" required="true" z="Vxdc+zA7Z+Cic2XzjWZ/h+gHSaA="/>
         <field:checkbox field="reachedMilestone" id="c_edu_unlv_cs_rebelhotel_domain_Major_reachedMilestone" z="bu4iCSmnMX8F2S83eopoiWp2gqw="/>
-        <field:select field="catalogTerm" id="c_edu_unlv_cs_rebelhotel_domain_Major_catalogTerm" itemValue="id" items="${terms}" path="/terms" z="lrTyjeVuYuc8J17hqp/trmR04Zk="/>
-        <field:input field="degreeCode" id="c_edu_unlv_cs_rebelhotel_domain_Major_degreeCode" required="true" z="LrEUQ7pLt7e0xD/4MLmY7/F6DAE="/>
     </form:update>
 </div>

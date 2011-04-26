@@ -1,16 +1,15 @@
 package edu.unlv.cs.rebelhotel.domain;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 import javax.validation.constraints.NotNull;
 import javax.persistence.Column;
-import javax.validation.constraints.Size;
 import java.util.Set;
 import java.util.HashSet;
 import javax.persistence.CascadeType;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -32,7 +31,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @RooEntity(finders = { "findStudentsByFirstNameEquals", "findStudentsByFirstNameLike", "findStudentsByUserAccount", "findStudentsByUserIdEquals" })
 public class Student {
 
-    private static final Logger LOG = Logger.getLogger(Student.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Student.class);
 
 	@NotNull
     @Column(unique = true)
@@ -122,10 +121,6 @@ public class Student {
 				addMajor(newMajor);
 			}
 		}
-	}
-
-	private void removeMajor(Major oldMajor) {
-		getMajors().remove(oldMajor);
 	}
 
 	private boolean stillDeclaredMajor(Major oldMajor, Set<Major> newMajors) {

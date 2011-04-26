@@ -4,10 +4,12 @@
 package edu.unlv.cs.rebelhotel.web;
 
 import edu.unlv.cs.rebelhotel.file.FileUpload;
+import edu.unlv.cs.rebelhotel.file.enums.FileUploadStatus;
 import java.io.UnsupportedEncodingException;
 import java.lang.Integer;
 import java.lang.Long;
 import java.lang.String;
+import java.util.Arrays;
 import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -26,86 +28,83 @@ import org.springframework.web.util.WebUtils;
 privileged aspect FileUploadController_Roo_Controller {
     
     @RequestMapping(method = RequestMethod.POST)
-    public String FileUploadController.create(@Valid FileUpload fileUpload, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("fileUpload", fileUpload);
-            addDateTimeFormatPatterns(uiModel);
+    public String FileUploadController.create(@Valid FileUpload fileUpload, BindingResult result, Model model, HttpServletRequest request) {
+        if (result.hasErrors()) {
+            model.addAttribute("fileUpload", fileUpload);
+            addDateTimeFormatPatterns(model);
             return "fileuploads/create";
         }
-        uiModel.asMap().clear();
         fileUpload.persist();
-        return "redirect:/fileuploads/" + encodeUrlPathSegment(fileUpload.getId().toString(), httpServletRequest);
+        return "redirect:/fileuploads/" + encodeUrlPathSegment(fileUpload.getId().toString(), request);
     }
     
     @RequestMapping(params = "form", method = RequestMethod.GET)
-    public String FileUploadController.createForm(Model uiModel) {
-        uiModel.addAttribute("fileUpload", new FileUpload());
-        addDateTimeFormatPatterns(uiModel);
+    public String FileUploadController.createForm(Model model) {
+        model.addAttribute("fileUpload", new FileUpload());
+        addDateTimeFormatPatterns(model);
         return "fileuploads/create";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String FileUploadController.show(@PathVariable("id") Long id, Model uiModel) {
-        addDateTimeFormatPatterns(uiModel);
-        uiModel.addAttribute("fileupload", FileUpload.findFileUpload(id));
-        uiModel.addAttribute("itemId", id);
+    public String FileUploadController.show(@PathVariable("id") Long id, Model model) {
+        addDateTimeFormatPatterns(model);
+        model.addAttribute("fileupload", FileUpload.findFileUpload(id));
+        model.addAttribute("itemId", id);
         return "fileuploads/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)
-    public String FileUploadController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
+    public String FileUploadController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
-            uiModel.addAttribute("fileuploads", FileUpload.findFileUploadEntries(page == null ? 0 : (page.intValue() - 1) * sizeNo, sizeNo));
+            model.addAttribute("fileuploads", FileUpload.findFileUploadEntries(page == null ? 0 : (page.intValue() - 1) * sizeNo, sizeNo));
             float nrOfPages = (float) FileUpload.countFileUploads() / sizeNo;
-            uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
+            model.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
         } else {
-            uiModel.addAttribute("fileuploads", FileUpload.findAllFileUploads());
+            model.addAttribute("fileuploads", FileUpload.findAllFileUploads());
         }
-        addDateTimeFormatPatterns(uiModel);
+        addDateTimeFormatPatterns(model);
         return "fileuploads/list";
     }
     
     @RequestMapping(method = RequestMethod.PUT)
-    public String FileUploadController.update(@Valid FileUpload fileUpload, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("fileUpload", fileUpload);
-            addDateTimeFormatPatterns(uiModel);
+    public String FileUploadController.update(@Valid FileUpload fileUpload, BindingResult result, Model model, HttpServletRequest request) {
+        if (result.hasErrors()) {
+            model.addAttribute("fileUpload", fileUpload);
+            addDateTimeFormatPatterns(model);
             return "fileuploads/update";
         }
-        uiModel.asMap().clear();
         fileUpload.merge();
-        return "redirect:/fileuploads/" + encodeUrlPathSegment(fileUpload.getId().toString(), httpServletRequest);
+        return "redirect:/fileuploads/" + encodeUrlPathSegment(fileUpload.getId().toString(), request);
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
-    public String FileUploadController.updateForm(@PathVariable("id") Long id, Model uiModel) {
-        uiModel.addAttribute("fileUpload", FileUpload.findFileUpload(id));
-        addDateTimeFormatPatterns(uiModel);
+    public String FileUploadController.updateForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("fileUpload", FileUpload.findFileUpload(id));
+        addDateTimeFormatPatterns(model);
         return "fileuploads/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String FileUploadController.delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
+    public String FileUploadController.delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
         FileUpload.findFileUpload(id).remove();
-        uiModel.asMap().clear();
-        uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
-        uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/fileuploads";
+        model.addAttribute("page", (page == null) ? "1" : page.toString());
+        model.addAttribute("size", (size == null) ? "10" : size.toString());
+        return "redirect:/fileuploads?page=" + ((page == null) ? "1" : page.toString()) + "&size=" + ((size == null) ? "10" : size.toString());
     }
     
-    @ModelAttribute("fileuploads")
-    public Collection<FileUpload> FileUploadController.populateFileUploads() {
-        return FileUpload.findAllFileUploads();
+    @ModelAttribute("fileuploadstatuses")
+    public Collection<FileUploadStatus> FileUploadController.populateFileUploadStatuses() {
+        return Arrays.asList(FileUploadStatus.class.getEnumConstants());
     }
     
-    void FileUploadController.addDateTimeFormatPatterns(Model uiModel) {
-        uiModel.addAttribute("fileUpload_startofexecution_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));
-        uiModel.addAttribute("fileUpload_endofexecution_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));
+    void FileUploadController.addDateTimeFormatPatterns(Model model) {
+        model.addAttribute("fileUpload_startofexecution_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));
+        model.addAttribute("fileUpload_endofexecution_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));
     }
     
-    String FileUploadController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
-        String enc = httpServletRequest.getCharacterEncoding();
+    String FileUploadController.encodeUrlPathSegment(String pathSegment, HttpServletRequest request) {
+        String enc = request.getCharacterEncoding();
         if (enc == null) {
             enc = WebUtils.DEFAULT_CHARACTER_ENCODING;
         }
