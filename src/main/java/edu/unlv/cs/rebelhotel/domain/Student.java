@@ -153,6 +153,7 @@ public class Student {
     	setAdmitTerm(formStudent.getAdmitTerm());
     	setGradTerm(formStudent.getGradTerm());
     	setCodeOfConductSigned(formStudent.getCodeOfConductSigned());
+    }
     
     /**
      * This method creates a list of progress reports for each

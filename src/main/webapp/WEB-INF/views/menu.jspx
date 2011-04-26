@@ -79,6 +79,7 @@
     <menu:category id="c_catalogrequirement" z="ho/exCiE0c7JCs0Cimmsrjf7w+c=">
             <menu:item id="i_catalogrequirement_new" messageCode="global_menu_new" url="/catalogrequirements?form" z="DTOPNfuJCl0dorRJoFQLrZQBN6A="/>
         <menu:item id="i_catalogrequirement_list" messageCode="global_menu_list" url="/catalogrequirements?page=1&amp;size=${empty param.size ? 10 : param.size}" z="/m393zLhMg4a2R8WGTnw5sDZ63k="/>
+        </menu:category>
     <menu:category id="c_randomvalidationbatch" z="fZBaVDTdGZEHi4ystPcpxzWeGFk=">
             <menu:item id="i_randomvalidationbatch_new" messageCode="global_menu_new" url="/randomvalidationbatches?form" z="ilQ2jLKc0Tn8zTBONmoFgwkNjJo="/>
         <menu:item id="i_randomvalidationbatch_list" messageCode="global_menu_list" url="/randomvalidationbatches?page=1&amp;size=${empty param.size ? 10 : param.size}" z="oWWX2TQAaKIKAQSQ6JWNetjMNtE="/>
