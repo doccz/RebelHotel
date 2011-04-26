@@ -62,11 +62,6 @@ privileged aspect MajorController_Roo_Controller {
         return "majors/list";
     }
     
-    @ModelAttribute("students")
-    public Collection<Student> MajorController.populateStudents() {
-        return Student.findAllStudents();
-    }
-    
     @ModelAttribute("terms")
     public Collection<Term> MajorController.populateTerms() {
         return Term.findAllTerms();

@@ -57,17 +57,4 @@ privileged aspect Major_Roo_JavaBean {
     public void Major.setMajorHours(Long majorHours) {
         this.majorHours = majorHours;
     }
-    
-    public void Major.setStudent(Student student) {
-        this.student = student;
-    }
-    
-    public boolean Major.isReachedMilestone() {
-        return this.reachedMilestone;
-    }
-    
-    public void Major.setReachedMilestone(boolean reachedMilestone) {
-        this.reachedMilestone = reachedMilestone;
-    }
-    
 }
