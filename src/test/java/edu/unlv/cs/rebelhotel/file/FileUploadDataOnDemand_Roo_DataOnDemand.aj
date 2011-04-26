@@ -3,7 +3,7 @@
 
 package edu.unlv.cs.rebelhotel.file;
 
-import edu.unlv.cs.rebelhotel.file.UploadProgress;
+import edu.unlv.cs.rebelhotel.file.FileUpload;
 import java.util.List;
 import java.util.Random;
 import org.springframework.stereotype.Component;
@@ -14,10 +14,10 @@ privileged aspect FileUploadDataOnDemand_Roo_DataOnDemand {
     
     private Random FileUploadDataOnDemand.rnd = new java.security.SecureRandom();
     
-    private List<UploadProgress> FileUploadDataOnDemand.data;
+    private List<FileUpload> FileUploadDataOnDemand.data;
     
-    public UploadProgress FileUploadDataOnDemand.getNewTransientUploadProgress(int index) {
-        edu.unlv.cs.rebelhotel.file.UploadProgress obj = new edu.unlv.cs.rebelhotel.file.UploadProgress();
+    public FileUpload FileUploadDataOnDemand.getNewTransientFileUpload(int index) {
+        edu.unlv.cs.rebelhotel.file.FileUpload obj = new edu.unlv.cs.rebelhotel.file.FileUpload();
         obj.setFileUploadStatus(null);
         obj.setMessage("message_" + index);
         obj.setSuccessful(Boolean.TRUE);
@@ -26,34 +26,34 @@ privileged aspect FileUploadDataOnDemand_Roo_DataOnDemand {
         return obj;
     }
     
-    public UploadProgress FileUploadDataOnDemand.getSpecificUploadProgress(int index) {
+    public FileUpload FileUploadDataOnDemand.getSpecificFileUpload(int index) {
         init();
         if (index < 0) index = 0;
         if (index > (data.size() - 1)) index = data.size() - 1;
-        UploadProgress obj = data.get(index);
-        return UploadProgress.findUploadProgress(obj.getId());
+        FileUpload obj = data.get(index);
+        return FileUpload.findFileUpload(obj.getId());
     }
     
-    public UploadProgress FileUploadDataOnDemand.getRandomUploadProgress() {
+    public FileUpload FileUploadDataOnDemand.getRandomFileUpload() {
         init();
-        UploadProgress obj = data.get(rnd.nextInt(data.size()));
-        return UploadProgress.findUploadProgress(obj.getId());
+        FileUpload obj = data.get(rnd.nextInt(data.size()));
+        return FileUpload.findFileUpload(obj.getId());
     }
     
-    public boolean FileUploadDataOnDemand.modifyUploadProgress(UploadProgress obj) {
+    public boolean FileUploadDataOnDemand.modifyFileUpload(FileUpload obj) {
         return false;
     }
     
     public void FileUploadDataOnDemand.init() {
-        data = edu.unlv.cs.rebelhotel.file.UploadProgress.findUploadProgressEntries(0, 10);
-        if (data == null) throw new IllegalStateException("Find entries implementation for 'UploadProgress' illegally returned null");
+        data = edu.unlv.cs.rebelhotel.file.FileUpload.findFileUploadEntries(0, 10);
+        if (data == null) throw new IllegalStateException("Find entries implementation for 'FileUpload' illegally returned null");
         if (!data.isEmpty()) {
             return;
         }
         
-        data = new java.util.ArrayList<edu.unlv.cs.rebelhotel.file.UploadProgress>();
+        data = new java.util.ArrayList<edu.unlv.cs.rebelhotel.file.FileUpload>();
         for (int i = 0; i < 10; i++) {
-            edu.unlv.cs.rebelhotel.file.UploadProgress obj = getNewTransientUploadProgress(i);
+            edu.unlv.cs.rebelhotel.file.FileUpload obj = getNewTransientFileUpload(i);
             obj.persist();
             obj.flush();
             data.add(obj);

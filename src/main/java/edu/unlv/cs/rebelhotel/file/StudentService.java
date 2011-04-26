@@ -1,7 +1,7 @@
 package edu.unlv.cs.rebelhotel.file;
 
-import edu.unlv.cs.rebelhotel.file.UploadProgress;
+import edu.unlv.cs.rebelhotel.file.FileUpload;
 
 public interface StudentService {
-	public void upload(UploadProgress fileUpload);
+	public void upload(FileUpload fileUpload);
 }

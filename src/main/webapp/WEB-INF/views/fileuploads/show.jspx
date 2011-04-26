@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_edu_unlv_cs_rebelhotel_file_FileUpload" object="${fileupload}" path="/fileuploads" z="AXIvovHE4Y7pzSY6YEu/ttpOpSA=">
+        <field:display field="message" id="s_edu_unlv_cs_rebelhotel_file_FileUpload_message" object="${fileupload}" z="fL+hc76YD5JyzRxyeliNQlN7Tyg="/>
+        <field:display field="successful" id="s_edu_unlv_cs_rebelhotel_file_FileUpload_successful" object="${fileupload}" z="T+APE9N/40SncUaM8ljC/yy4p3s="/>
+        <field:display date="true" dateTimePattern="${fileUpload_startofexecution_date_format}" field="startOfExecution" id="s_edu_unlv_cs_rebelhotel_file_FileUpload_startOfExecution" object="${fileupload}" z="RR5SfaovAfZhEdua4Omrrhm72eU="/>
+        <field:display date="true" dateTimePattern="${fileUpload_endofexecution_date_format}" field="endOfExecution" id="s_edu_unlv_cs_rebelhotel_file_FileUpload_endOfExecution" object="${fileupload}" z="gymoa41jQfsRbn6RwEnYWpbgsbU="/>
+    <field:display field="fileUploadStatus" id="s_edu_unlv_cs_rebelhotel_file_FileUpload_fileUploadStatus" object="${fileupload}" z="AnR1YCtTwhEg7UaOGdfnR6nftMo="/>
+    </page:show>
+</div>

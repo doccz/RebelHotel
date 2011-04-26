@@ -7,6 +7,6 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 privileged aspect FileUpload_Roo_Configurable {
     
-    declare @type: UploadProgress: @Configurable;
+    declare @type: FileUpload: @Configurable;
     
 }
