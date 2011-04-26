@@ -6,13 +6,13 @@
 	<form action="/RebelHotel/workefforts?random" method="post">
 		<h3>Random Validation Form</h3>
 		<br />
-		<label>Sample Size: </label><input type="text" name="sampleSize" size="1" value=""/><br/>
+		<label>Sample Size: </label><input type="text" name="sampleSize" size="1" value=""/><br/><br />
 		<label>Semester: </label><select name="semester">
 			<option>FALL</option>
 			<option>SPRING</option>
 			<option>SUMMER</option>
-		</select><br/>
-		<label>Year:</label> <input type="text" name="year" size="1" value=""/><br/>
+		</select><br/><br />
+		<label>Year:</label> <input type="text" name="year" size="1" value=""/><br/><br />
 		<input type="submit" value="SUBMIT RANDOM QUERY" style="font-family: Impact, sans-serif; color: springgreen; font-size: 14px; background: black" />
 		
 	</form>

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -201,23 +202,33 @@ public class WorkEffortController {
 		@RequestMapping(params = "random", method = RequestMethod.GET)
 		@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
 		public String randomValidationForm(Model model) {
-			List<Term> terms = Term.findAllTerms();
-			model.addAttribute("terms", terms);
 			return "workefforts/random_validation_form";
 		}
 		
 		@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
 		@RequestMapping(params = "random", method = RequestMethod.POST)
-		public String randomValidation(@RequestParam("semester") String semester, @RequestParam("year") Integer year, 
-				@RequestParam("sampleSize") Integer sampleSize, Model model) {
-		    
-		    Semester sem = randomValidationService.getSemester(semester);
-		    Term currentTerm = Term.findTermsBySemesterAndTermYearEquals(sem, year).getSingleResult();
-		    
-		    List<WorkEffort> randomResultList = randomValidationService.getRandomValidationList(currentTerm, sampleSize);
-			
-			model.addAttribute("randomResultList", randomResultList );
-			return "workefforts/random";
+		public String randomValidation(@RequestParam("semester") String semester, @RequestParam("year") String year, 
+				@RequestParam("sampleSize") String sampleSize, Model model) {
+			if (randomValidationService.inputIsValid(year, sampleSize)) {
+				int term_year = Integer.valueOf(year);
+				int sample_size = Integer.valueOf(sampleSize);
+				
+				Semester sem = randomValidationService.getSemester(semester);
+				Term currentTerm;
+				try { // TODO: need to find a way to redirect to my exception handler.
+					  //Currently being intercepted by the after advice in the pointcut 
+					currentTerm = Term.findTermsBySemesterAndTermYearEquals(sem, term_year).getSingleResult();
+				} catch (NoResultException e) {
+					return "workefforts/random_validation_form";
+				}
+				List<WorkEffort> randomResultList = randomValidationService.getRandomValidationList(currentTerm, sample_size);
+				model.addAttribute("randomResultList", randomResultList );
+				
+				return "workefforts/random";
+		    }
+			else {
+				return "workefforts/random_validation_form";
+			}
 		}
 	
 	void addDateTimeFormatPatterns(Model model) {
