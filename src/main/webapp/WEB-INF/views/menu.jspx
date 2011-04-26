@@ -88,6 +88,7 @@
     <menu:category id="c_progress" z="jgpYfwIqvQRUbM/M5p++paAfhyg=">
             <menu:item id="i_progress_new" messageCode="global_menu_new" url="/progresses?form" z="RrKyhwpNbRtDPwmKA3hkd6ST/V0="/>
         <menu:item id="i_progress_list" messageCode="global_menu_list" url="/progresses?page=1&amp;size=${empty param.size ? 10 : param.size}" z="fQEJX/RApI1Qwg2qApWCizn5pVM="/>
+    </menu:category>
     <menu:category id="c_fileupload" z="3NqI1ksIi54O/syzntkI7opX5zc=">
             <menu:item id="i_fileupload_new" messageCode="global_menu_new" url="/fileuploads?form" z="tU2MzkKv1JYkTjGmlvJDWD9oqbs="/>
         <menu:item id="i_fileupload_list" messageCode="global_menu_list" url="/fileuploads?page=1&amp;size=${empty param.size ? 10 : param.size}" z="e+tXoLgWj8y0XyIesueyPIlsitM="/>

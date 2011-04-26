@@ -14,6 +14,7 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 import javax.validation.constraints.NotNull;
 import edu.unlv.cs.rebelhotel.domain.enums.UserGroup;
+import edu.unlv.cs.rebelhotel.file.FileStudent;
 
 import javax.persistence.Column;
 import javax.persistence.Enumerated;
@@ -29,11 +30,9 @@ import javax.persistence.PreUpdate;
 public class UserAccount {
 	
 	private static final Logger LOG = LoggerFactory.getLogger("audit");
+	private static final Logger DEBUG_LOG = LoggerFactory.getLogger(UserAccount.class);
 
     private static final int MAX_PASSWORD_LENGTH = 8;
-
-
-	private static final Logger LOG = LoggerFactory.getLogger(UserAccount.class);
 	
     @NotNull
     @Column(unique = true)
@@ -56,7 +55,7 @@ public class UserAccount {
     public static UserAccount fromFileStudent(FileStudent fileStudent) {
     	UserAccount user = new UserAccount();
     	user.setUserId(fileStudent.getStudentId());
-    	user.setPassword(user.generatePassword());
+    	user.setPassword(user.generateRandomPassword());
     	user.setEmail(fileStudent.getEmail());
     	user.setUserGroup(UserGroup.ROLE_USER);
     	return user;
@@ -65,7 +64,7 @@ public class UserAccount {
     public static UserAccount fromStudent(Student student, String email) {
     	UserAccount user = new UserAccount();
     	user.setUserId(student.getUserId());
-    	user.setPassword(user.generatePassword());
+    	user.setPassword(user.generateRandomPassword());
     	user.setEmail(email);
     	user.setUserGroup(UserGroup.ROLE_USER);
     	return user;
@@ -127,11 +126,11 @@ public class UserAccount {
     
     @PrePersist
     public void createNewUserAccount() {
-    	LOG.debug("Created new user account: " + toString());
+    	DEBUG_LOG.debug("Created new user account: " + toString());
     }
     
     @PreUpdate
     public void updateUserAccount() {
-    	LOG.debug("Updated user account: " + toString());
+    	DEBUG_LOG.debug("Updated user account: " + toString());
     }
 }

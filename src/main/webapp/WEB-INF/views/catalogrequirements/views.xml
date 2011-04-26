@@ -12,6 +12,7 @@
     </definition>
 <definition extends="default" name="catalogrequirements/update">
         <put-attribute name="body" value="/WEB-INF/views/catalogrequirements/update.jspx"/>
+        </definition>
 	<definition extends="catalogrequirements.default" name="catalogrequirements/findcatalogrequirementsByStudentEquals">
         <put-attribute name="body" value="/WEB-INF/views/catalogrequirements/findcatalogrequirementsByStudentEquals.jspx"/>
     </definition>

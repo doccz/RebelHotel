@@ -42,7 +42,7 @@ public class UserAccountController {
         if(userAccount.getUserGroup().equals(UserGroup.ROLE_STUDENT) )
         {
  
-        	String password = userAccount.generatePassword();
+        	String password = userAccount.generateRandomPassword();
         	userAccount.setPassword(password);
         	userAccount.persist();
 				userEmailService.sendStudentConfirmation(userAccount, password);
@@ -51,7 +51,7 @@ public class UserAccountController {
        
         else
         {
-        	String password = userAccount.generatePassword();
+        	String password = userAccount.generateRandomPassword();
         	userAccount.setPassword(password);
         	userAccount.persist();
 			userEmailService.sendAdminComfirmation(userAccount, password);

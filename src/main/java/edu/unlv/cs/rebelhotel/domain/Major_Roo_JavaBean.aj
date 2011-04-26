@@ -58,10 +58,6 @@ privileged aspect Major_Roo_JavaBean {
         this.majorHours = majorHours;
     }
     
-    public boolean Major.isCompleted_work_requirements() {
-        return this.completed_work_requirements;
-    }
-    
     public void Major.setStudent(Student student) {
         this.student = student;
     }

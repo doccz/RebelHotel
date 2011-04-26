@@ -404,7 +404,7 @@ public class StudentController {
 
         
         //Send Email to student's account with generated password
-    	String password = userAccount.generatePassword();
+    	String password = userAccount.generateRandomPassword();
     	student.persist();
     	userAccount.persist();
 		userEmailService.sendStudentConfirmation(userAccount, password);

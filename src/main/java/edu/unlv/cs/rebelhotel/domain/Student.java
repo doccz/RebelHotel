@@ -38,9 +38,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @RooToString
 @RooEntity(finders = { "findStudentsByFirstNameEquals", "findStudentsByFirstNameLike", "findStudentsByUserAccount", "findStudentsByUserIdEquals" })
 public class Student {
-
-    private static final Logger LOG = LoggerFactory.getLogger(Student.class);
-
 	@NotNull
     @Column(unique = true)
     private String userId;
@@ -76,18 +73,19 @@ public class Student {
     private UserAccount userAccount;
     
     private static final Logger LOG = LoggerFactory.getLogger("audit");
+    private static final Logger DEBUG_LOG = LoggerFactory.getLogger(Student.class);
 	
     @PreUpdate
     public void updateLastModified() {
     	lastModified = new Date();
-    	LOG.debug("Updated existing student: " + toString());
+    	DEBUG_LOG.debug("Updated existing student: " + toString());
 	audit();
     }
     
     @PrePersist
     public void createNewStudent(){
     	lastModified = new Date();
-    	LOG.debug("Created new student: " + toString());
+    	DEBUG_LOG.debug("Created new student: " + toString());
 	audit();
     }
 
@@ -215,7 +213,6 @@ public class Student {
 
 		LOG.info("User {} updated student {}.", new Object[]{userName, userId});
 	}
-}
 
 	public boolean exists() {
 		return Student.findStudentsByUserIdEquals(getUserId()).getResultList().size() > 0;
