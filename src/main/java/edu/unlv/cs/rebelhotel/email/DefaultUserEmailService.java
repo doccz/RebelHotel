@@ -85,7 +85,6 @@ public class DefaultUserEmailService implements UserEmailService{
 	
       
 	public void sendStudentConfirmation(final UserAccount userAccount, final String password)  {
-
 		enqueue(new MimeMessagePreparator(){
 
 			public void prepare(MimeMessage mimeMessage) throws Exception {
