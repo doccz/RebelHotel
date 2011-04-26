@@ -39,7 +39,7 @@
            	<menu:item id="i_useraccount_new" messageCode="global_menu_new" url="/useraccounts?form" z="dm6iErpLQmgISoPCTS3yLiH8XFA="/>
        		<menu:item id="i_useraccount_list" messageCode="global_menu_list" url="/useraccounts?page=1&amp;size=${empty param.size ? 10 : param.size}" z="nijRCp2PPYuD2D3D7hljcdDK4vs="/>
            	<menu:item id="fi_useraccount_userid" messageCode="global_menu_find" url="/useraccounts?find=ByUserId&amp;form" z="Lyfp14MJ72W8c0ryI3/ak+xDci0="/>
-           
+            
             <menu:item id="fi_useraccount_useridequals" messageCode="global_menu_find" url="/useraccounts?find=ByUserIdEquals&amp;form" z="0+2Z/hAuuLLaGCIvOYVNYchmFnw="/>
             </menu:category>
    		<menu:category id="c_worktemplate" z="6KPiRf5UVbR/ArLJBSoOhBpwQRY=">

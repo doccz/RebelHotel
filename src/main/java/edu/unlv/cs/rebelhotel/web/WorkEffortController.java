@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
+import edu.unlv.cs.rebelhotel.email.UserEmailService;
 import edu.unlv.cs.rebelhotel.service.UserInformation;
 import edu.unlv.cs.rebelhotel.validators.WorkEffortValidator;
 
@@ -34,6 +35,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class WorkEffortController {
 	@Autowired
 	private UserInformation userInformation;
+	
+	@Autowired
+	UserEmailService userEmailService;
 	
 	@Autowired
 	private WorkEffortValidator workEffortValidator;
@@ -62,13 +66,17 @@ public class WorkEffortController {
             Student student = Student.findStudent(sid);
             model.addAttribute("student", student);
             model.addAttribute("sid", sid);
+            
             return "workefforts/createFromStudent";
         }
+		
 		workEffort.persist();
 		
 		Student student = workEffort.getStudent();
 		student.addWorkEffort(workEffort);
 		student.merge();
+		userEmailService.sendWorkConfirmation(student, workEffort);
+		
         return "redirect:/workefforts/" + encodeUrlPathSegment(workEffort.getId().toString(), request);
     }
 	
@@ -95,6 +103,7 @@ public class WorkEffortController {
             model.addAttribute("workEffort", workEffort);
             return "workefforts/update";
         }
+		
         workEffort.merge();
         return "redirect:/workefforts/" + encodeUrlPathSegment(workEffort.getId().toString(), request);
     }
@@ -138,6 +147,23 @@ public class WorkEffortController {
         return "workefforts/update";
     }
 	
+	/*@RequestMapping(value= "/{id}", params = "forstudent" , method=RequestMethod.GET)
+	public String randomValidation(@PathVariable("id") Long id, Model model) {
+	 
+		return "";
+	}*/
+	
+/*	
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@RequestMapping(params = "mywork", method = RequestMethod.GET)
+	public String listPersonalWork(Model model) {
+		model.addAttribute("str", "A list to contain your completed jobs");
+		Student student = userInformation.getStudent();
+		List<WorkEffort> workEfforts = WorkEffort.findWorkEffortsByStudentEquals(student).getResultList();
+		model.addAttribute("workefforts", workEfforts);
+		return "workefforts/mywork";
+	}
+*/
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {

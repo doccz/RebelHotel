@@ -1,0 +1,28 @@
+<html>
+<body>
+<h3> Welcome  ${userAccount.userId} </h3>
+<br/>
+
+<p style ="text-indent:15px;">
+Your administrative account has been created in the College of Hotel Administration Work Experience Tracking System
+When logging onto the system you will enter your NSHE ID 
+<br/>
+When logging onto the system you will enter your user name, 
+<span style = font-weight:bold>${userAccount.userId} </span><br/>
+Your temporary password is : <span style = font-weight:bold> ${password} </span><br/><br/>
+You can personalize your password by creating a new once, once logged into the system.
+<br/>
+<br/>
+If you have any question please contact 
+<a href="http://hotel.unlv.edu/contact/">College of Hotel Administration</a><br/><br/>
+<br/><br/>
+Thank You
+<br/><br/>
+Hotel College Advising Department
+<br/><br/>
+
+<a href="http://hotel.unlv.edu/contact/">College of Hotel Administration</a>
+
+</p>
+</body>
+</html>

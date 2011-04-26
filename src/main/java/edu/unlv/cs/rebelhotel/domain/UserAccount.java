@@ -7,6 +7,7 @@ import org.springframework.security.authentication.encoding.MessageDigestPasswor
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -19,6 +20,7 @@ import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
 
+
 @Configurable("userAccount")
 @RooJavaBean
 @RooToString
@@ -27,7 +29,10 @@ public class UserAccount {
 	
 	private static final Logger LOG = LoggerFactory.getLogger("audit");
 
-    @NotNull
+    private static final int MAX_PASSWORD_LENGTH = 8;
+
+
+	@NotNull
     @Column(unique = true)
     private String userId;
 
@@ -44,12 +49,11 @@ public class UserAccount {
 
     private Boolean enabled = Boolean.TRUE;
     
-    private static final int MAX_PASSWORD_LENGTH = 8;
-    
+
     public static UserAccount fromFileStudent(FileStudent fileStudent) {
     	UserAccount user = new UserAccount();
     	user.setUserId(fileStudent.getStudentId());
-    	user.setPassword(user.generateRandomPassword());
+    	user.setPassword(user.generatePassword());
     	user.setEmail(fileStudent.getEmail());
     	user.setUserGroup(UserGroup.ROLE_USER);
     	return user;
@@ -58,7 +62,7 @@ public class UserAccount {
     public static UserAccount fromStudent(Student student, String email) {
     	UserAccount user = new UserAccount();
     	user.setUserId(student.getUserId());
-    	user.setPassword(user.generateRandomPassword());
+    	user.setPassword(user.generatePassword());
     	user.setEmail(email);
     	user.setUserGroup(UserGroup.ROLE_USER);
     	return user;
@@ -68,7 +72,7 @@ public class UserAccount {
         String encoded = passwordEncoder.encodePassword(password, null);
         this.password = encoded;
     }
-
+    
     public void setPasswordEncoder(MessageDigestPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
@@ -79,9 +83,10 @@ public class UserAccount {
         sb.append("UserGroup: ").append(getUserGroup());
         return sb.toString();
     }
-    
-    public String generateRandomPassword(){
-		String charset = "12345ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&abcdefghijklmnopqrstuvwxyz67890";
+
+  
+    public String generatePassword() {
+    	String charset = "12345ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&abcdefghijklmnopqrstuvwxyz67890";
 		Random random = new Random();
 		StringBuilder sb = new StringBuilder();
 		
@@ -91,7 +96,9 @@ public class UserAccount {
         	sb.append(charset.charAt(pos));
 		}
 		
-		return sb.toString();
+		 String password = sb.toString();
+		 setPassword(password);
+		 return password;
 	}
 	
 	    public boolean matchesCurrentPassword (String unencryptedPassword){

@@ -26,6 +26,7 @@ public class Line {
 	private String middleName;
 	private String email;
 	private Set<Major> majors = new HashSet<Major>();
+
 	private Term admitTerm;
 	private Term gradTerm;
 	
@@ -69,7 +70,6 @@ public class Line {
 	private boolean shouldInclude(String major) {
 		return major == SPACE;
 	}
-
 	private Term createOrFindTerm(String yearAndTerm) {
 		if (yearAndTerm.equals(" ")){
 			throw new InvalidTokenException("Invalid Term:" + yearAndTerm);
@@ -77,7 +77,6 @@ public class Line {
 		char[] character = {0,0,0,0};
 		Integer termYear = null;
 		Semester semester = null;
-
 		yearAndTerm.getChars(0,4,character,0);
 		termYear = convertToYear(character[0], character[1], character[2]);
 		semester = convertToSemester(character[3]);
@@ -92,6 +91,15 @@ public class Line {
 			term.setTermYear(termYear);
 			term.persist();
 		}
+
+		/*if (Term.doesExist(term.getSemester(), term.getTermYear())) {
+			term.merge();
+		} else {
+			term.persist();
+		}*/
+		
+		term.merge();
+		
 		return term;
 	}
 	

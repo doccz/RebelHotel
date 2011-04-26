@@ -22,6 +22,7 @@ public class FileStudent {
 	private Term admitTerm;
 	private Term gradTerm;
 
+
 	public Set<FileStudent> convert(Collection<List<Line>> student) {
 		Set<FileStudent> fileStudents = new HashSet<FileStudent>();
 		for (List<Line> lines : student) {

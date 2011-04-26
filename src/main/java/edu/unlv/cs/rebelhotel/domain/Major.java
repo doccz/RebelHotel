@@ -28,6 +28,7 @@ public class Major {
 	private Long totalHours; // calculated progress toward completion is stored here
 	private Long majorHours; // major related hours (50% requirement)
 
+
 	@Deprecated
 	private boolean completed_work_requirements = false;
 

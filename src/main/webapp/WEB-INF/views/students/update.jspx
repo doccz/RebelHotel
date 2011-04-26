@@ -3,6 +3,12 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <tiles:insertAttribute ignore="true" name="student_menu"/>
+    <br/>
+    <br/>
+
+    
+    <h1>Update Student Form</h1>
+
     <form:update id="fu_edu_unlv_cs_rebelhotel_domain_FormStudent" modelAttribute="formStudent" path="/students" z="GBNOAl+i5dH6v0+VrL7CjJscAjc=">
         <field:input field="userId" id="c_edu_unlv_cs_rebelhotel_domain_Student_userId" required="true" z="Q+6uPHxy+J/BfpXNbnqjoUPl21g="/>
         <field:input field="email" id="c_edu_unlv_cs_rebelhotel_domain_Student_email" required="true" validationMessageCode="field_invalid_email" z="Tmzn/MVFDMgzmvP57HSeqAmM1Yg="/>
@@ -12,5 +18,6 @@
         <field:select field="admitTerm" id="c_edu_unlv_cs_rebelhotel_domain_Student_admitTerm" itemValue="id" items="${terms}" path="/terms" z="+QqDVPDlRIwBJg9uS56fRV+0UgQ="/>
         <field:select field="gradTerm" id="c_edu_unlv_cs_rebelhotel_domain_Student_gradTerm" itemValue="id" items="${terms}" path="/terms" z="hkCK5XP5bEC8PqbKO/PWTXgPodk="/>
         <field:checkbox field="codeOfConductSigned" id="c_edu_unlv_cs_rebelhotel_domain_Student_codeOfConductSigned" z="MEsITWHN00P2YXp8sh6JT1t/sNM="/>
+
     </form:update>
 </div>

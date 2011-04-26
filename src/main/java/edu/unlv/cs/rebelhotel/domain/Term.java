@@ -69,13 +69,20 @@ public class Term {
 				.toHashCode();
     }
     
-    public boolean isBetween(final Term start, final Term end) {
-    	boolean between = start.termYear <= termYear;
-    	between &= end.termYear >= termYear;
-    	if(between){
-    	between = semester.compareTo(start.semester)>=0;
-    	between &= semester.compareTo(end.semester)<=0;
-    	}
-    	return between;
+	public boolean isBetween(final Term start, final Term end) {
+		boolean between = start.termYear < termYear;
+		between &= end.termYear > termYear;
+
+		if (between) {
+			return true;
+		}
+		if (start.termYear.equals(termYear)) {
+			return semester.ordinal() >= start.semester.ordinal();
+		}
+		if (end.termYear.equals(termYear)) {
+			return semester.ordinal() <= end.semester.ordinal();
+		}
+
+		return false;
 	}
 }
