@@ -74,10 +74,13 @@ public class Student {
 
     @OneToOne(optional = false, cascade= { CascadeType.PERSIST, CascadeType.REMOVE } )
     private UserAccount userAccount;
+    
+    private static final Logger LOG = LoggerFactory.getLogger("audit");
 	
     @PreUpdate
     @PrePersist
     public void onUpdate() {
+    	audit();
     	lastModified = new Date();
     }
 
@@ -112,7 +115,6 @@ public class Student {
     }
     
     private void updateMajorsAsExistingStudent(Set<Major> newMajors) {
-	private static final Logger LOG = LoggerFactory.getLogger("audit");
 		for (Major newMajor : newMajors) {
 			if (!hasDeclaredMajor(newMajor)) {
 				addMajor(newMajor);

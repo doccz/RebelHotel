@@ -138,7 +138,7 @@ public class WorkEffort {
     @PrePersist
     public void persistHours() {
     	audit();
-	Set<Major> majors = student.getMajors();
+    	Set<Major> majors = student.getMajors();
     	Long totalHours[] = new Long[majors.size()];
     	Long majorHours[] = new Long[majors.size()];
     	Major majorArray[] = new Major[majors.size()];
@@ -205,7 +205,7 @@ public class WorkEffort {
     @PreUpdate
     public void updateHours() {
     	audit();
-	Set<Major> majors = student.getMajors();
+    	Set<Major> majors = student.getMajors();
     	Long totalHours[] = new Long[majors.size()];
     	Long majorHours[] = new Long[majors.size()];
     	Major majorArray[] = new Major[majors.size()];
@@ -326,7 +326,6 @@ public class WorkEffort {
         sb.append("Duration: ").append(getDuration()).append("\n").append("\n");
         return sb.toString();
     }
-}
 	
 	public void audit(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
