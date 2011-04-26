@@ -55,30 +55,83 @@ public class WorkEffort {
     @ManyToOne
     private Student student;
 
-    private String workPosition;
+	private String workPosition;
 
-    private String comment;
+	private String comment;
 
-    @Embedded
-    private Supervisor supervisor;
+	@Embedded
+	private Supervisor supervisor;
 
-    @Embedded
-    private Employer employer;
+	@Embedded
+	private Employer employer;
 
-    @Enumerated
-    private VerificationType verificationType;
+	@Enumerated
+	private VerificationType verificationType;
 
-    @Enumerated
-    private Validation validation;
+	@Enumerated
+	private Validation validation;
 
-    @Enumerated
-    private Verification verification;
+	@Enumerated
+	private Verification verification;
 
-    @Enumerated
-    private PayStatus payStatus;
+	@Enumerated
+	private PayStatus payStatus;
 
-    @Embedded
-    private WorkEffortDuration duration;
+	@Embedded
+	private WorkEffortDuration duration;
+
+
+	public boolean isAccepted() {
+		return verification == Verification.ACCEPTED;
+	}
+
+	public boolean isValidated() {
+		return validation.equals(Validation.VALIDATED);
+	}
+
+	/**
+	 * After the student submits a work effort towards his/her major, that work
+	 * effort has to be verified and maybe also be validated if applicable
+	 * before those hours from that work effort can be counted towards the
+	 * student's completed hours. This method returns true if that work effort
+	 * has been verified and validated
+	 * @param major 
+	 * 
+	 * @return
+	 */
+	public boolean isApplicable(Major major) {
+
+		boolean applicableRequirement = hasApplicableCatalogRequirement(major);
+		boolean validationNotNeeded = doesntNeedValidation();
+		
+		boolean accepted = isAccepted();
+		boolean validated = isValidated();
+
+		return applicableRequirement && accepted && (validated || validationNotNeeded);
+	}
+
+	/**
+	 * Returns true if this job is NOT selected for random validation
+	 * @return
+	 */
+	private boolean doesntNeedValidation() {
+		return this.validation.equals(Validation.NO_VALIDATION);
+	}
+	
+	/**
+	 * This method returns true if this job satisfies the catalog requirement
+	 * of a given major. Returns false otherwise
+	 * @param major
+	 * @return
+	 */
+	private boolean hasApplicableCatalogRequirement(Major major){
+		boolean isApplicable = false;
+		
+		for(CatalogRequirement requirement : this.getCatalogRequirements()){
+			isApplicable |= major.appliesTo(requirement);
+		}
+		return isApplicable;
+	}
 
     @ManyToMany
     private Set<CatalogRequirement> catalogRequirements = new HashSet<CatalogRequirement>();

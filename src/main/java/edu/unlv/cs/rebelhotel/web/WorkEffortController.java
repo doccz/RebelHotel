@@ -155,6 +155,12 @@ public class WorkEffortController {
         return "workefforts/show";
     }
 	
+	/*@RequestMapping(value= "/{id}", params = "forstudent" , method=RequestMethod.GET)
+	public String randomValidation(@PathVariable("id") Long id, Model model) {
+	 
+		return "";
+	}*/
+	
 	void addDateTimeFormatPatterns(Model model) {
         model.addAttribute("workEffortDuration_startdate_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));
         model.addAttribute("workEffortDuration_enddate_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));

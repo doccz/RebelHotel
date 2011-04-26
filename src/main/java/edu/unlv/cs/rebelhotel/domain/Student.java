@@ -6,9 +6,11 @@ import org.springframework.roo.addon.tostring.RooToString;
 import javax.validation.constraints.NotNull;
 import javax.persistence.Column;
 import javax.validation.constraints.Size;
+
 import java.util.Set;
 import java.util.HashSet;
 import javax.persistence.CascadeType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -45,7 +47,8 @@ public class Student {
 
     private String lastName;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    //@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Major> majors = new HashSet<Major>();
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -65,7 +68,7 @@ public class Student {
 
     @OneToOne(optional = false, cascade= { CascadeType.PERSIST, CascadeType.REMOVE } )
     private UserAccount userAccount;
-    
+	
     @PreUpdate
     @PrePersist
     public void onUpdate() {
@@ -150,5 +153,20 @@ public class Student {
     	setAdmitTerm(formStudent.getAdmitTerm());
     	setGradTerm(formStudent.getGradTerm());
     	setCodeOfConductSigned(formStudent.getCodeOfConductSigned());
+    
+    /**
+     * This method creates a list of progress reports for each
+     * of a given student's majors and returns this list as a
+     * java set.
+     * @return
+     */
+    public Set<Progress> calculateProgress(){
+    	Set<Progress> progressSet = new HashSet<Progress>();    	
+    	for(Major major : this.getMajors()){
+    		Progress progress = new Progress(major,this.getWorkEffort());
+    		progressSet.add(progress);
+    	}
+    	
+    	return progressSet;
     }
 }

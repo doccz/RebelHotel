@@ -18,4 +18,12 @@ privileged aspect UserAccount_Roo_Finder {
         return q;
     }
     
+    public static TypedQuery<UserAccount> UserAccount.findUserAccountsByUserIdEquals(String userId) {
+        if (userId == null || userId.length() == 0) throw new IllegalArgumentException("The userId argument is required");
+        EntityManager em = UserAccount.entityManager();
+        TypedQuery<UserAccount> q = em.createQuery("SELECT UserAccount FROM UserAccount AS useraccount WHERE useraccount.userId = :userId", UserAccount.class);
+        q.setParameter("userId", userId);
+        return q;
+    }
+    
 }

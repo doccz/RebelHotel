@@ -56,6 +56,10 @@
         </c:otherwise>
       </c:choose>
     </c:if>
+    
+    <c:if test="${empty show}">
+      <c:set var="show" value="true" />
+    </c:if>    
 
     <c:set var="typeName" value="${fn:split(id,'_')[fn:length(fn:split(id,'_')) - 1]}" />
     <c:set var="lengths" value="${fn:split(columnMaxLengths, ',')}" scope="request" />
@@ -93,6 +97,7 @@
               </c:choose>
             </td>
           </c:forTokens>
+          <c:if test="${show}">          
           <td>
             <spring:url value="${path}/${item[typeIdFieldName]}" var="show_form_url" />
             <spring:url value="/resources/images/show.png" var="show_image_url" />
@@ -101,6 +106,7 @@
               <img alt="${fn:escapeXml(show_label)}" class="image" src="${fn:escapeXml(show_image_url)}" title="${fn:escapeXml(show_label)}" />
             </a>
           </td>
+          </c:if>          
           <c:if test="${update}">
             <td>
               <spring:url value="${path}/${item[typeIdFieldName]}" var="update_form_url">

@@ -28,7 +28,7 @@ public class Line {
 	private Set<Major> majors = new HashSet<Major>();
 	private Term admitTerm;
 	private Term gradTerm;
-
+	
 	public Line(List<String> tokens){
 		if (tokens.size() != EXPECTED_SIZE){
 			throw new InvalidLineException("Invalid number of elements.");
@@ -81,8 +81,8 @@ public class Line {
 		yearAndTerm.getChars(0,4,character,0);
 		termYear = convertToYear(character[0], character[1], character[2]);
 		semester = convertToSemester(character[3]);
-
 		Term term;
+
 		try {
 			term = Term.findTermsBySemesterAndTermYearEquals(semester, termYear).getSingleResult();
 			return term;

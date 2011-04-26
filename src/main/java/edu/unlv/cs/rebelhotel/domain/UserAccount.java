@@ -18,21 +18,21 @@ import javax.persistence.EnumType;
 @Configurable("userAccount")
 @RooJavaBean
 @RooToString
-@RooEntity(finders = { "findUserAccountsByUserId" })
+@RooEntity(finders = { "findUserAccountsByUserId", "findUserAccountsByUserIdEquals" })
 public class UserAccount {
 
     @NotNull
     @Column(unique = true)
     private String userId;
 
-    private transient MessageDigestPasswordEncoder passwordEncoder;
+    @Column(unique = true)
+    private String email = "default@mail.com";
 
+    private transient MessageDigestPasswordEncoder passwordEncoder;
+    
     @NotNull
     private String password;
 
-    @NotNull
-    private String email;
-    
     @Enumerated(EnumType.STRING)
     private UserGroup userGroup;
 
@@ -66,7 +66,7 @@ public class UserAccount {
     public void setPasswordEncoder(MessageDigestPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
-    
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("UserId: ").append(getUserId()).append(", ");

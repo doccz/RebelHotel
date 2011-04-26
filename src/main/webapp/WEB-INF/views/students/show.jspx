@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:spring="http://www.springframework.org/tags" xmlns:tiles="http://tiles.apache.org/tags-tiles" version="2.0">
+<div xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:spring="http://www.springframework.org/tags" xmlns:tiles="http://tiles.apache.org/tags-tiles" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <tiles:insertAttribute ignore="true" name="student_menu"/>
@@ -12,12 +12,20 @@
         <field:display field="admitTerm" id="s_edu_unlv_cs_rebelhotel_domain_Student_admitTerm" object="${student}" z="6tJ5tkyGsDQH3mlfM1wmlzichRU="/>
         <field:display field="gradTerm" id="s_edu_unlv_cs_rebelhotel_domain_Student_gradTerm" object="${student}" z="GVBUTuxqCefJz3zKqOn+kmB04SU="/>
         <field:display field="workEffort" id="s_edu_unlv_cs_rebelhotel_domain_Student_workEffort" object="${student}" z="3B3iTKWLOZDjBTNHxFpZlQNkpbc="/>
-        <field:display field="codeOfConductSigned" id="s_edu_unlv_cs_rebelhotel_domain_Student_codeOfConductSigned" object="${student}" z="bdzExXPCeUL8sy6mD7XFCvADpVM="/>
-        <field:display date="true" dateTimePattern="${student_lastmodified_date_format}" field="lastModified" id="s_edu_unlv_cs_rebelhotel_domain_Student_lastModified" object="${student}" z="i9OrOmdzt+/d35aZGKjTY5giRJU="/>
-        <field:display field="userAccount" id="s_edu_unlv_cs_rebelhotel_domain_Student_userAccount" object="${student}" z="C7f59YScd+k6Iy5qzVpdyqcQt7k="/>
-    	
-    
-    	<div class="quicklinks">
+    	<field:display field="codeOfConductSigned" id="s_edu_unlv_cs_rebelhotel_domain_Student_codeOfConductSigned" object="${student}" z="bdzExXPCeUL8sy6mD7XFCvADpVM="/>
+        <field:display field="majors" id="s_edu_unlv_cs_rebelhotel_domain_Student_majors" object="${student}" z="e2EMdvNlgUpZB8J/T+lLcsRqPDg="/>
+    	<field:display date="true" dateTimePattern="${student_lastmodified_date_format}" field="lastModified" id="s_edu_unlv_cs_rebelhotel_domain_Student_lastModified" object="${student}" z="i9OrOmdzt+/d35aZGKjTY5giRJU="/>
+        
+        <page:list items="${progressList}" id="ps_edu_unlv_cs_rebelhotel_domain_Progress">
+        	<table:table id="l_edu_unlv_cs_rebelhotel_domain_Progress" data="${progressList}" path="/students" update="false" create="false" delete="false" show="false">
+        		<table:column property="degreeCode" id="c_edu_unlv_cs_rebelhotel_domain_Progress_degree"></table:column>
+        		<table:column property="relatedHours" id="c_edu_unlv_cs_rebelhotel_domain_progress_relatedHours"></table:column>
+				<table:column property="remainingHours" id="c_edu_unlv_cs_rebelhotel_domain_progress_remainingHours"></table:column>
+				<table:column property="totalHours" id="c_edu_unlv_cs_rebelhotel_domain_progress_totalHours"></table:column>
+        	</table:table>
+        </page:list>
+        
+       <div class="quicklinks">
         	<!-- For creating a work effort from the student page -->
         	<spring:url value="/resources/images/rh-pick.png" var="create_workeffort_image_url"/>
         	<spring:message code="create_workeffort_label" var="workeffort_title"/>

@@ -15,16 +15,22 @@ body {
 	
 	margin-top: 1em;
 	margin-bottom: 5em;
-	border:2px solid #000000;
-	background-color: #C10202;
+	/*border:2px solid #000000;*/
+	background-color: #FFFFFF/*#C10202*/;
 }
 
 #wrapper {
+<<<<<<< HEAD
+	width:1024px;
+	min-width: 1024px;
+	max-width: 1024px;/*1280px;*/
+=======
 	/*width:800px;*/
 	min-width: 1024px;
 	max-width: auto;
+>>>>>>> d260d0b9aac57113daaa3d0a3a0d60f3b0db779c
 	margin-right: auto;
-	margin-left: auto;
+	margin-left: 3%;
 
 	/* fix max-width incompatibility in IE6 */
 	width:expression(document.body.clientWidth > 1024? "1024px": "auto" );
@@ -36,7 +42,7 @@ body {
 /* header and footer elements */
 
 #main {
-	overflow:hidden;
+	overflow:auto;
 	display:box;
 }
 
@@ -158,14 +164,18 @@ a.menu, a.menu:link, a.menu:visited {display:block; width:px; height:25px;}
 
 h1,h2,h3 {
 	font-family: Helvetica, sans-serif;
-	color: #7db223;
+	color: #000000;/*#7db223*/
 }
 
 h1 {
 	font-size: 20px;
 	line-height: 26px;
+<<<<<<< HEAD
+	text-align: center;
+=======
 	color:#000000;
 	text-align:center;
+>>>>>>> d260d0b9aac57113daaa3d0a3a0d60f3b0db779c
 }
 
 h2 {
@@ -211,7 +221,7 @@ tr:nth-child(even) {
 }
 
 a:link {
-	color: #7db223;
+	color: #000000;
 }
 
 a:hover {
@@ -219,11 +229,11 @@ a:hover {
 }
 
 a:active {
-	color: #7db223;
+	color: #000000;
 }
 
 a:visited {
-	color: #7db223;
+	color: #000000;
 }
 
 li {

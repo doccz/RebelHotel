@@ -15,7 +15,7 @@
     
     <table>
     <tr><td>
-	<spring:url value="/resources/j_spring_security_check" var="form_url" />
+<spring:url value="/resources/j_spring_security_check" var="form_url" />
     <form name="f" action="${fn:escapeXml(form_url)}" method="POST">
     <div>
         <label for="j_username">
@@ -27,7 +27,7 @@
           <c:set var="sec_name_msg">
             <spring:escapeBody javaScriptEscape="true">${name_msg}</spring:escapeBody>
           </c:set>
-          Spring.addDecoration(new Spring.ElementDecoration({elementId : "j_username", widgetType : "dijit.form.ValidationTextBox", widgetAttrs : {promptMessage: "${sec_name_msg}", required : true}})); 
+          Spring.addDecoration(new Spring.ElementDecoration({elementId : "j_username", widgetType : "dijit.form.ValidationTextBox", widgetAttrs : {promptMessage: "${sec_name_msg}", required : true}}));
         </script>
       </div>
       <br />
@@ -41,7 +41,7 @@
           <c:set var="sec_pwd_msg">
             <spring:escapeBody javaScriptEscape="true">${pwd_msg}</spring:escapeBody>
           </c:set>
-          Spring.addDecoration(new Spring.ElementDecoration({elementId : "j_password", widgetType : "dijit.form.ValidationTextBox", widgetAttrs : {promptMessage: "${sec_pwd_msg}", required : true}})); 
+          Spring.addDecoration(new Spring.ElementDecoration({elementId : "j_password", widgetType : "dijit.form.ValidationTextBox", widgetAttrs : {promptMessage: "${sec_pwd_msg}", required : true}}));
         </script>
       </div><br/>
       <div class="submit">
@@ -54,11 +54,10 @@
     </form></td>
     <td>
       <div class="login">
-    	  <p><spring:message code="security_login_message1" /></p>
-    	  <p><spring:message code="security_login_message2" /></p>
-    	  <p><spring:message code="security_login_message3" /></p>
-      </div>   
+     <p><spring:message code="security_login_message1" /></p>
+     <p><spring:message code="security_login_message2" /></p>
+     <p><spring:message code="security_login_message3" /></p>
+      </div>
     </td>
     </tr></table>
 </div>
-

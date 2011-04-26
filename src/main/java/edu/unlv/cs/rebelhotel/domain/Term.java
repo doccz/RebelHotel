@@ -1,7 +1,5 @@
 package edu.unlv.cs.rebelhotel.domain;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -13,40 +11,38 @@ import javax.persistence.UniqueConstraint;
 
 @RooJavaBean
 @RooToString
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "semester", "termYear" }) })
-@RooEntity(finders = { "findTermsBySemester", "findTermsBySemesterAndTermYearEquals" })
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "semester",
+		"termYear" }) })
+@RooEntity(finders = { "findTermsBySemester",
+		"findTermsBySemesterAndTermYearEquals" })
 public class Term {
 
-    @NotNull
-    private Integer termYear;
+	@NotNull
+	private Integer termYear;
 
-    @Enumerated
-    private Semester semester;
+	@Enumerated
+	private Semester semester;
 
-    public Term(Integer termYear, Semester semester) {
-        this.termYear = termYear;
-        this.semester = semester;
-    }
+	public Term(Integer termYear, Semester semester) {
+		this.termYear = termYear;
+		this.semester = semester;
+	}
 
-    public Term() {
-    }
+	public Term() {
+	}
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getSemester() + " " + getTermYear());
-        return sb.toString();
-    }
-    
-    @Override
-    public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
-		if (obj == this) {
-			return true;
-		}
-		if (obj.getClass() != getClass()) {
-			return false;
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getSemester() + " " + getTermYear());
+		return sb.toString();
+	}
+
+	public boolean isBetween(final Term start, final Term end) {
+		boolean between = start.termYear <= termYear;
+		between &= end.termYear >= termYear;
+		if(between){
+			between = semester.compareTo(start.semester)>=0;
+			between &= semester.compareTo(end.semester)<=0;
 		}
 		Term rhs = (Term) obj;
 		return new EqualsBuilder()

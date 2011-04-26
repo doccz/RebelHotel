@@ -12,6 +12,13 @@
         	<menu:item id="i_workeffort_random_validation" url="/workefforts?random" z="?"/>
         	<menu:item id="i_main_menu" url="/"/>
         </menu:category>
-    	        </security:authorize>
+    </security:authorize>
+    	        
+    <security:authorize access="hasRole('ROLE_STUDENT')">
+        <menu:category id="c_student_personal">
+        	<menu:item url="/students?myprogress" id="i_student_progress"></menu:item>
+        	<menu:item id="i_main_menu" url="/"/>
+        </menu:category>
+    </security:authorize>
     </menu:menu>
 </div>

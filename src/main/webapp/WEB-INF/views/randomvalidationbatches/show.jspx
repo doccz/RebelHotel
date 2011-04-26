@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch" object="${randomvalidationbatch}" path="/randomvalidationbatches" z="doYwVcuVaag5yFYxgtfrfnehoF4=">
+        <field:display field="batch_number" id="s_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_batch_number" object="${randomvalidationbatch}" z="ysVpl3URBUZ9QRYEBH2QTOH8IR4="/>
+        <field:display date="true" dateTimePattern="${randomValidationBatch_batch_run_date_date_format}" field="batch_run_date" id="s_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_batch_run_date" object="${randomvalidationbatch}" z="ll20803NdB8JmLbF58OV3Eq5ICg="/>
+        <field:display field="num_pending" id="s_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_num_pending" object="${randomvalidationbatch}" z="S0H2wwlgQ+QREiBD53CfrN6zCQE="/>
+        <field:display field="num_validated" id="s_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_num_validated" object="${randomvalidationbatch}" z="8xicI1yCgHsf6CJKUNXdlUdYNpc="/>
+        <field:display field="num_failed_validation" id="s_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_num_failed_validation" object="${randomvalidationbatch}" z="AXbE+codhYTg1hGJeomCmW9Oqgg="/>
+        <field:display field="num_no_validation" id="s_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_num_no_validation" object="${randomvalidationbatch}" z="MjWVzZc34JonRszXXsk2H5TTg5s="/>
+        <field:display field="sample_size" id="s_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_sample_size" object="${randomvalidationbatch}" z="IIbEdEVR7B51Gw/KVJihzI7gmr0="/>
+        <field:display field="is_completed" id="s_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_is_completed" object="${randomvalidationbatch}" z="QMO69R/tJauHPZnWQhPaSz3kmMs="/>
+        <field:display field="students" id="s_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_students" object="${randomvalidationbatch}" z="tDvlfc7u+Fp4H6oMV1/aR06MMI8="/>
+    </page:show>
+</div>

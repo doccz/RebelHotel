@@ -21,12 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 privileged aspect StudentController_Roo_Controller {
     
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String StudentController.show(@PathVariable("id") Long id, Model model) {
-        addDateTimeFormatPatterns(model);
-        model.addAttribute("student", Student.findStudent(id));
-        model.addAttribute("itemId", id);
-        return "students/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)

@@ -23,6 +23,7 @@ import edu.unlv.cs.rebelhotel.domain.CatalogRequirement;
 import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
+
 import edu.unlv.cs.rebelhotel.domain.enums.Semester;
 import edu.unlv.cs.rebelhotel.domain.enums.UserGroup;
 import edu.unlv.cs.rebelhotel.domain.enums.Validation;
@@ -31,6 +32,7 @@ import edu.unlv.cs.rebelhotel.form.FormStudent;
 import edu.unlv.cs.rebelhotel.form.FormStudentMajor;
 import edu.unlv.cs.rebelhotel.form.FormStudentQuery;
 import edu.unlv.cs.rebelhotel.service.StudentQueryService;
+import edu.unlv.cs.rebelhotel.service.UserInformation;
 import edu.unlv.cs.rebelhotel.validators.StudentQueryValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,9 @@ import org.springframework.web.util.WebUtils;
 public class StudentController {
 	@Autowired
 	private MessageSource messageSource;
+	
+	@Autowired
+	private UserInformation userInformation;
 	
 	@Autowired
 	StudentQueryValidator studentQueryValidator;
@@ -240,6 +245,15 @@ public class StudentController {
 		}
 		return properties;
 	}
+	
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String show(@PathVariable("id") Long id, Model model) {
+        addDateTimeFormatPatterns(model);
+        model.addAttribute("student", Student.findStudent(id));
+        model.addAttribute("itemId", id);
+        model.addAttribute("progressList", Student.findStudent(id).calculateProgress());
+        return "students/show";
+    }
 	
 	@RequestMapping(value = "/listquery", method = RequestMethod.GET)
 	public String queryList(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, @Valid FormStudentQuery form, BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
@@ -451,6 +465,18 @@ public class StudentController {
         return "students/update";
     }
 
+	@RequestMapping(params = "myprogress", method = RequestMethod.GET)
+	public String myProgress(Model model) {	
+	
+		Student student = Student.findStudent(userInformation.getStudent().getId());
+		
+		model.addAttribute("student", student);
+    	model.addAttribute("majorsList", student.getMajors());
+    	model.addAttribute("progressList", student.calculateProgress());
+		
+		return "students/myprogress";
+	}
+	
     @RequestMapping(params = { "find=ByFirstNameEquals", "form" }, method = RequestMethod.GET)
     public String findStudentsByFirstNameEqualsForm(Model model) {
         return "students/findStudentsByFirstNameEquals";

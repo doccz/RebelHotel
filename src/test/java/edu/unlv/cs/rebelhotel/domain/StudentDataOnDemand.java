@@ -14,7 +14,7 @@ public class StudentDataOnDemand {
 	public Student getNewTransientStudent(int index) {
         edu.unlv.cs.rebelhotel.domain.Student obj = new edu.unlv.cs.rebelhotel.domain.Student();
         obj.setUserId("userId_" + index);
-        obj.setEmail("email_" + index);
+        //obj.setEmail("email_" + index);
         obj.setFirstName("firstName_" + index);
         obj.setMiddleName("middleName_" + index);
         obj.setLastName("lastName_" + index);
