@@ -3,7 +3,7 @@
 
 package edu.unlv.cs.rebelhotel.file;
 
-import edu.unlv.cs.rebelhotel.file.FileUpload;
+import edu.unlv.cs.rebelhotel.file.UploadProgress;
 import java.lang.Integer;
 import java.lang.Long;
 import java.util.List;
@@ -19,88 +19,88 @@ import org.springframework.transaction.annotation.Transactional;
 
 privileged aspect FileUpload_Roo_Entity {
     
-    declare @type: FileUpload: @Entity;
+    declare @type: UploadProgress: @Entity;
     
     @PersistenceContext
-    transient EntityManager FileUpload.entityManager;
+    transient EntityManager UploadProgress.entityManager;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long FileUpload.id;
+    private Long UploadProgress.id;
     
     @Version
     @Column(name = "version")
-    private Integer FileUpload.version;
+    private Integer UploadProgress.version;
     
-    public Long FileUpload.getId() {
+    public Long UploadProgress.getId() {
         return this.id;
     }
     
-    public void FileUpload.setId(Long id) {
+    public void UploadProgress.setId(Long id) {
         this.id = id;
     }
     
-    public Integer FileUpload.getVersion() {
+    public Integer UploadProgress.getVersion() {
         return this.version;
     }
     
-    public void FileUpload.setVersion(Integer version) {
+    public void UploadProgress.setVersion(Integer version) {
         this.version = version;
     }
     
     @Transactional
-    public void FileUpload.persist() {
+    public void UploadProgress.persist() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.persist(this);
     }
     
     @Transactional
-    public void FileUpload.remove() {
+    public void UploadProgress.remove() {
         if (this.entityManager == null) this.entityManager = entityManager();
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            FileUpload attached = FileUpload.findFileUpload(this.id);
+            UploadProgress attached = UploadProgress.findFileUpload(this.id);
             this.entityManager.remove(attached);
         }
     }
     
     @Transactional
-    public void FileUpload.flush() {
+    public void UploadProgress.flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
     }
     
     @Transactional
-    public FileUpload FileUpload.merge() {
+    public UploadProgress UploadProgress.merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
-        FileUpload merged = this.entityManager.merge(this);
+        UploadProgress merged = this.entityManager.merge(this);
         this.entityManager.flush();
         return merged;
     }
     
-    public static final EntityManager FileUpload.entityManager() {
-        EntityManager em = new FileUpload().entityManager;
+    public static final EntityManager UploadProgress.entityManager() {
+        EntityManager em = new UploadProgress().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
     
-    public static long FileUpload.countFileUploads() {
+    public static long UploadProgress.countFileUploads() {
         return entityManager().createQuery("select count(o) from FileUpload o", Long.class).getSingleResult();
     }
     
-    public static List<FileUpload> FileUpload.findAllFileUploads() {
-        return entityManager().createQuery("select o from FileUpload o", FileUpload.class).getResultList();
+    public static List<UploadProgress> UploadProgress.findAllFileUploads() {
+        return entityManager().createQuery("select o from FileUpload o", UploadProgress.class).getResultList();
     }
     
-    public static FileUpload FileUpload.findFileUpload(Long id) {
+    public static UploadProgress UploadProgress.findFileUpload(Long id) {
         if (id == null) return null;
-        return entityManager().find(FileUpload.class, id);
+        return entityManager().find(UploadProgress.class, id);
     }
     
-    public static List<FileUpload> FileUpload.findFileUploadEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("select o from FileUpload o", FileUpload.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    public static List<UploadProgress> UploadProgress.findFileUploadEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("select o from FileUpload o", UploadProgress.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
 }

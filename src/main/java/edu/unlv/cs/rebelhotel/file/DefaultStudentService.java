@@ -45,7 +45,7 @@ public class DefaultStudentService implements StudentService{
 	}
 	
 	@Async
-	public void upload(FileUpload fileUpload) {
+	public void upload(UploadProgress fileUpload) {
 		StopWatch watch = new StopWatch();
 		watch.start();
 		
@@ -88,7 +88,7 @@ public class DefaultStudentService implements StudentService{
 	}
 
 	@Transactional
-	private Set<EmailInformation> fileToStudents(FileUpload fileUpload) throws IOException, FileNotFoundException {
+	private Set<EmailInformation> fileToStudents(UploadProgress fileUpload) throws IOException, FileNotFoundException {
 		List<List<String>> contents = Collections.emptyList();
 		contents = lexer.tokenize(new FileReader(fileUpload.getFile()));
 		Set<EmailInformation> emailsToSend = new HashSet<EmailInformation>();

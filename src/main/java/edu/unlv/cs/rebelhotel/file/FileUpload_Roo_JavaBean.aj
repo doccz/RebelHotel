@@ -10,43 +10,43 @@ import java.util.Date;
 
 privileged aspect FileUpload_Roo_JavaBean {
     
-    public FileUploadStatus FileUpload.getFileUploadStatus() {
+    public FileUploadStatus UploadProgress.getFileUploadStatus() {
         return this.fileUploadStatus;
     }
     
-    public void FileUpload.setFileUploadStatus(FileUploadStatus fileUploadStatus) {
+    public void UploadProgress.setFileUploadStatus(FileUploadStatus fileUploadStatus) {
         this.fileUploadStatus = fileUploadStatus;
     }
     
-    public String FileUpload.getMessage() {
+    public String UploadProgress.getMessage() {
         return this.message;
     }
     
-    public void FileUpload.setMessage(String message) {
+    public void UploadProgress.setMessage(String message) {
         this.message = message;
     }
     
-    public Boolean FileUpload.getSuccessful() {
+    public Boolean UploadProgress.getSuccessful() {
         return this.successful;
     }
     
-    public void FileUpload.setSuccessful(Boolean successful) {
+    public void UploadProgress.setSuccessful(Boolean successful) {
         this.successful = successful;
     }
     
-    public Date FileUpload.getStartOfExecution() {
+    public Date UploadProgress.getStartOfExecution() {
         return this.startOfExecution;
     }
     
-    public void FileUpload.setStartOfExecution(Date startOfExecution) {
+    public void UploadProgress.setStartOfExecution(Date startOfExecution) {
         this.startOfExecution = startOfExecution;
     }
     
-    public Date FileUpload.getEndOfExecution() {
+    public Date UploadProgress.getEndOfExecution() {
         return this.endOfExecution;
     }
     
-    public void FileUpload.setEndOfExecution(Date endOfExecution) {
+    public void UploadProgress.setEndOfExecution(Date endOfExecution) {
         this.endOfExecution = endOfExecution;
     }
     

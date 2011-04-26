@@ -4,7 +4,7 @@
 package edu.unlv.cs.rebelhotel.web;
 
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
-import edu.unlv.cs.rebelhotel.file.FileUpload;
+import edu.unlv.cs.rebelhotel.file.UploadProgress;
 import java.lang.String;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
@@ -19,9 +19,9 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
         };
     }
     
-    org.springframework.core.convert.converter.Converter<FileUpload, String> ApplicationConversionServiceFactoryBean.getFileUploadConverter() {
-        return new org.springframework.core.convert.converter.Converter<FileUpload, String>() {
-            public String convert(FileUpload fileupload) {
+    org.springframework.core.convert.converter.Converter<UploadProgress, String> ApplicationConversionServiceFactoryBean.getFileUploadConverter() {
+        return new org.springframework.core.convert.converter.Converter<UploadProgress, String>() {
+            public String convert(UploadProgress fileupload) {
                 return new StringBuilder().append(fileupload.getFile()).append(" ").append(fileupload.getMessage()).append(" ").append(fileupload.getStartOfExecution()).append(" ").append(fileupload.getEndOfExecution()).toString();
             }
         };

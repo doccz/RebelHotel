@@ -5,11 +5,13 @@ package edu.unlv.cs.rebelhotel.file;
 
 import java.lang.String;
 
-privileged aspect FileUpload_Roo_ToString {
+privileged aspect UploadProgress_Roo_ToString {
     
-    public String FileUpload.toString() {
+    public String UploadProgress.toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("File: ").append(getFile()).append(", ");
+        sb.append("Id: ").append(getId()).append(", ");
+        sb.append("Version: ").append(getVersion()).append(", ");
         sb.append("FileUploadStatus: ").append(getFileUploadStatus()).append(", ");
         sb.append("Message: ").append(getMessage()).append(", ");
         sb.append("Successful: ").append(getSuccessful()).append(", ");
