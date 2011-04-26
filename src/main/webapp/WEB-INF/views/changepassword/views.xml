@@ -4,5 +4,9 @@
     <definition extends="default" name="change/password">
         <put-attribute name="body" value="/WEB-INF/views/changepassword/changepassword.jspx"/>
     </definition>
+    
+   <definition extends = "default" name = "change/confirmation">
+    	<put-attribute name = "body" value = "/WEB-INF/views/changepassword/changeconfirmation.jspx" />
+    </definition>
 
 </tiles-definitions>

@@ -11,7 +11,7 @@
 			 <menu:item id="i_manage_jobs" url="/workefforts?page=1&amp;size=${empty param.size ? 10 : param.size}" z="WQqdpJpCu9io5O2NJD9cOLDm7tU="/>
 			 <menu:item id="i_randomvalidationbatch_list" url="/randomvalidationbatches?page=1&amp;size=${empty param.size ? 10 : param.size }" z="?"/>
 			 <menu:item id="i_fileupload" url="/file?upload"/>
-			 <menu:item id="i_change_password" url="/change?password"/>
+			 <menu:item id="i_change_password" url="/change"/>
 			 <menu:item id="i_manage_accounts" url="/useraccounts?page=1&amp;size=${empty param.size ? 10 : param.size}" z="nijRCp2PPYuD2D3D7hljcdDK4vs="/>
 		 </menu:category>
 	</security:authorize>
@@ -25,6 +25,7 @@
         	<menu:category id="c_student_personal">
         		<menu:item id="i_student_personal_work" url="/workefforts/mywork"/>
         		<menu:item url="/students?myprogress" id="i_student_progress"></menu:item>
+        		<menu:item id="i_change_password" url="/change"/>
         	</menu:category>
     	</security:authorize>
     </menu:menu>

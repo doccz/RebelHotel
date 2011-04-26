@@ -1,7 +1,9 @@
 package edu.unlv.cs.rebelhotel.service;
 
 import java.util.Collection;
+import java.util.List;
 
+import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -37,10 +39,15 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 					username = principal.toString();
 				}
 				Collection<GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+				List<UserAccount> resultList = UserAccount.findUserAccountsByUserId(username).getResultList();
+				UserAccount account = null;
+				if(!resultList.isEmpty()){
+					account = resultList.get(0);
+					userInformation.setUserAccount(account);
+				}
 				if (authorities.contains(UserGroup.ROLE_STUDENT)) {
 					// All students should have the ROLE_STUDENT role and should also have usernames consisting of 10  digit numbers
 					try {
-						UserAccount account = UserAccount.findUserAccountsByUserId(username).getSingleResult();
 						Student student = Student.findStudentsByUserAccount(account).getSingleResult();
 						userInformation.setStudent(student);
 					}
