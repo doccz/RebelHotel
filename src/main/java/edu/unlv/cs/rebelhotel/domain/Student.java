@@ -1,8 +1,14 @@
 package edu.unlv.cs.rebelhotel.domain;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.validation.constraints.NotNull;
 import javax.persistence.Column;
 import javax.validation.constraints.Size;
@@ -106,6 +112,7 @@ public class Student {
     }
     
     private void updateMajorsAsExistingStudent(Set<Major> newMajors) {
+	private static final Logger LOG = LoggerFactory.getLogger("audit");
 		for (Major newMajor : newMajors) {
 			if (!hasDeclaredMajor(newMajor)) {
 				addMajor(newMajor);
@@ -126,11 +133,11 @@ public class Student {
 	}
 
 	/**
-     * If the student has an empty set of majors, that means they are new to the system.
-     * 
-     * @return
-     */
-    @Transient
+	 * If the student has an empty set of majors, that means they are new to the system.
+	 * 
+	 * @return
+	 */
+	@Transient
 	public boolean isNewStudent() {
 		return this.majors.isEmpty();
 	}
@@ -170,4 +177,20 @@ public class Student {
     	
     	return progressSet;
     }
+	
+	public void audit(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		boolean hasAuthentication = (null != authentication);
+		String userName = "";
+		if (hasAuthentication) {
+			Object principal = authentication.getPrincipal();
+			if (principal instanceof UserDetails) {
+				userName = ((UserDetails) principal).getUsername();
+			} else {
+				userName = principal.toString();
+			}
+		}
+
+		LOG.info("User {} updated student {}.", new Object[]{userName, userId});
+	}
 }

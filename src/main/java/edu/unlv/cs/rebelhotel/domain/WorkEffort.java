@@ -49,11 +49,10 @@ import javax.persistence.ManyToMany;
 @RooToString
 @RooEntity(finders = { "findWorkEffortsByStudentEquals" })
 public class WorkEffort {
-    //private static final Logger LOG = LoggerFactory.getLogger("audit");
-	
     @NotNull
     @ManyToOne
     private Student student;
+    private static final Logger LOG = LoggerFactory.getLogger("audit");
 
 	private String workPosition;
 
@@ -138,7 +137,8 @@ public class WorkEffort {
     
     @PrePersist
     public void persistHours() {
-    	Set<Major> majors = student.getMajors();
+    	audit();
+	Set<Major> majors = student.getMajors();
     	Long totalHours[] = new Long[majors.size()];
     	Long majorHours[] = new Long[majors.size()];
     	Major majorArray[] = new Major[majors.size()];
@@ -204,7 +204,8 @@ public class WorkEffort {
     
     @PreUpdate
     public void updateHours() {
-    	Set<Major> majors = student.getMajors();
+    	audit();
+	Set<Major> majors = student.getMajors();
     	Long totalHours[] = new Long[majors.size()];
     	Long majorHours[] = new Long[majors.size()];
     	Major majorArray[] = new Major[majors.size()];
@@ -325,4 +326,22 @@ public class WorkEffort {
         sb.append("Duration: ").append(getDuration()).append("\n").append("\n");
         return sb.toString();
     }
+}
+	
+	public void audit(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		boolean hasAuthentication = (null != authentication);
+		String userName = "";
+		if(hasAuthentication){
+			Object principal = authentication.getPrincipal();
+			if(principal instanceof UserDetails){
+				userName = ((UserDetails)principal).getUsername();
+			} else {
+				userName = principal.toString();
+			}
+		}
+		String studentId = student.getUserId();
+
+		LOG.info("User {} updated job {} for student {}.", new Object[]{userName, getWorkPosition(), studentId});
+	}
 }
