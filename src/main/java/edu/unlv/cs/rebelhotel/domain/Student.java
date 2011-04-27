@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.persistence.Column;
 import javax.validation.constraints.Size;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.HashSet;
 import javax.persistence.CascadeType;
@@ -37,7 +38,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 @RooJavaBean
 @RooToString
 @RooEntity(finders = { "findStudentsByFirstNameEquals", "findStudentsByFirstNameLike", "findStudentsByUserAccount", "findStudentsByUserIdEquals" })
-public class Student {
+public class Student implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7516114980466429437L;
+
+
 	@NotNull
     @Column(unique = true)
     private String userId;

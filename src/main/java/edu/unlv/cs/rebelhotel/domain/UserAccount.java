@@ -1,5 +1,6 @@
 package edu.unlv.cs.rebelhotel.domain;
 
+import java.io.Serializable;
 import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +28,12 @@ import javax.persistence.PreUpdate;
 @RooJavaBean
 @RooToString
 @RooEntity(finders = { "findUserAccountsByUserId", "findUserAccountsByUserIdEquals" })
-public class UserAccount {
+public class UserAccount implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6794686778435168726L;
 	private static final Logger LOG = LoggerFactory.getLogger("audit");
 	private static final Logger DEBUG_LOG = LoggerFactory.getLogger(UserAccount.class);
 
@@ -104,7 +109,7 @@ public class UserAccount {
     }
 
   
-	    public boolean matchesCurrentPassword (String unencryptedPassword){
+	public boolean matchesCurrentPassword (String unencryptedPassword){
     	 String encryptedPassword = passwordEncoder.encodePassword(unencryptedPassword, null);
     	 return encryptedPassword.equals(password);
     }

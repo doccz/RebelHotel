@@ -18,13 +18,13 @@ import edu.unlv.cs.rebelhotel.web.ChangePasswordController;
 public class ChangePasswordValidator implements Validator {
 
 	static final String MESSAGE_NEW_PASSWORD_MUST_BE_ENTERED_WHEN_CHANGING_PASSWORD = "New password must be entered when changing password";
-	static final String FIELD_NEW_PASSWORD = "newpassword";
+	static final String FIELD_NEW_PASSWORD = "newPassword";
 
 	static final String MESSAGE_YOU_MUST_CONFIRM_YOUR_PASSWORD_WHEN_CHANGING_PASSWORD = "You must confirm your password when changing password";
-	static final String FIELD_CONFIRM_PASSWORD = "confirmpassword";
+	static final String FIELD_CONFIRM_PASSWORD = "confirmPassword";
 
 	static final String MESSAGE_CURRENT_PASSWORD_MUST_BE_ENTERED_WHEN_CHANGING_PASSWORD = "Current password must be entered when changing password";
-	static final String FIELD_CURRENT_PASSWORD = "currentpassword";
+	static final String FIELD_CURRENT_PASSWORD = "currentPassword";
 	
 	static final String ERROR_CHANGE_PASSWORD_WRONG_CURRENT = "change_password_wrong_current";
 	static final String MESSAGE_CURRENT_PASSWORD_IS_INCORRECT = "Current password entered is incorrect";
@@ -36,7 +36,7 @@ public class ChangePasswordValidator implements Validator {
 	static final String ERROR_CHANGE_PASSWORD_BLANK_NEW = "change_password_blank_new";
 	static final String ERROR_CHANGE_PASSWORD_BLANK_CONFIRM = "change_password_blank_confirm";
 	
-	private final UserInformation userInformation;
+	private UserInformation userInformation;
 	
 	@Autowired
 	public ChangePasswordValidator(UserInformation userInformation){

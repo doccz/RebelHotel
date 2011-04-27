@@ -43,8 +43,9 @@
         <intercept-url pattern = "/workefforts/mywork" access = "hasAnyRole('ROLE_STUDENT', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPERUSER')" />
         <intercept-url pattern = "/workefforts/[0-9]+" access = "hasAnyRole('ROLE_STUDENT', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPERUSER')" />
         <intercept-url pattern = "/change" access = "hasAnyRole('ROLE_STUDENT', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPERUSER')" />
+        <intercept-url pattern = "/students\?myprogress" access = "hasRole('ROLE_STUDENT')" />
         <intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_STUDENT', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPERUSER')" />
-        <intercept-url pattern="/login" access="permitAll"/>
+        <intercept-url pattern="/login.*" access="permitAll"/>
         <intercept-url pattern="/.*" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPERUSER')" />
     </http>
 	
@@ -74,6 +75,9 @@
 					authorities="ROLE_ADMIN" />
 			</user-service>
 		</authentication-provider>
+		<authentication-provider user-service-ref = "userService">
+    		<password-encoder hash = "sha-256" />
+    	</authentication-provider>
 	</authentication-manager>
 
 </beans:beans>

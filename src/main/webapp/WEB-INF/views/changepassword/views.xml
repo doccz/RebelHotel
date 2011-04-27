@@ -3,10 +3,12 @@
 <tiles-definitions>
     <definition extends="default" name="change/password">
         <put-attribute name="body" value="/WEB-INF/views/changepassword/changepassword.jspx"/>
+        <put-attribute name = "menu" value="/WEB-INF/views/custom_menu.jspx" />
     </definition>
     
    <definition extends = "default" name = "change/confirmation">
     	<put-attribute name = "body" value = "/WEB-INF/views/changepassword/changeconfirmation.jspx" />
+    	<put-attribute name = "menu" value="/WEB-INF/views/custom_menu.jspx" />
     </definition>
 
 </tiles-definitions>

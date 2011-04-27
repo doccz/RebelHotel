@@ -388,14 +388,21 @@ public class StudentController {
         // attempts to find a user account with matching user id first; this may not be desirable
         // likely will want an error message if the found user account is assigned to a different user for some reason
         UserAccount userAccount;
+        String password;
+    	
         try {
         	userAccount = UserAccount.findUserAccountsByUserId(student.getUserId()).getSingleResult();
         	userAccount.setEmail(formStudent.getEmail()); // updates email
+        	password = userAccount.generateRandomPassword();
+        	userAccount.setPassword(password);
+        	userAccount.merge();
         }
         catch (org.springframework.dao.EmptyResultDataAccessException exception) {
         	userAccount = UserAccount.fromStudent(student, formStudent.getEmail());
             userAccount.setUserGroup(UserGroup.ROLE_STUDENT);
             userAccount.setEnabled(true);
+            password = userAccount.generateRandomPassword();
+        	userAccount.setPassword(password);
             userAccount.persist();
         }
         
@@ -404,9 +411,8 @@ public class StudentController {
 
         
         //Send Email to student's account with generated password
-    	String password = userAccount.generateRandomPassword();
+    	
     	student.persist();
-    	userAccount.persist();
 		userEmailService.sendStudentConfirmation(userAccount, password);
 
         return "redirect:/students/" + encodeUrlPathSegment(student.getId().toString(), request);

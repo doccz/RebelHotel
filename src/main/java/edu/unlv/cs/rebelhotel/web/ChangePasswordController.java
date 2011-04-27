@@ -10,6 +10,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +22,8 @@ import org.springframework.web.util.WebUtils;
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
 import edu.unlv.cs.rebelhotel.form.FormChangePassword;
 import edu.unlv.cs.rebelhotel.service.UserInformation;
+import edu.unlv.cs.rebelhotel.validators.ChangePasswordValidator;
+import edu.unlv.cs.rebelhotel.validators.WorkEffortValidator;
 
 
 @Controller
@@ -37,14 +41,20 @@ public class ChangePasswordController {
 
 	@RequestMapping(method = RequestMethod.PUT)
 	public String changePassword(@Valid FormChangePassword change, BindingResult result, Model model, HttpServletRequest request){
+		// not sure if concurrency matters here; creates a new validator with the user information parameter for each request just in case
+		new ChangePasswordValidator(userInformation).validate(change, result);
 		if (result.hasErrors()){
 			model.addAttribute("formChangePassword", change);
 			return "change/password";
 		}
 		
-		UserAccount userAccount = userInformation.getUserAccount();
+		// avoid attempting to merge the account stored in the session scoped object
+		UserAccount userAccount = UserAccount.findUserAccount(userInformation.getUserAccount().getId());
 		userAccount.setPassword(change.getNewPassword());
 		userAccount.merge();
+		
+		// update the session scoped copy with the new password (updating the above one does not automatically do this)
+		userInformation.getUserAccount().setPassword(change.getNewPassword());
     	return "change/confirmation";
 		
 	}
