@@ -43,11 +43,6 @@ privileged aspect StudentController_Roo_Controller {
         return Term.findAllTerms();
     }
     
-    @ModelAttribute("useraccounts")
-    public Collection<UserAccount> StudentController.populateUserAccounts() {
-        return UserAccount.findAllUserAccounts();
-    }
-    
     @ModelAttribute("workefforts")
     public Collection<WorkEffort> StudentController.populateWorkEfforts() {
         return WorkEffort.findAllWorkEfforts();
