@@ -540,6 +540,11 @@ public class StudentController {
         return "students/list";
     }
     
+    @ModelAttribute("useraccounts")
+    public Collection<UserAccount> populateUserAccounts() {
+        return UserAccount.findAllUserAccounts();
+    }
+    
     String encodeUrlPathSegment(String pathSegment, HttpServletRequest request) {
         String enc = request.getCharacterEncoding();
         if (enc == null) {

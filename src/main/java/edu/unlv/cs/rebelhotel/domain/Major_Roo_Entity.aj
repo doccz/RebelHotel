@@ -73,12 +73,6 @@ privileged aspect Major_Roo_Entity {
     }
     
     @Transactional
-    public void Major.clear() {
-        if (this.entityManager == null) this.entityManager = entityManager();
-        this.entityManager.clear();
-    }
-    
-    @Transactional
     public Major Major.merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
         Major merged = this.entityManager.merge(this);
@@ -93,11 +87,11 @@ privileged aspect Major_Roo_Entity {
     }
     
     public static long Major.countMajors() {
-        return entityManager().createQuery("SELECT COUNT(o) FROM Major o", Long.class).getSingleResult();
+        return entityManager().createQuery("select count(o) from Major o", Long.class).getSingleResult();
     }
     
     public static List<Major> Major.findAllMajors() {
-        return entityManager().createQuery("SELECT o FROM Major o", Major.class).getResultList();
+        return entityManager().createQuery("select o from Major o", Major.class).getResultList();
     }
     
     public static Major Major.findMajor(Long id) {
@@ -106,7 +100,7 @@ privileged aspect Major_Roo_Entity {
     }
     
     public static List<Major> Major.findMajorEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM Major o", Major.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+        return entityManager().createQuery("select o from Major o", Major.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
 }

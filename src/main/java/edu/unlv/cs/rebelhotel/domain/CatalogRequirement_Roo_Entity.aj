@@ -73,12 +73,6 @@ privileged aspect CatalogRequirement_Roo_Entity {
     }
     
     @Transactional
-    public void CatalogRequirement.clear() {
-        if (this.entityManager == null) this.entityManager = entityManager();
-        this.entityManager.clear();
-    }
-    
-    @Transactional
     public CatalogRequirement CatalogRequirement.merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
         CatalogRequirement merged = this.entityManager.merge(this);
@@ -93,11 +87,11 @@ privileged aspect CatalogRequirement_Roo_Entity {
     }
     
     public static long CatalogRequirement.countCatalogRequirements() {
-        return entityManager().createQuery("SELECT COUNT(o) FROM CatalogRequirement o", Long.class).getSingleResult();
+        return entityManager().createQuery("select count(o) from CatalogRequirement o", Long.class).getSingleResult();
     }
     
     public static List<CatalogRequirement> CatalogRequirement.findAllCatalogRequirements() {
-        return entityManager().createQuery("SELECT o FROM CatalogRequirement o", CatalogRequirement.class).getResultList();
+        return entityManager().createQuery("select o from CatalogRequirement o", CatalogRequirement.class).getResultList();
     }
     
     public static CatalogRequirement CatalogRequirement.findCatalogRequirement(Long id) {
@@ -106,7 +100,7 @@ privileged aspect CatalogRequirement_Roo_Entity {
     }
     
     public static List<CatalogRequirement> CatalogRequirement.findCatalogRequirementEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM CatalogRequirement o", CatalogRequirement.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+        return entityManager().createQuery("select o from CatalogRequirement o", CatalogRequirement.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
 }

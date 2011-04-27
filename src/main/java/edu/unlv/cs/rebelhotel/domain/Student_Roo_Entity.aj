@@ -73,12 +73,6 @@ privileged aspect Student_Roo_Entity {
     }
     
     @Transactional
-    public void Student.clear() {
-        if (this.entityManager == null) this.entityManager = entityManager();
-        this.entityManager.clear();
-    }
-    
-    @Transactional
     public Student Student.merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
         Student merged = this.entityManager.merge(this);
@@ -93,11 +87,11 @@ privileged aspect Student_Roo_Entity {
     }
     
     public static long Student.countStudents() {
-        return entityManager().createQuery("SELECT COUNT(o) FROM Student o", Long.class).getSingleResult();
+        return entityManager().createQuery("select count(o) from Student o", Long.class).getSingleResult();
     }
     
     public static List<Student> Student.findAllStudents() {
-        return entityManager().createQuery("SELECT o FROM Student o", Student.class).getResultList();
+        return entityManager().createQuery("select o from Student o", Student.class).getResultList();
     }
     
     public static Student Student.findStudent(Long id) {
@@ -106,7 +100,7 @@ privileged aspect Student_Roo_Entity {
     }
     
     public static List<Student> Student.findStudentEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM Student o", Student.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+        return entityManager().createQuery("select o from Student o", Student.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
 }

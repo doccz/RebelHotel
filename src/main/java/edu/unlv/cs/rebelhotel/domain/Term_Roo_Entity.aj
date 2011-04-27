@@ -73,12 +73,6 @@ privileged aspect Term_Roo_Entity {
     }
     
     @Transactional
-    public void Term.clear() {
-        if (this.entityManager == null) this.entityManager = entityManager();
-        this.entityManager.clear();
-    }
-    
-    @Transactional
     public Term Term.merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
         Term merged = this.entityManager.merge(this);
@@ -93,11 +87,11 @@ privileged aspect Term_Roo_Entity {
     }
     
     public static long Term.countTerms() {
-        return entityManager().createQuery("SELECT COUNT(o) FROM Term o", Long.class).getSingleResult();
+        return entityManager().createQuery("select count(o) from Term o", Long.class).getSingleResult();
     }
     
     public static List<Term> Term.findAllTerms() {
-        return entityManager().createQuery("SELECT o FROM Term o", Term.class).getResultList();
+        return entityManager().createQuery("select o from Term o", Term.class).getResultList();
     }
     
     public static Term Term.findTerm(Long id) {
@@ -106,7 +100,7 @@ privileged aspect Term_Roo_Entity {
     }
     
     public static List<Term> Term.findTermEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM Term o", Term.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+        return entityManager().createQuery("select o from Term o", Term.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
 }
