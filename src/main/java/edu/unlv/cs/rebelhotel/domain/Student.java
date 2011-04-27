@@ -38,13 +38,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @RooJavaBean
 @RooToString
 @RooEntity(finders = { "findStudentsByFirstNameEquals", "findStudentsByFirstNameLike", "findStudentsByUserAccount", "findStudentsByUserIdEquals" })
-public class Student implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7516114980466429437L;
-
-
+public class Student {
 	@NotNull
     @Column(unique = true)
     private String userId;

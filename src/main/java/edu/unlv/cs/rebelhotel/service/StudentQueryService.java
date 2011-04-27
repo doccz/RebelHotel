@@ -25,6 +25,8 @@ import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
 import org.hibernate.transform.Transformers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -41,7 +43,7 @@ import edu.unlv.cs.rebelhotel.form.FormStudentQuery;
 import edu.unlv.cs.rebelhotel.web.StudentController;
 
 @Service
-public class StudentQueryService {	
+public class StudentQueryService {		
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPERUSER'")
 	public List<Object> queryStudents(FormStudentQuery formStudentQuery, String sorting) throws Exception {
 		return queryStudents(formStudentQuery, sorting, null, null);
@@ -153,24 +155,27 @@ public class StudentQueryService {
 			}
 		}
 		else {
-			DetachedCriteria jobCriteria = search.createCriteria("workEffort");
-			if (formStudentQuery.getVerificationSelected()) {
-				jobCriteria.add(Restrictions.eq("verification", formStudentQuery.getVerification()));
-			}
-			if (formStudentQuery.getValidationSelected()) {
-				jobCriteria.add(Restrictions.eq("validation", formStudentQuery.getValidation()));
-			}
-			if (formStudentQuery.getEmployerName() != "") {
-				jobCriteria.add(Restrictions.like("owe.employer.name", "%" + formStudentQuery.getEmployerName() + "%"));
-			}
-			if (formStudentQuery.getEmployerLocation() != "") {
-				jobCriteria.add(Restrictions.like("owe.employer.location", "%" + formStudentQuery.getEmployerLocation() + "%"));
-			}
-			if (formStudentQuery.getWorkEffortStartDate() != null) {
-				jobCriteria.add(Restrictions.ge("owe.duration.startDate", formStudentQuery.getWorkEffortStartDate()));
-			}
-			if (formStudentQuery.getWorkEffortEndDate() != null) {
-				jobCriteria.add(Restrictions.le("owe.duration.endDate", formStudentQuery.getWorkEffortEndDate()));
+			if (formStudentQuery.getVerificationSelected() || formStudentQuery.getValidationSelected() || formStudentQuery.getEmployerName() != ""
+			|| formStudentQuery.getEmployerLocation() != "" || formStudentQuery.getWorkEffortStartDate() != null || formStudentQuery.getWorkEffortEndDate() != null) {
+				DetachedCriteria jobCriteria = search.createCriteria("workEffort");
+				if (formStudentQuery.getVerificationSelected()) {
+					jobCriteria.add(Restrictions.eq("verification", formStudentQuery.getVerification()));
+				}
+				if (formStudentQuery.getValidationSelected()) {
+					jobCriteria.add(Restrictions.eq("validation", formStudentQuery.getValidation()));
+				}
+				if (formStudentQuery.getEmployerName() != "") {
+					jobCriteria.add(Restrictions.like("owe.employer.name", "%" + formStudentQuery.getEmployerName() + "%"));
+				}
+				if (formStudentQuery.getEmployerLocation() != "") {
+					jobCriteria.add(Restrictions.like("owe.employer.location", "%" + formStudentQuery.getEmployerLocation() + "%"));
+				}
+				if (formStudentQuery.getWorkEffortStartDate() != null) {
+					jobCriteria.add(Restrictions.ge("owe.duration.startDate", formStudentQuery.getWorkEffortStartDate()));
+				}
+				if (formStudentQuery.getWorkEffortEndDate() != null) {
+					jobCriteria.add(Restrictions.le("owe.duration.endDate", formStudentQuery.getWorkEffortEndDate()));
+				}
 			}
 		}
 		
@@ -226,7 +231,7 @@ public class StudentQueryService {
 		finally {
 			session.close();
 		}
-		
+				
 		List<Object> resultList = new LinkedList<Object>();
 		resultList.add(count);
 		resultList.add(students);

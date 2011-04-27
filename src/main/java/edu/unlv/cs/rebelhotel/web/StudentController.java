@@ -22,6 +22,7 @@ import org.joda.time.format.DateTimeFormat;
 import edu.unlv.cs.rebelhotel.domain.CatalogRequirement;
 import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.Student;
+import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
 
 import edu.unlv.cs.rebelhotel.domain.enums.Semester;
