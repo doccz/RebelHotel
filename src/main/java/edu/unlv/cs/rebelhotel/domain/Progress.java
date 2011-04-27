@@ -4,13 +4,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.springframework.roo.addon.entity.RooEntity;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.tostring.RooToString;
 
-@RooJavaBean
-@RooToString
-@RooEntity
 public class Progress {
 
 	private String degreeCode;
@@ -20,6 +14,14 @@ public class Progress {
 	private Integer remainingHours;
 
 	private Integer totalHours;
+	
+	public Integer getTotalHours() {
+        return this.totalHours;
+    }
+    
+    public void setTotalHours(Integer totalHours) {
+        this.totalHours = totalHours;
+    }
 
 	public void setDegreeCode(String degreeCode) {
 		this.degreeCode = degreeCode;
@@ -83,5 +85,14 @@ public class Progress {
 		return new HashCodeBuilder(4001,999).append(degreeCode).append(relatedHours)
 				.append(remainingHours).append(totalHours).toHashCode();
 	}
+	
+	public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("DegreeCode: ").append(getDegreeCode()).append(", ");
+        sb.append("RelatedHours: ").append(getRelatedHours()).append(", ");
+        sb.append("RemainingHours: ").append(getRemainingHours()).append(", ");
+        sb.append("TotalHours: ").append(getTotalHours());
+        return sb.toString();
+    }
 
 }
