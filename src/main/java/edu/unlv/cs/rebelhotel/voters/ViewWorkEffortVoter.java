@@ -11,7 +11,6 @@ import org.springframework.security.core.GrantedAuthority;
 
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
-import edu.unlv.cs.rebelhotel.domain.enums.UserGroup;
 import edu.unlv.cs.rebelhotel.service.UserInformation;
 
 // simple voter test/experiment

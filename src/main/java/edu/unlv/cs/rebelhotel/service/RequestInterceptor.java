@@ -3,7 +3,6 @@ package edu.unlv.cs.rebelhotel.service;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

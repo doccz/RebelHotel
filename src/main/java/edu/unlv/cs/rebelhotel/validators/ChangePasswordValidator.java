@@ -3,16 +3,13 @@ package edu.unlv.cs.rebelhotel.validators;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
 import edu.unlv.cs.rebelhotel.form.FormChangePassword;
-import edu.unlv.cs.rebelhotel.form.FormStudentQuery;
 import edu.unlv.cs.rebelhotel.service.UserInformation;
-import edu.unlv.cs.rebelhotel.web.ChangePasswordController;
 
 @Component
 public class ChangePasswordValidator implements Validator {

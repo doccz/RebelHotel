@@ -6,23 +6,16 @@ import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.hibernate.Hibernate;
 import org.joda.time.format.DateTimeFormat;
 
-import edu.unlv.cs.rebelhotel.domain.CatalogRequirement;
-import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.Student;
-import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
 
 import edu.unlv.cs.rebelhotel.domain.enums.Semester;
@@ -538,11 +531,6 @@ public class StudentController {
     public String findStudentsByUserIdEquals(@RequestParam("userId") String userId, Model model) {
         model.addAttribute("students", Student.findStudentsByUserIdEquals(userId).getResultList());
         return "students/list";
-    }
-    
-    @ModelAttribute("useraccounts")
-    public Collection<UserAccount> populateUserAccounts() {
-        return UserAccount.findAllUserAccounts();
     }
     
     String encodeUrlPathSegment(String pathSegment, HttpServletRequest request) {

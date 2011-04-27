@@ -1,6 +1,5 @@
 package edu.unlv.cs.rebelhotel.domain;
 
-import java.util.Collection;
 import java.util.Set;
 
 import org.apache.commons.lang.builder.EqualsBuilder;

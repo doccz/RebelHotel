@@ -8,14 +8,12 @@ import org.springframework.security.authentication.encoding.MessageDigestPasswor
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 import javax.validation.constraints.NotNull;
 import edu.unlv.cs.rebelhotel.domain.enums.UserGroup;
-import edu.unlv.cs.rebelhotel.file.FileStudent;
 
 import javax.persistence.Column;
 import javax.persistence.Enumerated;
@@ -56,22 +54,12 @@ public class UserAccount implements Serializable {
 
     private Boolean enabled = Boolean.TRUE;
     
-
-    public static UserAccount fromFileStudent(FileStudent fileStudent) {
-    	UserAccount user = new UserAccount();
-    	user.setUserId(fileStudent.getStudentId());
-    	user.setPassword(user.generateRandomPassword());
-    	user.setEmail(fileStudent.getEmail());
-    	user.setUserGroup(UserGroup.ROLE_USER);
-    	return user;
-    }
-    
     public static UserAccount fromStudent(Student student, String email) {
     	UserAccount user = new UserAccount();
     	user.setUserId(student.getUserId());
     	user.setPassword(user.generateRandomPassword());
     	user.setEmail(email);
-    	user.setUserGroup(UserGroup.ROLE_USER);
+    	user.setUserGroup(UserGroup.ROLE_STUDENT);
     	return user;
     }
     

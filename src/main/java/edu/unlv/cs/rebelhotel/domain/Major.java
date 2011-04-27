@@ -5,15 +5,12 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
 import edu.unlv.cs.rebelhotel.domain.Term;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @RooJavaBean
 @RooEntity(finders = {"findMajorsByDegreeCodeAndCatalogTerm"})

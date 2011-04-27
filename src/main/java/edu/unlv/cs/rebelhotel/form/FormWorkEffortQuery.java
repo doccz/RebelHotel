@@ -1,7 +1,5 @@
 package edu.unlv.cs.rebelhotel.form;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
