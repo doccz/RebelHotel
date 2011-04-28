@@ -50,7 +50,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 
-@RooWebScaffold(path = "students", formBackingObject = Student.class, exposeFinders=false, update = false, create = false)
 @RequestMapping("/students")
 @Controller
 public class StudentController {
@@ -528,20 +527,20 @@ public class StudentController {
         return "students/list";
     }
 
-	@ModelAttribute("majors")
+	/*@ModelAttribute("majors")
     public Collection<Major> populateMajors() {
         return Major.findAllMajors();
-    }
+    }*/
 
 	@ModelAttribute("terms")
     public Collection<Term> populateTerms() {
         return Term.findAllTerms();
     }
 
-	@ModelAttribute("useraccounts")
+	/*@ModelAttribute("useraccounts")
     public Collection<UserAccount> populateUserAccounts() {
         return UserAccount.findAllUserAccounts();
-    }
+    }*/
 
 	@ModelAttribute("workefforts")
     public Collection<WorkEffort> populateWorkEfforts() {
