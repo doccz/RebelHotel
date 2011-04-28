@@ -15,8 +15,11 @@ import javax.validation.Valid;
 
 import org.joda.time.format.DateTimeFormat;
 
+import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.Student;
+import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
+import edu.unlv.cs.rebelhotel.domain.WorkEffort;
 
 import edu.unlv.cs.rebelhotel.domain.enums.Semester;
 import edu.unlv.cs.rebelhotel.domain.enums.UserGroup;
@@ -487,40 +490,6 @@ public class StudentController {
 		
 		return "students/myprogress";
 	}
-	
-    @RequestMapping(params = { "find=ByFirstNameEquals", "form" }, method = RequestMethod.GET)
-    public String findStudentsByFirstNameEqualsForm(Model model) {
-        return "students/findStudentsByFirstNameEquals";
-    }
-    
-    @RequestMapping(params = "find=ByFirstNameEquals", method = RequestMethod.GET)
-    public String findStudentsByFirstNameEquals(@RequestParam("firstName") String firstName, Model model) {
-        model.addAttribute("students", Student.findStudentsByFirstNameEquals(firstName).getResultList());
-        return "students/list";
-    }
-    
-    @RequestMapping(params = { "find=ByFirstNameLike", "form" }, method = RequestMethod.GET)
-    public String findStudentsByFirstNameLikeForm(Model model) {
-        return "students/findStudentsByFirstNameLike";
-    }
-    
-    @RequestMapping(params = "find=ByFirstNameLike", method = RequestMethod.GET)
-    public String findStudentsByFirstNameLike(@RequestParam("firstName") String firstName, Model model) {
-        model.addAttribute("students", Student.findStudentsByFirstNameLike(firstName).getResultList());
-        return "students/list";
-    }
-    
-    @RequestMapping(params = { "find=ByUserAccount", "form" }, method = RequestMethod.GET)
-    public String findStudentsByUserAccountForm(Model model) {
-        model.addAttribute("useraccounts", UserAccount.findAllUserAccounts());
-        return "students/findStudentsByUserAccount";
-    }
-    
-    @RequestMapping(params = "find=ByUserAccount", method = RequestMethod.GET)
-    public String findStudentsByUserAccount(@RequestParam("userAccount") UserAccount userAccount, Model model) {
-        model.addAttribute("students", Student.findStudentsByUserAccount(userAccount).getResultList());
-        return "students/list";
-    }
     
     @RequestMapping(params = { "find=ByUserIdEquals", "form" }, method = RequestMethod.GET)
     public String findStudentsByUserIdEqualsForm(Model model) {
@@ -533,11 +502,6 @@ public class StudentController {
         return "students/list";
     }
     
-    /*@ModelAttribute("useraccounts")
-    public Collection<UserAccount> populateUserAccounts() {
-        return UserAccount.findAllUserAccounts();
-    }*/
-    
     String encodeUrlPathSegment(String pathSegment, HttpServletRequest request) {
         String enc = request.getCharacterEncoding();
         if (enc == null) {
@@ -548,5 +512,39 @@ public class StudentController {
         }
         catch (UnsupportedEncodingException uee) {}
         return pathSegment;
+    }
+
+	@RequestMapping(method = RequestMethod.GET)
+    public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
+        if (page != null || size != null) {
+            int sizeNo = size == null ? 10 : size.intValue();
+            model.addAttribute("students", Student.findStudentEntries(page == null ? 0 : (page.intValue() - 1) * sizeNo, sizeNo));
+            float nrOfPages = (float) Student.countStudents() / sizeNo;
+            model.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
+        } else {
+            model.addAttribute("students", Student.findAllStudents());
+        }
+        addDateTimeFormatPatterns(model);
+        return "students/list";
+    }
+
+	@ModelAttribute("majors")
+    public Collection<Major> populateMajors() {
+        return Major.findAllMajors();
+    }
+
+	@ModelAttribute("terms")
+    public Collection<Term> populateTerms() {
+        return Term.findAllTerms();
+    }
+
+	@ModelAttribute("useraccounts")
+    public Collection<UserAccount> populateUserAccounts() {
+        return UserAccount.findAllUserAccounts();
+    }
+
+	@ModelAttribute("workefforts")
+    public Collection<WorkEffort> populateWorkEfforts() {
+        return WorkEffort.findAllWorkEfforts();
     }
 }
