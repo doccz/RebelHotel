@@ -274,10 +274,8 @@ public class StudentController {
 		}
 		
 		List<Object> queryResult;
+		int sizeNo = size == null ? 10 : size.intValue();
 		if ((page != null || size != null) && !form.getOutputCsv()) {
-            int sizeNo = size == null ? 10 : size.intValue();
-            float nrOfPages = (float) Student.countStudents() / sizeNo;
-            model.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
             queryResult = studentQueryService.queryStudents(form, sorting, (page.intValue() - 1) * sizeNo, sizeNo);
 		}
 		else {
@@ -285,6 +283,10 @@ public class StudentController {
 		}
 		Long resultCount = (Long) queryResult.get(0);
 		List<Student> students = (List<Student>) queryResult.get(1);
+		if ((page != null || size != null) && !form.getOutputCsv()) {
+            float nrOfPages = (float) resultCount / sizeNo;
+            model.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
+		}
 		
 		if (!form.getOutputCsv() && !WebUtils.hasSubmitParameter(request, "downloadExcel")) {
 			String properties = buildPropertiesString(form);
