@@ -4,6 +4,9 @@
 package edu.unlv.cs.rebelhotel.form;
 
 import edu.unlv.cs.rebelhotel.domain.enums.Validation;
+import edu.unlv.cs.rebelhotel.domain.enums.Verification;
+import edu.unlv.cs.rebelhotel.domain.enums.VerificationType;
+import edu.unlv.cs.rebelhotel.domain.enums.WorkEffortSortOptions;
 import java.lang.String;
 import java.util.Date;
 
@@ -57,6 +60,14 @@ privileged aspect FormWorkEffortQuery_Roo_JavaBean {
         this.employerLocation = employerLocation;
     }
     
+    public WorkEffortSortOptions FormWorkEffortQuery.getSortOptions() {
+        return this.sortOptions;
+    }
+    
+    public void FormWorkEffortQuery.setSortOptions(WorkEffortSortOptions sortOptions) {
+        this.sortOptions = sortOptions;
+    }
+    
     public Validation FormWorkEffortQuery.getValidation() {
         return this.validation;
     }
@@ -71,6 +82,38 @@ privileged aspect FormWorkEffortQuery_Roo_JavaBean {
     
     public void FormWorkEffortQuery.setValidationSelected(boolean validationSelected) {
         this.validationSelected = validationSelected;
+    }
+    
+    public Verification FormWorkEffortQuery.getVerification() {
+        return this.verification;
+    }
+    
+    public void FormWorkEffortQuery.setVerification(Verification verification) {
+        this.verification = verification;
+    }
+    
+    public boolean FormWorkEffortQuery.isVerificationSelected() {
+        return this.verificationSelected;
+    }
+    
+    public void FormWorkEffortQuery.setVerificationSelected(boolean verificationSelected) {
+        this.verificationSelected = verificationSelected;
+    }
+    
+    public VerificationType FormWorkEffortQuery.getVerificationType() {
+        return this.verificationType;
+    }
+    
+    public void FormWorkEffortQuery.setVerificationType(VerificationType verificationType) {
+        this.verificationType = verificationType;
+    }
+    
+    public boolean FormWorkEffortQuery.isVerificationTypeSelected() {
+        return this.verificationTypeSelected;
+    }
+    
+    public void FormWorkEffortQuery.setVerificationTypeSelected(boolean verificationTypeSelected) {
+        this.verificationTypeSelected = verificationTypeSelected;
     }
     
     public Date FormWorkEffortQuery.getStartDate() {

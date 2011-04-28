@@ -15,7 +15,10 @@ privileged aspect FormWorkEffortQuery_Roo_ToString {
         sb.append("UserId: ").append(getUserId()).append(", ");
         sb.append("EmployerName: ").append(getEmployerName()).append(", ");
         sb.append("EmployerLocation: ").append(getEmployerLocation()).append(", ");
+        sb.append("SortOptions: ").append(getSortOptions()).append(", ");
         sb.append("Validation: ").append(getValidation()).append(", ");
+        sb.append("Verification: ").append(getVerification()).append(", ");
+        sb.append("VerificationType: ").append(getVerificationType()).append(", ");
         sb.append("StartDate: ").append(getStartDate()).append(", ");
         sb.append("EndDate: ").append(getEndDate());
         return sb.toString();

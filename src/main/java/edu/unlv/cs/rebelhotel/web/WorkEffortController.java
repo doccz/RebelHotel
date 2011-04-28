@@ -1,6 +1,8 @@
 package edu.unlv.cs.rebelhotel.web;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -11,9 +13,13 @@ import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
 import edu.unlv.cs.rebelhotel.domain.enums.Semester;
+import edu.unlv.cs.rebelhotel.domain.enums.WorkEffortSortOptions;
 import edu.unlv.cs.rebelhotel.email.UserEmailService;
+import edu.unlv.cs.rebelhotel.form.FormWorkEffortQuery;
 import edu.unlv.cs.rebelhotel.service.RandomValidationService;
 import edu.unlv.cs.rebelhotel.service.UserInformation;
+import edu.unlv.cs.rebelhotel.service.WorkEffortQueryService;
+import edu.unlv.cs.rebelhotel.validators.WorkEffortQueryValidator;
 import edu.unlv.cs.rebelhotel.validators.WorkEffortValidator;
 
 import org.joda.time.format.DateTimeFormat;
@@ -25,11 +31,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+@SessionAttributes("workEffortsList")
 @RooWebScaffold(path = "workefforts", formBackingObject = WorkEffort.class, exposeFinders=false)
 @RequestMapping("/workefforts")
 @Controller
@@ -46,6 +55,14 @@ public class WorkEffortController {
 	@Autowired
 	private RandomValidationService randomValidationService;
 		
+	
+	@Autowired
+	WorkEffortQueryValidator workEffortQueryValidator;
+
+	@Autowired 
+	WorkEffortQueryService workeffortqueryservice;
+	
+	
 	public void setWorkEffortValidator(WorkEffortValidator workEffortValidator) {
 		this.workEffortValidator = workEffortValidator;
 	}
@@ -53,6 +70,15 @@ public class WorkEffortController {
 	public void setRandomValidationService (RandomValidationService randomValidationService) {
 		this.randomValidationService = randomValidationService;
 	}
+	
+	public void setWorkEffortQueryValidator(WorkEffortQueryValidator workEffortQueryValidator) {
+		this.workEffortQueryValidator = workEffortQueryValidator;
+	}
+	
+	void setWorkEffortQueryService(WorkEffortQueryService workeffortqueryservice) {
+		this.workeffortqueryservice = workeffortqueryservice;
+	}
+	
 	
 	@PreAuthorize("hasRole('ROLE_STUDENT')") // only students should have a list of work efforts ... though a different error than "access denied" might be desirable to admins
 	@RequestMapping(value = "/mywork", method = RequestMethod.GET)
@@ -227,7 +253,69 @@ public class WorkEffortController {
 				return "workefforts/random_validation_form";
 			}
 		}
-	
+		@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+		@RequestMapping(params = "query", method = RequestMethod.POST)
+		public String queryList(@RequestParam(value = "page", required = false) Integer page,@RequestParam(value = "size", required = false) Integer size,@Valid FormWorkEffortQuery form, BindingResult result, Model model,
+				HttpServletRequest request) throws Exception {
+			workEffortQueryValidator.validate(form, result);
+			if (result.hasErrors()) {
+				model.addAttribute("formworkeffortquery", form);
+				addDateTimeFormatPatterns(model);
+				return "workefforts/findWorkEfforts";
+			}
+
+			List<WorkEffort> workEffortsList = workeffortqueryservice.queryWorkEfforts(form);
+
+			model.addAttribute("workEffortsList", workEffortsList);
+			model.addAttribute("page", (page == null) ? "1" : page.toString());
+			model.addAttribute("size", (size == null) ? "10" : size.toString());
+			return "redirect:/workefforts?query&page="
+					+ ((page == null) ? "1" : page.toString()) + "&size="
+					+ ((size == null) ? "10" : size.toString());
+		}
+
+		@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+		@RequestMapping(params = "query", method = RequestMethod.GET)
+		public String queryList(
+				@RequestParam(value = "page", required = false) Integer page,
+				@RequestParam(value = "size", required = false) Integer size,
+				@ModelAttribute("workEffortsList") List<WorkEffort> workEffortsList,
+				BindingResult result, Model model, HttpServletRequest request) {
+
+			if (page != null || size != null) {
+				int sizeNo = size == null ? 10 : size.intValue();
+				int pageNo = page == null ? 1 : page.intValue();
+				int from = sizeNo * pageNo < workEffortsList.size() ? sizeNo
+						* pageNo : workEffortsList.size();
+				int to = (pageNo - 1) * sizeNo;
+				model.addAttribute("workefforts", workEffortsList.subList(to, from));
+				float nrOfPages = (float) workEffortsList.size() / sizeNo;
+				model.addAttribute(
+						"maxPages",
+						(int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1
+								: nrOfPages));
+			} else {
+				model.addAttribute("workefforts", workEffortsList);
+			}
+
+			return "workefforts/queryList";
+		}
+		
+		@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+		@RequestMapping(params = { "query", "form" }, method = RequestMethod.GET)
+		public String query(Model model) {
+			FormWorkEffortQuery fweq = new FormWorkEffortQuery();
+			model.addAttribute("formworkeffortquery", fweq);
+			addDateTimeFormatPatterns(model);
+			return "workefforts/findWorkEfforts";
+		}
+		
+		@ModelAttribute("sortOptions")
+		public Collection<WorkEffortSortOptions> populateQuerySortOptions() {
+			return Arrays.asList(WorkEffortSortOptions.class.getEnumConstants());
+		}
+		
+		
 	void addDateTimeFormatPatterns(Model model) {
         model.addAttribute("workEffortDuration_startdate_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));
         model.addAttribute("workEffortDuration_enddate_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));

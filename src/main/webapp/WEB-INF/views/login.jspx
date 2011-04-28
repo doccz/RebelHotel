@@ -51,6 +51,12 @@
         <spring:message code="button_reset" var="reset_label" />
         <input id="reset" type="reset" value="${fn:escapeXml(reset_label)}" />
       </div>
+      <spring:url value="/forgotpassword/create" var="forgotpassword" />
+  		<span>
+   	 		<a href="${forgotpassword}">
+      			<spring:message code="button_forgot_password"/>
+    		</a>
+  		</span>
     </form></td>
     <td>
       <div class="login">
