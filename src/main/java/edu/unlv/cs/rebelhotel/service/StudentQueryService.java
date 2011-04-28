@@ -18,8 +18,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
 import org.hibernate.transform.Transformers;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,9 +30,7 @@ import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.form.FormStudentQuery;
 
 @Service
-public class StudentQueryService {		
-	private static final Logger LOG = LoggerFactory.getLogger("audit");
-	
+public class StudentQueryService {			
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPERUSER'")
 	public List<Object> queryStudents(FormStudentQuery formStudentQuery, String sorting) throws Exception {
 		return queryStudents(formStudentQuery, sorting, null, null);
@@ -228,9 +224,7 @@ public class StudentQueryService {
 		List<Object> resultList = new LinkedList<Object>();
 		resultList.add(count);
 		resultList.add(students);
-		
-		LOG.debug("Count = {}", count);
-		
+				
 		return resultList;
 	}
 	
