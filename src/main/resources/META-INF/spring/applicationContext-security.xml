@@ -40,6 +40,7 @@
         <intercept-url pattern="/member/**" access="isAuthenticated()" />-->
         <intercept-url pattern="/resources/.*" access="permitAll" />
         <!-- students will be able to view their work list and view work efforts individually in detail -->
+        <intercept-url pattern="/forgotpassword/.*" access="permitAll" />
         <intercept-url pattern = "/workefforts/mywork" access = "hasAnyRole('ROLE_STUDENT', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPERUSER')" />
         <intercept-url pattern = "/workefforts/[0-9]+" access = "hasAnyRole('ROLE_STUDENT', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPERUSER')" />
         <intercept-url pattern = "/change" access = "hasAnyRole('ROLE_STUDENT', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPERUSER')" />
