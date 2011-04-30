@@ -86,7 +86,9 @@ public class UserAccount implements Serializable {
 			pos = random.nextInt(charset.length());
         	sb.append(charset.charAt(pos));
 		}
-		return sb.toString();
+		String newPassword = sb.toString();
+		setPassword(newPassword);
+		return newPassword;
     }
     
     public String toString() {

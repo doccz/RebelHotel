@@ -93,5 +93,4 @@ public class UserAccountController {
         return "redirect:/useraccounts?page=" + ((page == null) ? "1" : page.toString()) + "&size=" + ((size == null) ? "10" : size.toString());
     }
 
-
 }

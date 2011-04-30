@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -497,23 +498,6 @@ public class StudentController {
         return "students/findStudentsByUserIdEquals";
     }
     
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
-	@RequestMapping(params = "find=ByUserIdEquals", method = RequestMethod.GET)
-    public String DefaultFindStudentByUserId(@RequestParam("userId") String userId, Model model) {
-    	Student student;
-    	try {
-	        student =  Student.findStudentsByUserIdEquals(userId).getSingleResult();
-	        addDateTimeFormatPatterns(model);
-			model.addAttribute("student", student);
-	        model.addAttribute("itemId", student.getId());
-    	}
- 
-    	catch(org.springframework.dao.EmptyResultDataAccessException exception ){
-    		return "students/show";
-    	}
-   
-        return "students/show";
-    }
     
     String encodeUrlPathSegment(String pathSegment, HttpServletRequest request) {
         String enc = request.getCharacterEncoding();
@@ -540,6 +524,32 @@ public class StudentController {
         addDateTimeFormatPatterns(model);
         return "students/list";
     }
+	
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+	@RequestMapping(params = "find=ByUserIdEquals", method = RequestMethod.GET)
+    public String DefaultFindStudentByUserId(@RequestParam(value= "userId", required= false) String userId, Model model, HttpServletRequest request) {
+    	Student student;
+    
+    	if( userId.isEmpty())
+    		return "index";
+    	
+    	try{
+        student =  Student.findStudentsByUserIdEquals(userId).getSingleResult();
+		model.addAttribute("student", student);
+        model.addAttribute("itemId", student.getId());
+    	}
+ 
+    	catch(org.springframework.dao.EmptyResultDataAccessException exception ){
+    		return "students/show";
+    	}
+    	catch(NoResultException e){
+    		return "students/show";
+    	}
+    	
+        return "students/show";
+    }
+	
 	
 	/*@ModelAttribute("majors")
     public Collection<Major> populateMajors() {

@@ -2,6 +2,7 @@ package edu.unlv.cs.rebelhotel.web;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,23 +27,19 @@ public class ForgotPasswordController {
 		return "forgotpassword/create";
 	}
 	
-	
 	@RequestMapping( value="/createNewPassword", method = RequestMethod.GET )
 	public String createNewPassword(@RequestParam("userId") String userId, Model model){
 		
 		try{
 		UserAccount userAccount = UserAccount.findUserAccountsByUserId(userId).getSingleResult();
 		String password = userAccount.generateRandomPassword();
-		userAccount.setPassword(password);
 		userAccount.merge();
-
-	    userEmailService.sendNewPassword(userAccount, password);
-	    Student student = Student.findStudentsByUserAccount(userAccount).getSingleResult();
-		model.addAttribute("student",student);
+        userEmailService.sendNewPassword(userAccount, password);
+		model.addAttribute("userAccount",userAccount);
 		}
 		catch(org.springframework.dao.EmptyResultDataAccessException exception){
 			model.addAttribute("userId",userId);
-			return "forgotPassword/create";
+			return "forgotpassword/create";
 		}
 		
 		return "forgotpassword/confirmation";

@@ -16,7 +16,7 @@
 		<table style="width:220px;" >
 		<tr>
 		<td>
-       	 <field:input field="userId" id="c_edu_unlv_cs_rebelhotel_SearchForStudent" disableFormBinding="true" />
+       	 <field:input field="userId" id="c_edu_unlv_cs_rebelhotel_UserId" disableFormBinding="true" />
      	</td>
      	</tr>
      	</table>

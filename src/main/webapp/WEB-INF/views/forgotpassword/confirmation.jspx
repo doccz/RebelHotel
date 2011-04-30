@@ -3,11 +3,7 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
 	
-	
-		
-	<spring:message arguments="${student}" code="newemailconfirmation" />
-	
-	
+	<spring:message arguments="${userAccount.userId}" code="newpasswordconfirmation" />
 	
 </div>
 	

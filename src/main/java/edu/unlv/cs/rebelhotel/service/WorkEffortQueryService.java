@@ -69,6 +69,17 @@ public class WorkEffortQueryService {
 					fweq.getStartDate(), fweq.getEndDate()));
 
 		}
+		if(fweq.isValidationSelected()){
+			search.add(Restrictions.eq("validation", fweq.getValidation()));
+		}
+		if(fweq.isVerificationTypeSelected()){
+			search.add(Restrictions.eq("verificationType", fweq.getVerificationType()));
+		}
+		if(fweq.isVerificationSelected()){
+			search.add(Restrictions.eq("verification", fweq.getVerification()));
+		}
+		
+		
 		search.setProjection(Projections.distinct(Projections.projectionList()
 				.add(Projections.alias(Projections.property("id"), "id"))));
 
