@@ -29,6 +29,7 @@ public class ChangePasswordController {
 		return "change/password";
 	}
 
+	
 	@RequestMapping(method = RequestMethod.PUT)
 	public String changePassword(@Valid FormChangePassword change, BindingResult result, Model model, HttpServletRequest request){
 		// not sure if concurrency matters here; creates a new validator with the user information parameter for each request just in case
