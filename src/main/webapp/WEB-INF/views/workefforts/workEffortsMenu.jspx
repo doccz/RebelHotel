@@ -11,7 +11,7 @@
 				</td>
 				<td id="c_workeffort_list">
 					<spring:message var = "workeffort_menu_query" code = "label_workeffort_menu_query" />
-					<a title="${workeffort_menu_query}" href="/RebelHotel/workefforts?query">${workeffort_menu_query}</a>
+					<a title="${workeffort_menu_query}" href="/RebelHotel/workefforts?query&amp;form">${workeffort_menu_query}</a>
 				</td>
 				<td id="c_workeffort_list">
 					<spring:message var = "workeffort_menu_list" code = "label_workeffort_menu_list" />

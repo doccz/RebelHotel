@@ -3,6 +3,7 @@ package edu.unlv.cs.rebelhotel.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
 import edu.unlv.cs.rebelhotel.domain.enums.UserGroup;
 import edu.unlv.cs.rebelhotel.email.UserEmailService;
@@ -91,5 +92,6 @@ public class UserAccountController {
         model.addAttribute("size", (size == null) ? "10" : size.toString());
         return "redirect:/useraccounts?page=" + ((page == null) ? "1" : page.toString()) + "&size=" + ((size == null) ? "10" : size.toString());
     }
+
 
 }

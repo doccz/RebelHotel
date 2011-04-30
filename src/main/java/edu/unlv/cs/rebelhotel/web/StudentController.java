@@ -528,7 +528,27 @@ public class StudentController {
         addDateTimeFormatPatterns(model);
         return "students/list";
     }
-
+	
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+	@RequestMapping(params = "find=ByUserIdEquals", method = RequestMethod.GET)
+    public String DefaultFindStudentByUserId(@RequestParam("userId") String userId, Model model) {
+    	Student student;
+    	try{
+        student =  Student.findStudentsByUserIdEquals(userId).getSingleResult();
+        addDateTimeFormatPatterns(model);
+		model.addAttribute("student", student);
+        model.addAttribute("itemId", student.getId());
+    	}
+ 
+    	catch(org.springframework.dao.EmptyResultDataAccessException exception ){
+    		return "students/show";
+    	}
+   
+        return "students/show";
+    }
+	
+	
 	/*@ModelAttribute("majors")
     public Collection<Major> populateMajors() {
         return Major.findAllMajors();

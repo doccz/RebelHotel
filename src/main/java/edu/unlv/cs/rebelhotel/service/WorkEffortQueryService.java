@@ -3,12 +3,12 @@ package edu.unlv.cs.rebelhotel.service;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import edu.unlv.cs.rebelhotel.domain.Student;
@@ -18,126 +18,119 @@ import edu.unlv.cs.rebelhotel.form.FormWorkEffortQuery;
 @Service
 public class WorkEffortQueryService {
 
-	public List<WorkEffort> queryWorkEfforts(FormWorkEffortQuery fweq) {
+	public List<WorkEffort> queryWorkEfforts(FormWorkEffortQuery fweq)
+			throws Exception {
 
 		DetachedCriteria search = DetachedCriteria.forClass(WorkEffort.class);
 		search.createAlias("student", "student");
 		// look for non-empty fields here
 
-		if (fweq.getUserId() != "") {
-			search.add(Restrictions.eq("student.userId", fweq.getUserId()));
+		if (!fweq.getUserId().isEmpty()) {
+			search.add(Restrictions.like("student.userId",
+					"%" + fweq.getUserId() + "%"));
 		}
-		if (fweq.getStudentFirstName() != "") {
+		if (!fweq.getStudentFirstName().isEmpty()) {
 
-			search.add(Restrictions.eq("student.firstName",
-					fweq.getStudentFirstName()));
+			search.add(Restrictions.like("student.firstName",
+					"%" + fweq.getStudentFirstName() + "%"));
 		}
-		if (fweq.getStudentMiddleName() != "") {
-			search.add(Restrictions.eq("student.middleName",
-					fweq.getStudentMiddleName()));
-
-		}
-		if (fweq.getStudentLastName() != "") {
-			search.add(Restrictions.eq("student.lastName",
-					fweq.getStudentLastName()));
+		if (!fweq.getStudentMiddleName().isEmpty()) {
+			search.add(Restrictions.like("student.middleName",
+					"%" + fweq.getStudentMiddleName() + "%"));
 
 		}
-		if (fweq.getEmployerName() != "") {
-			search.add(Restrictions.eq("employer.name", fweq.getEmployerName()));
+		if (!fweq.getStudentLastName().isEmpty()) {
+			search.add(Restrictions.like("student.lastName",
+					"%" + fweq.getStudentLastName() + "%"));
+
 		}
-		if (fweq.getEmployerLocation() != "") {
-			search.add(Restrictions.eq("employer.location",
-					fweq.getEmployerLocation()));
+		if (!fweq.getEmployerName().isEmpty()) {
+			search.add(Restrictions.like("employer.name",
+					"%" + fweq.getEmployerName() + "%"));
+		}
+		if (!fweq.getEmployerLocation().isEmpty()) {
+			search.add(Restrictions.like("employer.location",
+					"%" + fweq.getEmployerLocation() + "%"));
 		}
 
-		if (fweq.isValidationSelected()) {
-			search.add(Restrictions.eq("validation", fweq.getValidation()));
+		if (fweq.getStartDate() != (null) && fweq.getEndDate() == null) {
+			search.add(Restrictions.ge("duration.startDate",
+					fweq.getStartDate()));
 		}
-		if (fweq.getStartDate() != null) {
-			search.add(Restrictions.ge("duration.endDate", fweq.getStartDate()));
+		if (fweq.getEndDate() != (null) && fweq.getEndDate() == null) {
+			search.add(Restrictions.le("duration.endDate", fweq.getEndDate()));
 		}
-		if (fweq.getEndDate() != null) {
-			search.add(Restrictions.le("duration.startDate", fweq.getEndDate()));
+
+		if (fweq.getEndDate() != (null) && fweq.getEndDate() != null) {
+
+			search.add(Restrictions.between("duration.startDate",
+					fweq.getStartDate(), fweq.getEndDate()));
+			search.add(Restrictions.between("duration.endDate",
+					fweq.getStartDate(), fweq.getEndDate()));
+
 		}
-		List workefforts;
+		search.setProjection(Projections.distinct(Projections.projectionList()
+				.add(Projections.alias(Projections.property("id"), "id"))));
 
 		DetachedCriteria rootQuery = DetachedCriteria
 				.forClass(WorkEffort.class);
-		search.setProjection(Projections.distinct(Projections.projectionList()
-				.add(Projections.alias(Projections.property("id"), "id"))));
+
 		rootQuery.add(Subqueries.propertyIn("id", search));
-		Session session = (Session) Student.entityManager().unwrap(
-				Session.class);
-		session.beginTransaction();
-		workefforts = rootQuery.getExecutableCriteria(session).list();
-		session.close();
+		rootQuery.createAlias("student", "student");
+
+		switch (fweq.getSortOptions()) {
+
+		case Student:
+			rootQuery.addOrder(Order.asc("student.lastName"));
+			rootQuery.addOrder(Order.asc("student.middleName"));
+			rootQuery.addOrder(Order.asc("student.firstName"));
+			rootQuery.addOrder(Order.asc("employer.name"));
+			rootQuery.addOrder(Order.asc("employer.location"));
+			rootQuery.addOrder(Order.desc("duration.startDate"));
+			rootQuery.addOrder(Order.desc("duration.endDate"));
+			break;
+
+		case Date:
+			rootQuery.addOrder(Order.desc("duration.startDate"));
+			rootQuery.addOrder(Order.desc("duration.endDate"));
+			rootQuery.addOrder(Order.asc("student.lastName"));
+			rootQuery.addOrder(Order.asc("student.middleName"));
+			rootQuery.addOrder(Order.asc("student.firstName"));
+			rootQuery.addOrder(Order.asc("employer.name"));
+			rootQuery.addOrder(Order.asc("employer.location"));
+
+			break;
+
+		case Employer:
+			rootQuery.addOrder(Order.asc("employer.name"));
+			rootQuery.addOrder(Order.asc("employer.location"));
+			rootQuery.addOrder(Order.asc("student.lastName"));
+			rootQuery.addOrder(Order.asc("student.middleName"));
+			rootQuery.addOrder(Order.asc("student.firstName"));
+			rootQuery.addOrder(Order.desc("duration.startDate"));
+			rootQuery.addOrder(Order.desc("duration.endDate"));
+			break;
+		}
+
+		Session session = (Session) Student.entityManager().unwrap(Session.class);
+		Transaction transaction = null;
+		List workefforts;
+		try {
+			transaction = session.beginTransaction();
+			workefforts = rootQuery.getExecutableCriteria(session).list();
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			throw e;
+
+		} finally {
+			session.close();
+		}
 
 		return workefforts;
 
-	}
-
-	public String buildPropertiesString() {
-		String properties = "student";
-		properties += ",workPosition";
-		properties += ",employer";
-		properties += ",verificationType";
-		properties += ",validation";
-		/*
-		 * if (properties.length() > 0) { properties = properties.substring(1);
-		 * }
-		 */
-		return properties;
-	}
-
-	public String buildLabelsString() {
-		// hackish method of getting locale messages ... but this service
-		// apparently is not in scope of the locale definitions necessary here
-		MessageSource messageSource = SpringApplicationContext
-				.getApplicationContext();
-
-		String properties = messageSource.getMessage(
-				"label_edu_unlv_cs_rebelhotel_domain_student", null,
-				LocaleContextHolder.getLocale());
-
-		properties += ","
-				+ messageSource
-						.getMessage(
-								"label_edu_unlv_cs_rebelhotel_form_formworkeffort_workposition",
-								null, LocaleContextHolder.getLocale());
-
-		properties += ","
-				+ messageSource
-						.getMessage(
-								"label_edu_unlv_cs_rebelhotel_domain_workeffort_employer",
-								null, LocaleContextHolder.getLocale());
-
-		properties += ","
-				+ messageSource
-						.getMessage(
-								"label_edu_unlv_cs_rebelhotel_form_formworkeffort_verificationtype",
-								null, LocaleContextHolder.getLocale());
-		properties += ","
-				+ messageSource
-						.getMessage(
-								"label_edu_unlv_cs_rebelhotel_form_formworkeffort_validation",
-								null, LocaleContextHolder.getLocale());
-		return properties;
-	}
-
-	public String buildMaxLengthsString() {
-		// these will determine how many characters the table.jspx will display
-		// per data column; table.jspx defaults to 10, so this does too
-		String properties = "35";
-
-		properties += ",30";
-
-		properties += ",30";
-
-		properties += ",20";
-
-		properties += ",20";
-
-		return properties;
 	}
 
 }
