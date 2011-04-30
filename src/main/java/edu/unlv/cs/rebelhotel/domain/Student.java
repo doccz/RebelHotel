@@ -71,6 +71,7 @@ public class Student implements Serializable {
     private Set<WorkEffort> workEffort = new HashSet<WorkEffort>();
 
     private Boolean codeOfConductSigned;
+    private Boolean handbookRead;
     
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "S-")
