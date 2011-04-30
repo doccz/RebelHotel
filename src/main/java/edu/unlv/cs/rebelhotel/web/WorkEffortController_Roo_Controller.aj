@@ -45,10 +45,7 @@ privileged aspect WorkEffortController_Roo_Controller {
         return CatalogRequirement.findAllCatalogRequirements();
     }
     
-    @ModelAttribute("students")
-    public Collection<Student> WorkEffortController.populateStudents() {
-        return Student.findAllStudents();
-    }
+   
     
     @ModelAttribute("terms")
     public Collection<Term> WorkEffortController.populateTerms() {

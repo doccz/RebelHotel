@@ -92,6 +92,6 @@ public class UserAccountController {
         model.addAttribute("size", (size == null) ? "10" : size.toString());
         return "redirect:/useraccounts?page=" + ((page == null) ? "1" : page.toString()) + "&size=" + ((size == null) ? "10" : size.toString());
     }
-
+	
 
 }

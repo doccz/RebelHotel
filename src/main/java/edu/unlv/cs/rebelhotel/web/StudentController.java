@@ -497,11 +497,7 @@ public class StudentController {
         return "students/findStudentsByUserIdEquals";
     }
     
-    @RequestMapping(params = "find=ByUserIdEquals", method = RequestMethod.GET)
-    public String findStudentsByUserIdEquals(@RequestParam("userId") String userId, Model model) {
-        model.addAttribute("students", Student.findStudentsByUserIdEquals(userId).getResultList());
-        return "students/list";
-    }
+
     
     String encodeUrlPathSegment(String pathSegment, HttpServletRequest request) {
         String enc = request.getCharacterEncoding();

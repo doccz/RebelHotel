@@ -36,13 +36,13 @@ public class ForgotPasswordController {
 		userAccount.setPassword(password);
 		userAccount.merge();
 
-	    userEmailService.sendNewPassword(userAccount, password);
+//      userEmailService.sendNewPassword(userAccount, password);
 	    Student student = Student.findStudentsByUserAccount(userAccount).getSingleResult();
 		model.addAttribute("student",student);
 		}
 		catch(org.springframework.dao.EmptyResultDataAccessException exception){
 			model.addAttribute("userId",userId);
-			return "forgotPassword/create";
+			return "forgotpassword/create";
 		}
 		
 		return "forgotpassword/confirmation";

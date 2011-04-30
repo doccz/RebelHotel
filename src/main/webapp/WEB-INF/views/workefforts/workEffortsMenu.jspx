@@ -5,10 +5,6 @@
     <security:authorize access = "hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')">
 	    <span class = "menu">
 		    <table id="t_workeffort_menu" style="display:inline; width:100%;">
-				<td id="c_workeffort_new">
-					<spring:message var = "workeffort_menu_create" code = "label_workeffort_menu_create" />
-					<a title="${workeffort_menu_create}" href="/RebelHotel/workefforts?form">${workeffort_menu_create}</a>
-				</td>
 				<td id="c_workeffort_list">
 					<spring:message var = "workeffort_menu_query" code = "label_workeffort_menu_query" />
 					<a title="${workeffort_menu_query}" href="/RebelHotel/workefforts?query&amp;form">${workeffort_menu_query}</a>
