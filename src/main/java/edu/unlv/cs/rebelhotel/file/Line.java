@@ -74,17 +74,18 @@ public class Line {
 
 	private Term createOrFindTerm(String yearAndTerm) {
 		if (StringUtils.isBlank(yearAndTerm)) {
-			LOG.error("Line #" + lineNumber + " has invalid Term: " + yearAndTerm);
-			throw new InvalidTokenException("Line #" + lineNumber + " has invalid Term: " + yearAndTerm);
+				LOG.error("Line #" + lineNumber + " has invalid Term: " + yearAndTerm);
+				throw new InvalidTokenException("Line #" + lineNumber + " has invalid Term: " + yearAndTerm);
 		}
 		char[] character = {0,0,0,0};
 		Integer termYear = null;
 		Semester semester = null;
+
 		yearAndTerm.getChars(0,4,character,0);
 		termYear = convertToYear(character[0], character[1], character[2]);
 		semester = convertToSemester(character[3]);
-		Term term;
 
+		Term term;
 		try {
 			term = Term.findTermsBySemesterAndTermYearEquals(semester, termYear).getSingleResult();
 			return term;
@@ -94,15 +95,6 @@ public class Line {
 			term.setTermYear(termYear);
 			term.persist();
 		}
-
-		/*if (Term.doesExist(term.getSemester(), term.getTermYear())) {
-			term.merge();
-		} else {
-			term.persist();
-		}*/
-		
-		term.merge();
-		
 		return term;
 	}
 
