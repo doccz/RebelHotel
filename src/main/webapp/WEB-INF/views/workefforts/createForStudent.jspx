@@ -6,6 +6,7 @@
     ID: ${student.userId}
     Name: ${student.firstName} ${student.middleName} ${student.lastName}
     <form:create id="fc_edu_unlv_cs_rebelhotel_domain_WorkEffort" modelAttribute="workEffort" path="/workefforts/${sid}?forstudent" render="${empty dependencies}" z="mtIzcW2wKXVHla+IgVE0khyNFNI=">
+		<sform:hidden path = "student" value = "${sid}" />
 		<!-- TODO remove this before deployment -->
 		<field:simple field="employer" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_employer" text="Employer Information"/>
 		<field:input field="employer.name" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_employer_name"/>
@@ -19,7 +20,6 @@
 	    <field:input field="supervisor.phone" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_supervisor_phone"/>
         <br/>
         <field:input field="workPosition" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_workPosition" z="t6mrQRKmjvNXbHhaHXhvWk6puDE="/>
-        <field:input field="comment" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_comment" z="qfXOn8hXQPrgk0sgBJY1xK8sVdk="/>
         <!-- <field:input field="supervisor" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_supervisor" z="wWjY86dJdaoxvFykkiGFNojDIE0="/> -->
         <!-- <field:input field="employer" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_employer" z="wniekettublvFpBlLM6Wp9N/nMU="/> -->
         <field:select field="verificationType" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_verificationType" items="${verificationtypes}" path="verificationtypes" z="Kr/5QpSvA7DJVKYxvMEeGemJFiw="/>
@@ -32,10 +32,11 @@
 		<br/>
 
 		<!--<field:select field="duration" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_duration" itemValue="id" items="${workeffortdurations}" path="/workeffortdurations" z="QaCq/Hw0MnZvo4c/hWSOViBRtfs="/> -->
+		<field:select field="termSubmitted" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_termSubmitted" itemValue="id" items="${terms}" path="/terms" z="us99bARmz6bem4f6TdfXZDCVYpc="/>
 		<field:select field="catalogRequirements" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_catalogRequirements" itemValue="id" items="${catalogrequirements}" multiple="true" path="/catalogrequirements" z="wg4QYQgUBQSBmnQA9y+BOAHZjtg="/>
 		<field:select field="validation" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_validation" items="${validations}" path="validations" z="vO3fjwp/J0bttFwf4Y2RRFqN9f0="/>
         <field:select field="verification" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_verification" items="${verifications}" path="verifications" z="AwKiAFujqkR5ZMQv560AxraxL74="/>
-        <sform:hidden path = "student" value = "${sid}" />
+        <field:input field="comment" id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_comment" z="qfXOn8hXQPrgk0sgBJY1xK8sVdk="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_edu_unlv_cs_rebelhotel_domain_WorkEffort" render="${not empty dependencies}" z="W3XbdY/iex0jvHnO25TKrlqRiW0="/>
 </div>

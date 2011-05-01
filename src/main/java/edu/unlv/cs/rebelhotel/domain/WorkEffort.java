@@ -23,6 +23,9 @@ import edu.unlv.cs.rebelhotel.domain.enums.VerificationType;
 import javax.persistence.Enumerated;
 import edu.unlv.cs.rebelhotel.domain.enums.Validation;
 import edu.unlv.cs.rebelhotel.domain.enums.PayStatus;
+
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import edu.unlv.cs.rebelhotel.domain.CatalogRequirement;
 import java.util.HashSet;
@@ -65,6 +68,9 @@ public class WorkEffort {
 
     @ManyToOne
     private Term termSubmitted;
+    
+    @ManyToMany
+    private Set<CatalogRequirement> catalogRequirements = new HashSet<CatalogRequirement>();
 
     public boolean isAccepted() {
         return verification == Verification.ACCEPTED;
@@ -113,9 +119,6 @@ public class WorkEffort {
         }
         return isApplicable;
     }
-
-    @ManyToMany
-    private Set<CatalogRequirement> catalogRequirements = new HashSet<CatalogRequirement>();
 
     @PrePersist
     public void persistHours() {
@@ -312,5 +315,46 @@ public class WorkEffort {
         }
         String studentId = student.getUserId();
         LOG.info("User {} updated job {} for student {}.", new Object[] { userName, getWorkPosition(), studentId });
+    }
+    
+    public Set<CatalogRequirement> getTransitionCatalogRequirements() {
+    	Set<CatalogRequirement> returnedRequirements = new HashSet<CatalogRequirement>();
+    	Set<CatalogRequirement> allRequirements = new HashSet<CatalogRequirement>(CatalogRequirement.findAllCatalogRequirements());
+    	
+    	Set<Major> majors = student.getMajors();
+    	for (Iterator<CatalogRequirement> it = allRequirements.iterator(); it.hasNext();) {
+    		CatalogRequirement requirement = it.next();
+    		boolean found = false;
+    		for (Major major : majors) {
+    			if (major.getCatalogTerm().isBetween(requirement.getStartTerm(), requirement.getEndTerm())) {
+    				found = true;
+    				break;
+    			}
+    		}
+    		if (!found) {
+    			it.remove();
+    		}
+    	}
+    	
+    	Set<CatalogRequirement> jobRequirements = new HashSet<CatalogRequirement>(catalogRequirements);
+    	for (CatalogRequirement jobRequirement : jobRequirements) {
+    		if (!allRequirements.contains(jobRequirement)) { // if it is not in the allRequirements set then it is outdated
+    			CatalogRequirement matchingRequirement = null;
+    			for (CatalogRequirement allRequirement : allRequirements) {
+    				if (allRequirement.getDegreeCodePrefix().equals(jobRequirement.getDegreeCodePrefix())) {
+    					matchingRequirement = allRequirement;
+    					break;
+    				}
+    			}
+    			if (matchingRequirement != null) {
+    				returnedRequirements.add(matchingRequirement);
+    			}
+    		}
+    		else {
+    			returnedRequirements.add(jobRequirement);
+    		}
+    	}
+    	
+    	return returnedRequirements;
     }
 }

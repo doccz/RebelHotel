@@ -184,6 +184,7 @@ public class WorkEffortController {
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String updateForm(@PathVariable("id") Long id, Model model) {
 		WorkEffort job = WorkEffort.findWorkEffort(id);
+		job.setCatalogRequirements(job.getTransitionCatalogRequirements());
         model.addAttribute("workEffort", job);
         model.addAttribute("catalogrequirements", job.getStudent().getCatalogRequirements());
         addDateTimeFormatPatterns(model);
