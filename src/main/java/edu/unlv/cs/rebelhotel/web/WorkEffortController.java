@@ -120,7 +120,7 @@ public class WorkEffortController {
         return "redirect:/workefforts/" + encodeUrlPathSegment(workEffort.getId().toString(), request);
     }
 	
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+	/*@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')") // this method of creation is not allowed
 	@RequestMapping(method = RequestMethod.POST)
     public String create(WorkEffort workEffort, BindingResult result, Model model, HttpServletRequest request) {
         workEffortValidator.validate(workEffort, result);
@@ -133,7 +133,7 @@ public class WorkEffortController {
         workEffort.getStudent().addWorkEffort(workEffort);
         workEffort.getStudent().merge();
         return "redirect:/workefforts/" + encodeUrlPathSegment(workEffort.getId().toString(), request);
-    }
+    }*/
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
 	@RequestMapping(method = RequestMethod.PUT)
@@ -148,7 +148,7 @@ public class WorkEffortController {
         return "redirect:/workefforts/" + encodeUrlPathSegment(workEffort.getId().toString(), request);
     }
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+	/*@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')") // should be no method of creating a work effort with no initial student
 	@RequestMapping(params = "form", method = RequestMethod.GET)
     public String createForm(Model model) {
         model.addAttribute("workEffort", new WorkEffort());
@@ -159,7 +159,7 @@ public class WorkEffortController {
         }
         model.addAttribute("dependencies", dependencies);
         return "workefforts/create";
-    }
+    }*/
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
 	@RequestMapping(value = "/{sid}", params = "forstudent", method = RequestMethod.GET)
@@ -174,6 +174,7 @@ public class WorkEffortController {
         model.addAttribute("student", student);
         model.addAttribute("dependencies", dependencies);
         model.addAttribute("sid", sid);
+        model.addAttribute("catalogrequirements", student.getCatalogRequirements());
         // TODO check if one is able to place the value of the student here without relying on the hidden form element
         // RESULT apparently it cannot be done
         return "workefforts/createFromStudent";
@@ -182,7 +183,9 @@ public class WorkEffortController {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String updateForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("workEffort", WorkEffort.findWorkEffort(id));
+		WorkEffort job = WorkEffort.findWorkEffort(id);
+        model.addAttribute("workEffort", job);
+        model.addAttribute("catalogrequirements", job.getStudent().getCatalogRequirements());
         addDateTimeFormatPatterns(model);
         return "workefforts/update";
     }
@@ -340,10 +343,10 @@ public class WorkEffortController {
         return "workefforts/list";
     }
 
-	@ModelAttribute("catalogrequirements")
+	/*@ModelAttribute("catalogrequirements")
     public Collection<CatalogRequirement> populateCatalogRequirements() {
         return CatalogRequirement.findAllCatalogRequirements();
-    }
+    }*/
 
 	/*@ModelAttribute("students")
     public Collection<Student> populateStudents() {

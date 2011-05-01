@@ -14,6 +14,8 @@ import javax.persistence.Column;
 import javax.validation.constraints.Size;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 import javax.persistence.CascadeType;
@@ -231,5 +233,23 @@ public class Student implements Serializable {
 		} else {
 			persist();
 		}
+	}
+	
+	public List<CatalogRequirement> getCatalogRequirements() {
+		List<CatalogRequirement> requirements = new LinkedList<CatalogRequirement>();
+		List<CatalogRequirement> allRequirements = CatalogRequirement.findAllCatalogRequirementsOrderedById();
+		for (CatalogRequirement requirement : allRequirements) {
+			boolean found = false;
+			for (Major major : majors) {
+				if (major.getCatalogTerm().isBetween(requirement.getStartTerm(), requirement.getEndTerm())) {
+					found = true;
+					break;
+				}
+			}
+			if (found) {
+				requirements.add(requirement);
+			}
+		}
+		return requirements;
 	}
 }

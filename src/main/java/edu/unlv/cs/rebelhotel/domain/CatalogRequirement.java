@@ -1,5 +1,7 @@
 package edu.unlv.cs.rebelhotel.domain;
 
+import java.util.List;
+
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -48,5 +50,9 @@ public class CatalogRequirement {
         sb.append(getStartTerm()).append(" - ");
         sb.append(getEndTerm());
         return sb.toString();
+    }
+    
+    public static List<CatalogRequirement> findAllCatalogRequirementsOrderedById() {
+        return entityManager().createQuery("select o from CatalogRequirement o order by o.id asc", CatalogRequirement.class).getResultList();
     }
 }
