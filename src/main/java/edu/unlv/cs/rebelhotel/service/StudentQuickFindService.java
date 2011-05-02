@@ -29,12 +29,10 @@ public class StudentQuickFindService {
 		else {
 			
 			if(!form.getFirstName().isEmpty() ){
-				search.add(Restrictions.like("firstName",
-						"%" + form.getFirstName() + "%"));
+				search.add(Restrictions.like("firstName",form.getFirstName() + "%"));
 		}
 			if(!form.getLastName().isEmpty()){
-				search.add(Restrictions.like("lastName",
-						"%" + form.getLastName() + "%"));
+				search.add(Restrictions.like("lastName",form.getLastName() + "%"));
 			}
 		}
 		

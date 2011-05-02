@@ -35,12 +35,10 @@
     <definition extends="workefforts.default" name="workefforts/random">
     	<put-attribute name="body" value="/WEB-INF/views/workefforts/random.jspx"/>
     </definition>
-    <definition extends="default" name="workefforts/findWorkEfforts">
+    <definition extends="workefforts.default" name="workefforts/findWorkEfforts">
   		<put-attribute name="body" value="/WEB-INF/views/workefforts/findWorkEfforts.jspx" /> 
-		<put-attribute name = "menu" value="/WEB-INF/views/workefforts/workefforts_menu.jspx"/>
   	</definition>
-  	<definition extends="default" name="workefforts/queryList">
+  	<definition extends="workefforts.default" name="workefforts/queryList">
   		<put-attribute name="body" value="/WEB-INF/views/workefforts/queryList.jspx" /> 
-  		<put-attribute name = "menu" value="/WEB-INF/views/workefforts/workefforts_menu.jspx"/>
   	</definition>
 </tiles-definitions>

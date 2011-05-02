@@ -36,6 +36,8 @@ import edu.unlv.cs.rebelhotel.service.StudentQuickFindService;
 import edu.unlv.cs.rebelhotel.service.UserInformation;
 import edu.unlv.cs.rebelhotel.service.WorkEffortQueryService;
 import edu.unlv.cs.rebelhotel.validators.StudentQueryValidator;
+import edu.unlv.cs.rebelhotel.validators.StudentQuickFindValidator;
+import edu.unlv.cs.rebelhotel.validators.WorkEffortQueryValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -78,6 +80,11 @@ public class StudentController {
 	@Autowired
     StudentQuickFindService studentQuickFindService;
 	
+
+	@Autowired
+	StudentQuickFindValidator studentQuickFindValidator;
+
+	
 	public void setMessageSource(MessageSource messageSource) {
 		this.messageSource = messageSource;
 	}
@@ -92,6 +99,9 @@ public class StudentController {
 	
 	void setStudentQuickFindService(StudentQuickFindService studentQuickFindService) {
 		this.studentQuickFindService = studentQuickFindService;
+	}
+	void setStudentQuickFindValidator(StudentQuickFindValidator studentQuickFindValidator) {
+		this.studentQuickFindValidator = studentQuickFindValidator;
 	}
 	
 	void addDateTimeFormatPatterns(Model model) {
@@ -263,11 +273,15 @@ public class StudentController {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
 	@RequestMapping(value="/quickFind", method = RequestMethod.POST)
     public String quickFind(FormStudentQuickFind form,BindingResult result, Model model, HttpServletRequest request) throws Exception {
+		
+		studentQuickFindValidator.validate(form, result);
+		
 		if(result.hasErrors()){
 			FormStudentQuickFind formStudentQuickFind = new FormStudentQuickFind();
 			model.addAttribute("formStudentQuickFind",formStudentQuickFind);
 			return "students/quickFindForm";
 		}
+		
 		// Perform the query for jobs
 		List<Student> studentList = studentQuickFindService.findStudents(form);
 		//the list of jobs will be added as a session attribute 
