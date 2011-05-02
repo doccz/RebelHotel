@@ -9,7 +9,7 @@
     	<table>
     		<tr>
     			<th colspan = "2">
-    				<spring:message code = label_edu_unlv_cs_rebelhotel_form_formstudentquery_studentsheader />
+    				<spring:message code = "label_edu_unlv_cs_rebelhotel_form_formstudentquery_studentsheader" />
     			</th>
     		</tr>
     		<tr>
