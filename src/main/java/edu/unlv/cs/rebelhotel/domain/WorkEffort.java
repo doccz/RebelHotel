@@ -2,6 +2,7 @@ package edu.unlv.cs.rebelhotel.domain;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -24,6 +25,7 @@ import javax.persistence.Enumerated;
 import edu.unlv.cs.rebelhotel.domain.enums.Validation;
 import edu.unlv.cs.rebelhotel.domain.enums.PayStatus;
 
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -356,5 +358,22 @@ public class WorkEffort {
     	}
     	
     	return returnedRequirements;
+    }
+    
+    public String getEmployerName() { // support for student show.jspx table
+    	return employer.getName();
+    }
+    
+    public String getDurationDateRange() { // support for student show.jspx table
+    	StringBuilder sb = new StringBuilder();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", LocaleContextHolder.getLocale());
+        sb.append(formatter.format(duration.getStartDate()));
+        sb.append( " to ");
+        sb.append(formatter.format(duration.getEndDate()));
+        return sb.toString();
+    }
+    
+    public String getDurationHours() { // support for student show.jspx table
+    	return duration.getHours().toString();
     }
 }

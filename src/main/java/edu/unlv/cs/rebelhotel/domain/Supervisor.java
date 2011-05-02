@@ -22,4 +22,10 @@ public class Supervisor {
         sb.append(getFirstName()+" "+getLastName());
         return sb.toString();
     }
+    
+    public String getName() { // support for student show.jspx
+    	StringBuilder sb = new StringBuilder();
+        sb.append(getFirstName()+" "+getLastName());
+        return sb.toString();
+    }
 }
