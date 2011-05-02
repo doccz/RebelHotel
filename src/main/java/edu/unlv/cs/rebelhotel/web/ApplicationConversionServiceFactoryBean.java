@@ -30,7 +30,10 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 				StringBuilder sb = new StringBuilder();
 				Iterator it = param.iterator();
 				while (it.hasNext()) {
-					sb.append(it.next().toString()+" ");
+					sb.append(it.next().toString());
+					if (it.hasNext()) {
+						sb.append(", ");
+					}
 				}
 				return sb.toString();
 			}

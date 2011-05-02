@@ -8,7 +8,6 @@
         <field:display field="firstName" id="s_edu_unlv_cs_rebelhotel_domain_Student_firstName" object="${student}" z="0mteuHH5jh4oX0nAbq2YkApp37c="/>
         <field:display field="middleName" id="s_edu_unlv_cs_rebelhotel_domain_Student_middleName" object="${student}" z="swWBz8PPXJ0GLK8nOkvs+ysHRfM="/>
         <field:display field="lastName" id="s_edu_unlv_cs_rebelhotel_domain_Student_lastName" object="${student}" z="MV/3u5u5Y//qbKb5pE4p3PXgbDY="/>
-        <field:display field="majors" id="s_edu_unlv_cs_rebelhotel_domain_Student_majors" object="${student}" z="e2EMdvNlgUpZB8J/T+lLcsRqPDg="/>
         <field:display field="admitTerm" id="s_edu_unlv_cs_rebelhotel_domain_Student_admitTerm" object="${student}" z="6tJ5tkyGsDQH3mlfM1wmlzichRU="/>
         <field:display field="gradTerm" id="s_edu_unlv_cs_rebelhotel_domain_Student_gradTerm" object="${student}" z="GVBUTuxqCefJz3zKqOn+kmB04SU="/>
         <field:display field="workEffort" id="s_edu_unlv_cs_rebelhotel_domain_Student_workEffort" object="${student}" z="3B3iTKWLOZDjBTNHxFpZlQNkpbc="/>
@@ -32,9 +31,9 @@
         	<spring:message code="create_workeffort_label" var="workeffort_title"/>
         	<spring:url value="/workefforts/${itemId}?forstudent" var="create_workeffort_url"/>
         	<span>
-        	<a alt="${workeffort_title}" href="${create_workeffort_url}" title="${workeffort_title}">
-        		<img alt="${workeffort_title}" class="image" src="${create_workeffort_image_url}" title="${workeffort_title}"/>
-        	</a>
+        		<a alt="${workeffort_title}" href="${create_workeffort_url}" title="${workeffort_title}">
+        			<img alt="${workeffort_title}" class="image" src="${create_workeffort_image_url}" title="${workeffort_title}"/>
+        		</a>
         	</span>
         </div>
     </page:show>

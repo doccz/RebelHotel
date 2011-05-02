@@ -4,7 +4,7 @@
     <jsp:output omit-xml-declaration="yes"/>
     <tiles:insertAttribute ignore="true" name="workeffort_menu"/>
     <page:list id="pl_edu_unlv_cs_rebelhotel_domain_WorkEffort" items="${workefforts}" labelPlural="Jobs Found">
-        <table:workEffortsTable data="${workefforts}" id="l_edu_unlv_cs_rebelhotel_domain_WorkEffort" path="/workefforts" >
+        <table:workEffortsTable data="${workefforts}" id="l_edu_unlv_cs_rebelhotel_domain_WorkEffort" path="/workefforts" create = "false">
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_student" property="student" maxLength="35" />
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_workPosition" property="workPosition" maxLength="25" />
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_workeffort_employer" property="employer" maxLength="25" />

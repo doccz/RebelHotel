@@ -28,11 +28,6 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     }
     
     public void ApplicationConversionServiceFactoryBean.installLabelConverters(FormatterRegistry registry) {
-        registry.addConverter(getCatalogRequirementConverter());
-        registry.addConverter(getMajorConverter());
-        registry.addConverter(getStudentConverter());
-        registry.addConverter(getTermConverter());
-        registry.addConverter(getUserAccountConverter());
         registry.addConverter(getWorkEffortConverter());
         registry.addConverter(getFileUploadConverter());
     }

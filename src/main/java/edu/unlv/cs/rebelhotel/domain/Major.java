@@ -40,7 +40,7 @@ public class Major {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getDegreeCode()).append(", ");
+		sb.append(getDegreeCode());
 		return sb.toString();
 	}
 

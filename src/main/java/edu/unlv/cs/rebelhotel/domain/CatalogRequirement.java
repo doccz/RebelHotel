@@ -46,9 +46,7 @@ public class CatalogRequirement {
     
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getDegreeCodePrefix()).append(": ");
-        sb.append(getStartTerm()).append(" - ");
-        sb.append(getEndTerm());
+        sb.append(getDegreeCodePrefix());
         return sb.toString();
     }
     

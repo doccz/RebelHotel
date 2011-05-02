@@ -8,6 +8,11 @@
     	<field:checkbox field="outputCsv" id="c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_outputCsv" />
     	<table>
     		<tr>
+    			<th colspan = "2">
+    				<spring:message code = "label_edu_unlv_cs_rebelhotel_form_formstudentquery_studentsheader" />
+    			</th>
+    		</tr>
+    		<tr>
     			<td>
     				<field:checkbox field="useUserId" id="c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_useUserId" />
 					<field:input field="userId" id="c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_userId" />
@@ -61,17 +66,22 @@
     	</table>
     	<table>
     		<tr>
+    			<th colspan = "4">
+    				<spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_showheader" />
+    			</th>
+    		</tr>
+    		<tr>
     			<td>
     				<field:checkbox field = "showUserId" id = "c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_showUserId" />
     			</td>
     			<td>
-    				<field:checkbox field = "showEmail" id = "c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_showEmail" />
+    				<field:checkbox field = "showFirstName" id = "c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_showFirstName" />
     			</td>
     			<td>
-    				<field:checkbox field = "showAdmitTerm" id = "c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_showAdmitTerm" />
+    				<field:checkbox field = "showMiddleName" id = "c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_showMiddleName" />
     			</td>
     			<td>
-    				<field:checkbox field = "showGradTerm" id = "c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_showGradTerm" />
+    				<field:checkbox field = "showLastName" id = "c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_showLastName" />
     			</td>
     		</tr>
     		<tr>
@@ -85,15 +95,15 @@
     				<field:checkbox field = "showUserAccount" id = "c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_showUserAccount" />
     			</td>
     			<td>
-    				<field:checkbox field = "showFirstName" id = "c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_showFirstName" />
+    				<field:checkbox field = "showEmail" id = "c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_showEmail" />
     			</td>
     		</tr>
     		<tr>
     			<td>
-    				<field:checkbox field = "showMiddleName" id = "c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_showMiddleName" />
+    				<field:checkbox field = "showAdmitTerm" id = "c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_showAdmitTerm" />
     			</td>
     			<td>
-    				<field:checkbox field = "showLastName" id = "c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_showLastName" />
+    				<field:checkbox field = "showGradTerm" id = "c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_showGradTerm" />
     			</td>
     			<td>
     				<field:checkbox field = "showMajor" id = "c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_showMajor" />
@@ -101,7 +111,9 @@
     		</tr>
     	</table>
     	<table>
-			<th colspan = "2">Search Work Efforts By...</th>
+			<th colspan = "2">
+				<spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_workeffortheader" />
+			</th>
 			<tr>
 				<td>
 					<field:input field="employerName" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffort_employerName" />
@@ -267,21 +279,21 @@
 			            </th>
 			          </c:forTokens>
 			          <c:if test = "${formStudentQuery.showMajor}">
-			          	<th>Major 1</th>
-			          	<th>Catalog Term</th>
-			          	<th>Total Hours</th>
-			          	<th>Related Hours</th>
-			          	<th>Milestone</th>
-			          	<th>Major 2</th>
-			          	<th>Catalog Term</th>
-			          	<th>Total Hours</th>
-			          	<th>Related Hours</th>
-			          	<th>Milestone</th>
-			          	<th>Major 3</th>
-			          	<th>Catalog Term</th>
-			          	<th>Total Hours</th>
-			          	<th>Related Hours</th>
-			          	<th>Milestone</th>
+			          	<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_majorcolumn_major1" /></th>
+			          	<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_majorcolumn_catalogterm1" /></th>
+			          	<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_majorcolumn_totalhours1" /></th>
+			          	<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_majorcolumn_relatedhours1" /></th>
+			          	<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_majorcolumn_milestone1" /></th>
+			          	<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_majorcolumn_major2" /></th>
+			          	<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_majorcolumn_catalogterm2" /></th>
+			          	<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_majorcolumn_totalhours2" /></th>
+			          	<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_majorcolumn_relatedhours2" /></th>
+			          	<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_majorcolumn_milestone2" /></th>
+			          	<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_majorcolumn_major3" /></th>
+			          	<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_majorcolumn_catalogterm3" /></th>
+			          	<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_majorcolumn_totalhours3" /></th>
+			          	<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_majorcolumn_relatedhours3" /></th>
+			          	<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formstudentquery_majorcolumn_milestone3" /></th>
 			          </c:if>
 			          <th></th>
 			          <c:if test="${update}">
