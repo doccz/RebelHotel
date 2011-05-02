@@ -427,3 +427,13 @@ fieldset th {
 .sortButtons {
 	float: right;
 }
+
+.QuickStudentSearch{
+	background: #eee; 
+	position: relative; 
+	float: right; 
+	left: 0px; 
+	width: 220px; 
+	margin-top: 1em; 
+	margin-right: 2em
+	}

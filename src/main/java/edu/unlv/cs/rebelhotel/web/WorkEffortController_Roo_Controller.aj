@@ -45,7 +45,7 @@ privileged aspect WorkEffortController_Roo_Controller {
         return CatalogRequirement.findAllCatalogRequirements();
     }
     
-   
+
     
     @ModelAttribute("terms")
     public Collection<Term> WorkEffortController.populateTerms() {

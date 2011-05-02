@@ -30,8 +30,11 @@ import edu.unlv.cs.rebelhotel.email.UserEmailService;
 import edu.unlv.cs.rebelhotel.form.FormStudent;
 import edu.unlv.cs.rebelhotel.form.FormStudentMajor;
 import edu.unlv.cs.rebelhotel.form.FormStudentQuery;
+import edu.unlv.cs.rebelhotel.form.FormStudentQuickFind;
 import edu.unlv.cs.rebelhotel.service.StudentQueryService;
+import edu.unlv.cs.rebelhotel.service.StudentQuickFindService;
 import edu.unlv.cs.rebelhotel.service.UserInformation;
+import edu.unlv.cs.rebelhotel.service.WorkEffortQueryService;
 import edu.unlv.cs.rebelhotel.validators.StudentQueryValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +51,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 
+@SessionAttributes("studentList")
 @RequestMapping("/students")
 @Controller
 public class StudentController {
@@ -69,6 +74,10 @@ public class StudentController {
 	@Autowired
 	UserEmailService userEmailService;
 	
+
+	@Autowired
+    StudentQuickFindService studentQuickFindService;
+	
 	public void setMessageSource(MessageSource messageSource) {
 		this.messageSource = messageSource;
 	}
@@ -79,6 +88,10 @@ public class StudentController {
 	
 	void setStudentQueryService(StudentQueryService studentQueryService) {
 		this.studentQueryService = studentQueryService;
+	}
+	
+	void setStudentQuickFindService(StudentQuickFindService studentQuickFindService) {
+		this.studentQuickFindService = studentQuickFindService;
 	}
 	
 	void addDateTimeFormatPatterns(Model model) {
@@ -246,6 +259,51 @@ public class StudentController {
 		}
 		return properties;
 	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+	@RequestMapping(value="/quickFind", method = RequestMethod.POST)
+    public String quickFind(FormStudentQuickFind form,BindingResult result, Model model, HttpServletRequest request) throws Exception {
+		if(result.hasErrors()){
+			FormStudentQuickFind formStudentQuickFind = new FormStudentQuickFind();
+			model.addAttribute("formStudentQuickFind",formStudentQuickFind);
+			return "students/quickFindForm";
+		}
+		// Perform the query for jobs
+		List<Student> studentList = studentQuickFindService.findStudents(form);
+		//the list of jobs will be added as a session attribute 
+		model.addAttribute("studentList", studentList);
+		return "redirect:/students/quickfind?page=1&size=10";
+	}
+	
+
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+	@RequestMapping(value = "/quickfind", method = RequestMethod.GET)
+	public String quickFindList(
+			@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "size", required = false) Integer size,
+			@ModelAttribute("studentList") List<WorkEffort> studentList,
+			BindingResult result, Model model, HttpServletRequest request) {
+
+		if (page != null || size != null) {
+			int sizeNo = size == null ? 10 : size.intValue();
+			int pageNo = page == null ? 1 : page.intValue();
+			int from = sizeNo * pageNo < studentList.size() ? sizeNo
+					* pageNo : studentList.size();
+			int to = (pageNo - 1) * sizeNo;
+			model.addAttribute("students", studentList.subList(to, from));
+			float nrOfPages = (float) studentList.size() / sizeNo;
+			model.addAttribute(
+					"maxPages",
+					(int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1
+							: nrOfPages));
+		} else {
+			model.addAttribute("students",studentList);
+		}
+
+		return "students/quickFindList";
+	}
+
+	
 	
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, Model model) {
@@ -550,6 +608,15 @@ public class StudentController {
     	
         return "students/show";
     }
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+	@RequestMapping("quickFindCreate")
+    public String quickFindCreateForm(Model model, HttpServletRequest request) {
+		
+		FormStudentQuickFind formStudentQuickFind = new FormStudentQuickFind();
+		model.addAttribute("formStudentQuickFind",formStudentQuickFind);
+		return "students/quickFindForm";
+	}
 	
 	
 	/*@ModelAttribute("majors")

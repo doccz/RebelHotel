@@ -66,4 +66,10 @@
 	<definition extends="students.default" name="students/findStudentsByUserAccount">
         <put-attribute name="body" value="/WEB-INF/views/students/findStudentsByUserAccount.jspx"/>
     </definition>
+    	<definition extends="students.default" name="students/quickFindForm">
+        <put-attribute name="body" value="/WEB-INF/views/students/quickFindForm.jspx"/>
+    </definition>
+    	<definition extends="students.default" name="students/quickFindList">
+        <put-attribute name="body" value="/WEB-INF/views/students/quickFindList.jspx"/>
+    </definition>
 </tiles-definitions>
