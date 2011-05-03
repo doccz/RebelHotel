@@ -36,7 +36,7 @@ public class ForgotPasswordController {
 		UserAccount userAccount = UserAccount.findUserAccountsByUserId(userId).getSingleResult();
 		String password = userAccount.generateRandomPassword();
 		userAccount.merge();
-       // userEmailService.sendNewPassword(userAccount, password);
+        userEmailService.sendNewPassword(userAccount, password);
 		model.addAttribute("userAccount",userAccount);
 		}
 		catch(org.springframework.dao.EmptyResultDataAccessException exception){
