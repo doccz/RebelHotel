@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch" items="${randomvalidationbatches}" z="vltNWNKd8zMmcEJ+f8Jx3RmDq9w=">
+        <table:table data="${randomvalidationbatches}" id="l_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch" path="/randomvalidationbatches" z="YDwNF90MBfn+uqPgiBqQSoqD9a8=">
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_batch_number" property="batch_number" z="+sOYT+/g+obcrQAygKQP1SO80SE="/>
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_batch_run_date" property="batch_run_date" z="Aizr9YtqkSUsMh9VGHwtrg0zF5A="/>
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_num_pending" property="num_pending" z="s5WeFf33OVo7bLIjI7K512yk3Dc="/>
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_num_validated" property="num_validated" z="5OTepwRS/OVTgFMFRuGdVEZn4iA="/>
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_num_failed_validation" property="num_failed_validation" z="X6bZAT1L0+H/+Bz0ppvBczIfi9o="/>
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_num_no_validation" property="num_no_validation" z="jwMp1z7PxTyjeDJlSxQGwZzhl0E="/>
+        </table:table>
+    </page:list>
+</div>
