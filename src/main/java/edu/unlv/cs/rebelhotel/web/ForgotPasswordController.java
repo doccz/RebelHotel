@@ -29,12 +29,14 @@ public class ForgotPasswordController {
 	
 	@RequestMapping( value="/createNewPassword", method = RequestMethod.GET )
 	public String createNewPassword(@RequestParam("userId") String userId, Model model){
+		if(userId.isEmpty())
+			return "forgotpassword/create";
 		
 		try{
 		UserAccount userAccount = UserAccount.findUserAccountsByUserId(userId).getSingleResult();
 		String password = userAccount.generateRandomPassword();
 		userAccount.merge();
-        userEmailService.sendNewPassword(userAccount, password);
+       // userEmailService.sendNewPassword(userAccount, password);
 		model.addAttribute("userAccount",userAccount);
 		}
 		catch(org.springframework.dao.EmptyResultDataAccessException exception){

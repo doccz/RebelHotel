@@ -2,10 +2,10 @@
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
 
-<definition extends="default" name="forgotpassword/create">
+<definition extends="public" name="forgotpassword/create">
         <put-attribute name="body" value="/WEB-INF/views/forgotpassword/create.jspx"/>
 </definition>
-<definition extends="default" name="forgotpassword/confirmation">
+<definition extends="public" name="forgotpassword/confirmation">
         <put-attribute name="body" value="/WEB-INF/views/forgotpassword/confirmation.jspx"/>
 </definition>
 

@@ -3,35 +3,31 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
 	
-	
-	<spring:message  code="forgot_password_msg" />
-	
-		  <spring:url value="/forgotpassword/createNewPassword" var="create" >
+
+	<h2><spring:message  code="forgot_password_msg" /></h2>
+	<hr />
+		<spring:url value="/forgotpassword/createNewPassword" var="create" >
    		<spring:param name="form" />		  
    		</spring:url>
-   		<br/>
-   		<br/>
+   	
+   		
 		<form:form action="${create}" method="GET">
 		
-		<table style="width:220px;" >
-		<tr>
-		<td>
+		
+		
        	 <field:input field="userId" id="c_edu_unlv_cs_rebelhotel_UserId" disableFormBinding="true" />
-     	</td>
-     	</tr>
-     	</table>
+     
+     	
         <div class="submit" >
           <spring:message code="button_proceed" var="proceed_button"/>
           <script type="text/javascript">Spring.addDecoration(new Spring.ValidateAllDecoration({elementId:'proceed', event:'onclick'}));</script>
           <input id="proceed" type="submit" value="${fn:escapeXml(proceed_button)}"/>
         </div>
+       
       </form:form>
-      
-      <br/>
-      <br/>
+      <hr/>
 	<c:if test="${!empty userId}">
 		<spring:message arguments="${userId}" code="user_id_not_found" />
 	</c:if>
-	  
 
 </div>

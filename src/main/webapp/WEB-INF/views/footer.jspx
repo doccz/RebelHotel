@@ -8,7 +8,16 @@
     <a href="${home}">
       <spring:message code="button_home"/>
     </a>
-  </span>
+  </span> 
+  <c:if test="${pageContext.request.requestURI == '/RebelHotel/login'}">
+    <c:out value=" | "/>
+    <spring:url value="/forgotpassword/create" var="forgotpassword" />
+  		<span>
+   	 		<a href="${forgotpassword}">
+      			<spring:message code="button_forgot_password"/>
+    		</a>
+  		</span>
+  </c:if>
   <c:if test="${pageContext['request'].userPrincipal != null}">
     <c:out value=" | "/>
     <span>
@@ -18,4 +27,5 @@
       </a>
     </span>
   </c:if>
+  
 </div>

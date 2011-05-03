@@ -1,5 +1,6 @@
 package edu.unlv.cs.rebelhotel.web;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -9,10 +10,15 @@ import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import edu.unlv.cs.rebelhotel.domain.CatalogRequirement;
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
+import edu.unlv.cs.rebelhotel.domain.enums.PayStatus;
 import edu.unlv.cs.rebelhotel.domain.enums.Semester;
+import edu.unlv.cs.rebelhotel.domain.enums.Validation;
+import edu.unlv.cs.rebelhotel.domain.enums.Verification;
+import edu.unlv.cs.rebelhotel.domain.enums.VerificationType;
 import edu.unlv.cs.rebelhotel.domain.enums.WorkEffortSortOptions;
 import edu.unlv.cs.rebelhotel.email.UserEmailService;
 import edu.unlv.cs.rebelhotel.form.FormWorkEffortQuery;
@@ -37,9 +43,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.util.UriUtils;
+import org.springframework.web.util.WebUtils;
 
 @SessionAttributes("workEffortsList")
-@RooWebScaffold(path = "workefforts", formBackingObject = WorkEffort.class, exposeFinders = false)
 @RequestMapping("/workefforts")
 @Controller
 public class WorkEffortController {
@@ -329,11 +336,68 @@ public class WorkEffortController {
 		return "workefforts/findWorkEfforts";
 	}
 
+	
+	@RequestMapping(method = RequestMethod.GET)
+    public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
+        if (page != null || size != null) {
+            int sizeNo = size == null ? 10 : size.intValue();
+            model.addAttribute("workefforts", WorkEffort.findWorkEffortEntries(page == null ? 0 : (page.intValue() - 1) * sizeNo, sizeNo));
+            float nrOfPages = (float) WorkEffort.countWorkEfforts() / sizeNo;
+            model.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
+        } else {
+            model.addAttribute("workefforts", WorkEffort.findAllWorkEfforts());
+        }
+        return "workefforts/list";
+    }
+	
 	@ModelAttribute("sortOptions")
 	public Collection<WorkEffortSortOptions> populateQuerySortOptions() {
 		return Arrays.asList(WorkEffortSortOptions.class.getEnumConstants());
 	}
-
+	
+	@ModelAttribute("catalogrequirements")
+    public Collection<CatalogRequirement> populateCatalogRequirements() {
+        return CatalogRequirement.findAllCatalogRequirements();
+    }
+    
+ 
+    
+    @ModelAttribute("terms")
+    public Collection<Term> populateTerms() {
+        return Term.findAllTerms();
+    }
+    
+    @ModelAttribute("paystatuses")
+    public Collection<PayStatus> populatePayStatuses() {
+        return Arrays.asList(PayStatus.class.getEnumConstants());
+    }
+    
+    @ModelAttribute("validations")
+    public Collection<Validation> populateValidations() {
+        return Arrays.asList(Validation.class.getEnumConstants());
+    }
+    
+    @ModelAttribute("verifications")
+    public Collection<Verification> populateVerifications() {
+        return Arrays.asList(Verification.class.getEnumConstants());
+    }
+    
+    @ModelAttribute("verificationtypes")
+    public Collection<VerificationType> populateVerificationTypes() {
+        return Arrays.asList(VerificationType.class.getEnumConstants());
+    }
+    
+    String encodeUrlPathSegment(String pathSegment, HttpServletRequest request) {
+        String enc = request.getCharacterEncoding();
+        if (enc == null) {
+            enc = WebUtils.DEFAULT_CHARACTER_ENCODING;
+        }
+        try {
+            pathSegment = UriUtils.encodePathSegment(pathSegment, enc);
+        }
+        catch (UnsupportedEncodingException uee) {}
+        return pathSegment;
+    }
 	void addDateTimeFormatPatterns(Model model) {
 		model.addAttribute(
 				"workEffortDuration_startdate_date_format",
