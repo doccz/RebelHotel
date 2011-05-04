@@ -4,6 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import edu.unlv.cs.rebelhotel.domain.Major;
+import edu.unlv.cs.rebelhotel.domain.Student;
+import edu.unlv.cs.rebelhotel.domain.WorkEffort;
+import edu.unlv.cs.rebelhotel.form.FormMajor;
+
 import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -28,6 +32,37 @@ public class MajorController {
         major.persist();
         return "redirect:/majors/" + encodeUrlPathSegment(major.getId().toString(), request);
     }
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+	@RequestMapping(value = "/{sid}", params = "forstudent", method = RequestMethod.POST)
+    public String createForStudent(@PathVariable("sid") Long sid, @Valid FormMajor formMajor, BindingResult result, Model model, HttpServletRequest request) {
+		if (result.hasErrors()) {
+			model.addAttribute("formMajor", formMajor);
+            Student student = Student.findStudent(sid);
+            model.addAttribute("sid", sid);
+            
+            return "majors/createForStudent";
+        }
+		
+		Student student = Student.findStudent(sid);
+		Major major = formMajor.getMajor();
+		major.setStudent(student);
+		major.persist();
+		
+		student.getMajors().add(major);
+		student.merge();
+		
+        return "redirect:/students/" + encodeUrlPathSegment(student.getId().toString(), request);
+    }
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+	@RequestMapping(value = "/{sid}", params = "forstudent", method = RequestMethod.GET)
+	public String createFormForStudent(@PathVariable("sid") Long sid, Model model) {
+		model.addAttribute("formMajor", new FormMajor());
+		Student student = Student.findStudent(sid);
+		model.addAttribute("sid", student.getId());
+		return "majors/createForStudent";
+	}
     
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
     @RequestMapping(params = "form", method = RequestMethod.GET)

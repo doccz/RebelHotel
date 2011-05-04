@@ -65,7 +65,7 @@ public class StudentMapper {
 			studentAccount.setEmail(fileStudent.getEmail());
 			password = studentAccount.generateRandomPassword();
 			studentAccount.setPassword(password);
-			studentAccount.setUserGroup(UserGroup.ROLE_USER);
+			studentAccount.setUserGroup(UserGroup.ROLE_STUDENT);
 			studentAccount.persist();
 		}
 		student.setUserAccount(studentAccount);

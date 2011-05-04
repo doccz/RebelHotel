@@ -4,16 +4,19 @@
     <definition extends="default" name="majors/list">
         <put-attribute name="body" value="/WEB-INF/views/majors/list.jspx"/>
     </definition>
-<definition extends="default" name="majors/show">
+	<definition extends="default" name="majors/show">
         <put-attribute name="body" value="/WEB-INF/views/majors/show.jspx"/>
     </definition>
-<definition extends="default" name="majors/create">
+	<definition extends="default" name="majors/create">
         <put-attribute name="body" value="/WEB-INF/views/majors/create.jspx"/>
     </definition>
-<definition extends="default" name="majors/update">
+	<definition extends="default" name="majors/update">
         <put-attribute name="body" value="/WEB-INF/views/majors/update.jspx"/>
     </definition>
-<definition extends="default" name="majors/findMajorsByDegreeCodeAndCatalogTerm">
+	<definition extends="default" name="majors/findMajorsByDegreeCodeAndCatalogTerm">
         <put-attribute name="body" value="/WEB-INF/views/majors/findMajorsByDegreeCodeAndCatalogTerm.jspx"/>
+    </definition>
+    <definition extends = "default" name = "majors/createForStudent">
+    	<put-attribute name = "body" value = "/WEB-INF/views/majors/createForStudent.jspx" />
     </definition>
 </tiles-definitions>

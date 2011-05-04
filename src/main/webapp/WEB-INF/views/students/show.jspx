@@ -15,14 +15,14 @@
     	<field:display date="true" dateTimePattern="${student_lastmodified_date_format}" field="lastModified" id="s_edu_unlv_cs_rebelhotel_domain_Student_lastModified" object="${student}" z="i9OrOmdzt+/d35aZGKjTY5giRJU="/>
         <field:display field="userAccount" id="s_edu_unlv_cs_rebelhotel_domain_Student_userAccount" object="${student}" z="C7f59YScd+k6Iy5qzVpdyqcQt7k="/>
         
-        <page:list id="ps_edu_unlv_cs_rebelhotel_domain_Progress" items="${progressList}">
+        <!--<page:list id="ps_edu_unlv_cs_rebelhotel_domain_Progress" items="${progressList}">
         	<table:table create="false" data="${progressList}" delete="false" id="l_edu_unlv_cs_rebelhotel_domain_Progress" path="/students" show="false" update="false">
         		<table:column id="c_edu_unlv_cs_rebelhotel_domain_Progress_degree" property="degreeCode"/>
         		<table:column id="c_edu_unlv_cs_rebelhotel_domain_progress_relatedHours" property="relatedHours"/>
 				<table:column id="c_edu_unlv_cs_rebelhotel_domain_progress_remainingHours" property="remainingHours"/>
 				<table:column id="c_edu_unlv_cs_rebelhotel_domain_progress_totalHours" property="totalHours"/>
         	</table:table>
-        </page:list>
+        </page:list>-->
         
        <div class="quicklinks">
         	<!-- For creating a work effort from the student page -->
@@ -36,7 +36,25 @@
         	</span>
         </div>
     </page:show>
+    <div class="quicklinks">
+    	<spring:url value="/majors/${itemId}?forstudent" var="create_major_forstudent_url"/>
+    	<span>
+    		<a alt="${create_major_forstudent}" href="${create_major_forstudent_url}" title="${create_major_forstudent}">
+    			<spring:message code="create_major_forstudent" />
+    		</a>
+    	</span>
+    </div>
     <c:if test = "${not empty student}">
+    	Majors
+    	<table:table data = "${student.majors}" id = "s_edu_unlv_cs_rebelhotel_domain_Student_majors" path = "/majors" create = "false">
+	    	<table:column id = "c_edu_unlv_cs_rebelhotel_domain_Major_degreeCode" property = "degreeCode" maxLength = "-1" />
+	    	<table:column id = "c_edu_unlv_cs_rebelhotel_domain_Major_catalogTerm" property = "catalogTerm" maxLength = "-1" />
+	    	<table:column id = "c_edu_unlv_cs_rebelhotel_domain_Major_totalHours" property = "totalHours" maxLength = "-1" />
+	    	<table:column id = "c_edu_unlv_cs_rebelhotel_domain_Major_majorHours" property = "majorHours" maxLength = "-1" />
+	    	<table:column id = "c_edu_unlv_cs_rebelhotel_domain_Major_reachedMilestone" property = "reachedMilestone" maxLength = "-1" />
+	    </table:table>
+	    <br />
+	    Jobs
     	<table:table data = "${student.workEffort}" id = "s_edu_unlv_cs_rebelhotel_domain_Student_workEfforts" path = "/workefforts" create = "false">
 	    	<table:column id = "c_edu_unlv_cs_rebelhotel_domain_WorkEffort_employer" property = "employerName" maxLength = "-1" />
 	    	<table:column id = "c_edu_unlv_cs_rebelhotel_domain_WorkEffort_duration" property = "durationDateRange" maxLength = "-1" />
