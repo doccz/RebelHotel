@@ -263,6 +263,21 @@ public class StudentController {
 		return properties;
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPERUSER')")
+	@RequestMapping(value = "/recentlyModified", method = RequestMethod.GET)
+    public String recentlyModified(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
+        if (page != null || size != null) {
+            int sizeNo = size == null ? 10 : size.intValue();
+            model.addAttribute("students", Student.findStudentsOrderedByDateLimited(page == null ? 0 : (page.intValue() - 1) * sizeNo, sizeNo));
+            float nrOfPages = (float) Student.countStudents() / sizeNo;
+            model.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
+        } else {
+            model.addAttribute("students", Student.findStudentsOrderedByDate());
+        }
+        addDateTimeFormatPatterns(model);
+        return "students/recentlyModified";
+    }
+	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
 	@RequestMapping(value="/quickFind", method = RequestMethod.POST)
     public String quickFind(FormStudentQuickFind form,BindingResult result, Model model, HttpServletRequest request) throws Exception {
@@ -316,8 +331,10 @@ public class StudentController {
         Student student = Student.findStudent(id);
         model.addAttribute("student", student);
         model.addAttribute("itemId", id);
-        model.addAttribute("majors", Major.findStudentMajorsOrderedById(student));
-        model.addAttribute("jobs", WorkEffort.findStudentWorkEffortsOrderedById(student));
+        if (student != null) {
+	        model.addAttribute("majors", Major.findStudentMajorsOrderedById(student));
+	        model.addAttribute("jobs", WorkEffort.findStudentWorkEffortsOrderedById(student));
+        }
         return "students/show";
     }
 	

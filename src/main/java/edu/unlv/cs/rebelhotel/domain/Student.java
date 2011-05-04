@@ -297,4 +297,12 @@ public class Student implements Serializable {
             majorArray[i].merge();
         }
     }
+    
+    public static List<Student> findStudentsOrderedByDateLimited(int firstResult, int maxResults) {
+        return entityManager().createQuery("select o from Student o order by o.lastModified desc", Student.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+    
+    public static List<Student> findStudentsOrderedByDate() {
+        return entityManager().createQuery("select o from Student o order by o.lastModified desc", Student.class).getResultList();
+    }
 }

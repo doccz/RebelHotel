@@ -66,7 +66,10 @@
     <definition extends="students.default" name="students/quickFindForm">
         <put-attribute name="body" value="/WEB-INF/views/students/quickFindForm.jspx"/>
     </definition>
-    	<definition extends="students.default" name="students/quickFindList">
+    <definition extends="students.default" name="students/quickFindList">
         <put-attribute name="body" value="/WEB-INF/views/students/quickFindList.jspx"/>
+    </definition>
+    <definition extends = "students.default" name = "students/recentlyModified">
+    	<put-attribute name = "body" value = "/WEB-INF/views/students/recentlyModified.jspx" />
     </definition>
 </tiles-definitions>

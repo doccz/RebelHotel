@@ -79,15 +79,15 @@
         	</span>
         </div>
     </page:show>
-    <div class="quicklinks">
-    	<spring:url value="/majors/${itemId}?forstudent" var="create_major_forstudent_url"/>
-    	<span>
-    		<a alt="${create_major_forstudent}" href="${create_major_forstudent_url}" title="${create_major_forstudent}">
-    			<spring:message code="create_major_forstudent" />
-    		</a>
-    	</span>
-    </div>
     <c:if test = "${not empty student}">
+	    <div class="quicklinks">
+	    	<spring:url value="/majors/${itemId}?forstudent" var="create_major_forstudent_url"/>
+	    	<span>
+	    		<a alt="${create_major_forstudent}" href="${create_major_forstudent_url}" title="${create_major_forstudent}">
+	    			<spring:message code="create_major_forstudent" />
+	    		</a>
+	    	</span>
+	    </div>
     	Majors
     	<table:table data = "${majors}" id = "s_edu_unlv_cs_rebelhotel_domain_Student_majors" path = "/majors" create = "false">
 	    	<table:column id = "c_edu_unlv_cs_rebelhotel_domain_Major_degreeCode" property = "degreeCode" maxLength = "-1" />
