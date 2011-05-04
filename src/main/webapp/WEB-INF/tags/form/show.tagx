@@ -17,21 +17,49 @@
     <c:if test="${empty label}">
       <spring:message code="label_${fn:toLowerCase(fn:substringAfter(id,'_'))}" var="label" htmlEscape="false" />
     </c:if>
-
+    
     <c:if test="${empty list}">
-      <c:set var="list" value="true" />
+      <c:choose>
+        <c:when test = "${not empty read_access}">
+      	  <c:set var = "list" value = "${read_access}" />
+      	</c:when>
+        <c:otherwise>
+      	  <c:set var="list" value="false" />
+        </c:otherwise>
+      </c:choose>
     </c:if>
 
     <c:if test="${empty create}">
-      <c:set var="create" value="true" />
+      <c:choose>
+        <c:when test = "${not empty create_access}">
+      	  <c:set var = "create" value = "${create_access}" />
+      	</c:when>
+        <c:otherwise>
+      	  <c:set var="create" value="false" />
+        </c:otherwise>
+      </c:choose>
     </c:if>
 
     <c:if test="${empty update}">
-      <c:set var="update" value="true" />
+      <c:choose>
+        <c:when test = "${not empty update_access}">
+      	  <c:set var = "update" value = "${update_access}" />
+      	</c:when>
+        <c:otherwise>
+      	  <c:set var="update" value="false" />
+        </c:otherwise>
+      </c:choose>
     </c:if>
 
     <c:if test="${empty delete}">
-      <c:set var="delete" value="true" />
+      <c:choose>
+        <c:when test = "${not empty delete_access}">
+      	  <c:set var = "delete" value = "${delete_access}" />
+      	</c:when>
+        <c:otherwise>
+      	  <c:set var="delete" value="false" />
+        </c:otherwise>
+      </c:choose>
     </c:if>
 
     <c:set var="typeName" value="${fn:split(id,'_')[fn:length(fn:split(id,'_')) - 1]}" />

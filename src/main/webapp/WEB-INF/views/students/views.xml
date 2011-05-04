@@ -22,9 +22,6 @@
         <put-attribute name="body" value="/WEB-INF/views/students/update.jspx"/>
     </definition>
     
-    <definition extends = "students.default" name = "students/updateMajor">
-    	<put-attribute name = "body" value = "/WEB-INF/views/students/updateMajor.jspx" />
-    </definition>
     <definition extends="students.default" name="students/myprogress">
 		<put-attribute name="body" value="/WEB-INF/views/students/myprogress.jspx"/>
 		<put-attribute name = "menu" value="/WEB-INF/views/custom_menu.jspx" />

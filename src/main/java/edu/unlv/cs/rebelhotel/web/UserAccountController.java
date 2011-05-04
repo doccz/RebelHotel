@@ -3,7 +3,6 @@ package edu.unlv.cs.rebelhotel.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
 import edu.unlv.cs.rebelhotel.domain.enums.UserGroup;
 import edu.unlv.cs.rebelhotel.email.UserEmailService;

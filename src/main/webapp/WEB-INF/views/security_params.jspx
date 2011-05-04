@@ -4,13 +4,17 @@
 	<jsp:output omit-xml-declaration="yes"/>
 
 	<!-- this jspx file sets security parameters used by other jspxs -->
-	<c:set var = "read_access" value = "true" scope = "request" />
+	<c:set var = "read_access" value = "false" scope = "request" />
 	<c:set var = "update_access" value = "false" scope = "request" />
 	<c:set var = "create_access" value = "false" scope = "request" />
 	<c:set var = "delete_access" value = "false" scope = "request" />
+	<security:authorize access = "hasRole('ROLE_USER')">
+		<c:set var = "read_access" value = "true" scope = "request" />
+	</security:authorize>
 	<security:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')">
-		 <c:set var = "update_access" value = "true" scope = "request" />
-		 <c:set var = "create_access" value = "true" scope = "request" />
-		 <c:set var = "delete_access" value = "true" scope = "request" />
+		<c:set var = "read_access" value = "true" scope = "request" />
+		<c:set var = "update_access" value = "true" scope = "request" />
+		<c:set var = "create_access" value = "true" scope = "request" />
+		<c:set var = "delete_access" value = "true" scope = "request" />
 	</security:authorize>
 </span>
