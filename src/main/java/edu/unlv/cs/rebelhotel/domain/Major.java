@@ -123,8 +123,8 @@ public class Major {
 	public boolean appliesTo(CatalogRequirement requirement) {
 		return this.getDegreeCode().startsWith(
 				requirement.getDegreeCodePrefix())
-				&& catalogTerm.isBetween(requirement.getStartTerm(),
-						requirement.getEndTerm());
+				/*&& catalogTerm.isBetween(requirement.getStartTerm(),
+						requirement.getEndTerm())*/;
 	}
 	
 	public static List<Major> findStudentMajorsOrderedById(Student student) {
