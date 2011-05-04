@@ -27,6 +27,7 @@ public class StudentMapper {
 		student.setAdmitTerm(fileStudent.getAdmitTerm());
 		student.updateMajors(fileStudent.getMajors());
 		student.setCodeOfConductSigned(false);
+		student.setHandbookRead(false);
 
 		String password = existingOrNewAccount(fileStudent, student);
 		
