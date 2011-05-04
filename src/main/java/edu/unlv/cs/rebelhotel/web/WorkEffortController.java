@@ -210,10 +210,12 @@ public class WorkEffortController {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
-        WorkEffort.findWorkEffort(id).remove();
+        WorkEffort job = WorkEffort.findWorkEffort(id);
+        Student student = job.getStudent();
+		job.remove();
         model.addAttribute("page", (page == null) ? "1" : page.toString());
         model.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/workefforts?page=" + ((page == null) ? "1" : page.toString()) + "&size=" + ((size == null) ? "10" : size.toString());
+        return "redirect:/students/"+student.getId();
     }
 	
 	@Secured("VIEW_WORK_EFFORT") // custom voter will check this request
@@ -353,10 +355,10 @@ public class WorkEffortController {
         return Student.findAllStudents();
     }*/
 
-	@ModelAttribute("terms")
+	/*@ModelAttribute("terms")
     public Collection<Term> populateTerms() {
         return Term.findAllTerms();
-    }
+    }*/
 
 	@ModelAttribute("paystatuses")
     public Collection<PayStatus> populatePayStatuses() {

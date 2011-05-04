@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreRemove;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.roo.addon.entity.RooEntity;
@@ -130,4 +131,10 @@ public class Major {
 	public static List<Major> findStudentMajorsOrderedById(Student student) {
         return entityManager().createQuery("select o from Major o where o.student = '" + student.getId() + "' order by o.id asc", Major.class).getResultList();
     }
+	
+	@PreRemove
+	public void removalUpdateDependencies() {
+		Set<Major> majors = student.getMajors();
+		majors.remove(this);
+	}
 }

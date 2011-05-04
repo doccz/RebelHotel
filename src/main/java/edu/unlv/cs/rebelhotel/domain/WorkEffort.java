@@ -293,6 +293,8 @@ public class WorkEffort {
             majorArray[i].setTotalHours(new Long(totalHours[i]));
             majorArray[i].setMajorHours(new Long(majorHours[i]));
         }
+        
+        jobs.remove(this);
     }
 
     public String toString() {

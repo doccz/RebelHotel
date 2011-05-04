@@ -647,18 +647,18 @@ public class StudentController {
         return Major.findAllMajors();
     }*/
 
-	@ModelAttribute("terms")
+	/*@ModelAttribute("terms")
     public Collection<Term> populateTerms() {
         return Term.findAllTerms();
-    }
+    }*/
 
 	/*@ModelAttribute("useraccounts")
     public Collection<UserAccount> populateUserAccounts() {
         return UserAccount.findAllUserAccounts();
     }*/
 
-	@ModelAttribute("workefforts")
+	/*@ModelAttribute("workefforts")
     public Collection<WorkEffort> populateWorkEfforts() {
         return WorkEffort.findAllWorkEfforts();
-    }
+    }*/
 }

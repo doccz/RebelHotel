@@ -97,10 +97,12 @@ public class MajorController {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
-        Major.findMajor(id).remove();
+        Major major = Major.findMajor(id);
+		Student student = major.getStudent();
+		major.remove();
         model.addAttribute("page", (page == null) ? "1" : page.toString());
         model.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/majors?page=" + ((page == null) ? "1" : page.toString()) + "&size=" + ((size == null) ? "10" : size.toString());
+        return "redirect:/students/"+student.getId();
     }
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -135,15 +137,15 @@ public class MajorController {
         return "majors/list";
     }
 
-	@ModelAttribute("students")
+	/*@ModelAttribute("students")
     public Collection<Student> populateStudents() {
         return Student.findAllStudents();
-    }
+    }*/
 
-	@ModelAttribute("terms")
+	/*@ModelAttribute("terms")
     public Collection<Term> populateTerms() {
         return Term.findAllTerms();
-    }
+    }*/
 
 	String encodeUrlPathSegment(String pathSegment, HttpServletRequest request) {
         String enc = request.getCharacterEncoding();
