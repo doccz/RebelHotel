@@ -24,11 +24,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
 
 import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
+import edu.unlv.cs.rebelhotel.domain.enums.Validation;
+import edu.unlv.cs.rebelhotel.domain.enums.Verification;
 import edu.unlv.cs.rebelhotel.form.FormStudent;
 
 import java.util.Date;
@@ -252,4 +255,44 @@ public class Student implements Serializable {
 		}
 		return requirements;
 	}
+	
+    public void refreshMajorHours() {
+        Long totalHours[] = new Long[majors.size()];
+        Long majorHours[] = new Long[majors.size()];
+        Major majorArray[] = new Major[majors.size()];
+        int it = 0;
+        for (Major major : majors) {
+            majorArray[it] = major;
+            majorHours[it] = (long) 0;
+            totalHours[it++] = (long) 0;
+        }
+        Set<WorkEffort> jobs = workEffort;
+        for (WorkEffort job : jobs) {
+            if (job.getValidation().equals(Validation.FAILED_VALIDATION)) {
+                continue;
+            }
+            if (job.getVerification().equals(Verification.DENIED)) {
+                continue;
+            }
+            for (int i = 0; i < majorArray.length; i++) {
+                boolean found = false;
+                Set<CatalogRequirement> catalogRequirements = job.getCatalogRequirements();
+                for (CatalogRequirement catalogRequirement : catalogRequirements) {
+                    if (catalogRequirement.matchesMajor(majorArray[i])) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
+                    majorHours[i] += job.getDuration().getHours();
+                }
+                totalHours[i] += job.getDuration().getHours();
+            }
+        }
+        for (int i = 0; i < majorArray.length; i++) {
+            majorArray[i].setTotalHours(new Long(totalHours[i]));
+            majorArray[i].setMajorHours(new Long(majorHours[i]));
+            majorArray[i].merge();
+        }
+    }
 }
