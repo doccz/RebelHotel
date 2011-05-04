@@ -86,6 +86,14 @@ privileged aspect Student_Roo_JavaBean {
         this.codeOfConductSigned = codeOfConductSigned;
     }
     
+    public Boolean Student.getHandbookRead() {
+        return this.handbookRead;
+    }
+    
+    public void Student.setHandbookRead(Boolean handbookRead) {
+        this.handbookRead = handbookRead;
+    }
+    
     public Date Student.getLastModified() {
         return this.lastModified;
     }
