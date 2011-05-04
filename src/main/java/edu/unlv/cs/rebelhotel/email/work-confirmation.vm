@@ -1,6 +1,6 @@
 <html>
 <body>
-<h2>Attention {$student.getName()} </h2>
+<h2>Attention ${student.getName()} </h2>
 <br/>
 <p style ="text-indent:25px;">  
 The College of Hotel Administration has received a new job posting towards you work-related milestone requirements.  
