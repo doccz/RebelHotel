@@ -10,6 +10,7 @@
     </definition>
 	<definition extends="workefforts.default" name="workefforts/show">
         <put-attribute name="body" value="/WEB-INF/views/workefforts/show.jspx"/>
+        <put-attribute name = "menu" value="/WEB-INF/views/custom_menu.jspx" />
     </definition>
 	<definition extends="workefforts.default" name="workefforts/create">
         <put-attribute name="body" value="/WEB-INF/views/workefforts/create.jspx"/>
