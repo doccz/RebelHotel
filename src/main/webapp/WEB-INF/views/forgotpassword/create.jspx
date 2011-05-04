@@ -22,8 +22,8 @@
        
       </form:form>
       
-      <hr/>
+      
 	<c:if test="${!empty userId}">
-		<spring:message arguments="${userId}" code="user_id_not_found" />
+		<div class="errors"><spring:message arguments="${userId}" code="user_id_not_found" /></div>
 	</c:if>
 </div>
