@@ -12,6 +12,15 @@
         	<menu:item id="i_main_menu" url="/"/>
         </menu:category>
     </security:authorize>
+    
+    <security:authorize access="hasRole('ROLE_USER')">
+        <menu:category id="c_manage_jobs" z="WYps3kPwNi7SZ9zv+iJCHl5PAdY=">
+			<menu:item id="i_workeffort_list" messageCode="global_menu_list" url="/workefforts?page=1&amp;size=${empty param.size ? 10 : param.size}" z="WQqdpJpCu9io5O2NJD9cOLDm7tU="/>
+        	<menu:item id="i_workeffort_random_validation" url="/workefforts?random" z="?"/>
+        	<menu:item id="fi_workeffortquery" messageCode="global_generic" url="/workefforts?query&amp;form" z="user-managed"/>
+        	<menu:item id="i_main_menu" url="/"/>
+        </menu:category>
+    </security:authorize>
     	        
     <security:authorize access="hasRole('ROLE_STUDENT')">
         <menu:category id="c_student_personal">

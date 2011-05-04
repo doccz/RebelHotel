@@ -14,6 +14,15 @@
 	        </menu:category>
 	    </security:authorize>
 	    
+	    <security:authorize access="hasRole('ROLE_USER')">
+	        <menu:category id="c_manage_students" z="VA/5j81jpINYUQQoxpb8LUYLpWk=">
+				<menu:item id="i_student_list" messageCode="global_menu_list" url="/students?page=1&amp;size=${empty param.size ? 10 : param.size}" z="PSLnBxZ6Z7hXmOglFNorqDjA2H0="/>
+	        	<menu:item id="i_query_students" url="/students/query" z=""/>
+	        	<menu:item id="i_recently_modified" url="/students/recentlyModified" />
+	        	<menu:item id="i_main_menu" url="/"/>
+	        </menu:category>
+	    </security:authorize>
+	    
 	    <security:authorize access="hasRole('ROLE_STUDENT')">
 	        <menu:category id="c_student_personal">
 	        	<menu:item id="i_student_personal_work" url="/workefforts/mywork"/>

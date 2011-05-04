@@ -11,6 +11,12 @@
         	<menu:item id="i_main_menu" url="/"/>
         </menu:category>
     </security:authorize>
+    <security:authorize access="hasRole('ROLE_USER')">
+        <menu:category id="c_manage_catalogrequirements">
+			<menu:item id="i_catalogrequirement_list" messageCode="global_menu_list" url="/catalogrequirements?page=1&amp;size=${empty param.size ? 10 : param.size}" />
+        	<menu:item id="i_main_menu" url="/"/>
+        </menu:category>
+    </security:authorize>
     
     </menu:menu>
 </div>
