@@ -40,7 +40,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 		};
 	}
 	
-	Converter<Boolean, String> getBooleanConverter() {
+	/*Converter<Boolean, String> getBooleanConverter() {
 		return new Converter<Boolean, String>() {
 			public String convert(Boolean param) {
 				if(param){
@@ -49,7 +49,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 				return "No";
 			}
 		};
-	}
+	}*/
 	
 	Converter<edu.unlv.cs.rebelhotel.domain.Term, String> getTermConverter() {
 		return new Converter<edu.unlv.cs.rebelhotel.domain.Term, String>() {
@@ -169,7 +169,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 		// Register application converters and formatters
 		
 		registry.addConverter(getSetConverter());
-		registry.addConverter(getBooleanConverter());
+		//registry.addConverter(getBooleanConverter());
 		registry.addConverter(getTermConverter());
 		registry.addConverter(getStudentConverter());
 		registry.addConverter(getSupervisorConverter());
