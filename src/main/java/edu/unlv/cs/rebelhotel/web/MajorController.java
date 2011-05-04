@@ -84,7 +84,7 @@ public class MajorController {
             return "majors/update";
         }
         major.merge();
-        return "redirect:/majors/" + encodeUrlPathSegment(major.getId().toString(), request);
+        return "redirect:/students/" + encodeUrlPathSegment(major.getStudent().getId().toString(), request);
     }
     
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")

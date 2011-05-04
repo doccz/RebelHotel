@@ -253,7 +253,6 @@ public class StudentController {
         Student student = Student.findStudent(id);
         model.addAttribute("student", student);
         model.addAttribute("itemId", id);
-        //model.addAttribute("progressList", Student.findStudent(id).calculateProgress());
         model.addAttribute("majors", Major.findStudentMajorsOrderedById(student));
         model.addAttribute("jobs", WorkEffort.findStudentWorkEffortsOrderedById(student));
         return "students/show";
@@ -378,6 +377,24 @@ public class StudentController {
 	@RequestMapping(value = "/{sid}", params = "set", method = RequestMethod.POST)
 	public String setBoolean(@PathVariable("sid") Long sid, Model model, HttpServletRequest request) {
 		Student student = Student.findStudent(sid);
+		
+		if (WebUtils.hasSubmitParameter(request, "codeofconductsigned_yes.x")) {
+			student.setCodeOfConductSigned(true);
+			student.merge();
+		}
+		else if (WebUtils.hasSubmitParameter(request, "codeofconductsigned_no.x")) {
+			student.setCodeOfConductSigned(false);
+			student.merge();
+		}
+		else if (WebUtils.hasSubmitParameter(request, "handbookread_yes.x")) {
+			student.setHandbookRead(true);
+			student.merge();
+		}
+		else if (WebUtils.hasSubmitParameter(request, "handbookread_no.x")) {
+			student.setHandbookRead(false);
+			student.merge();
+		}
+		
 		return "redirect:/students/" + encodeUrlPathSegment(student.getId().toString(), request);
 	}
 	
