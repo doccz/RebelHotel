@@ -17,7 +17,6 @@
     <put-attribute name="header" value="/WEB-INF/views/header.jspx" />
     <put-attribute name="footer" value="/WEB-INF/views/footer.jspx" />
     <put-attribute name = "security_params" value = "/WEB-INF/views/security_params.jspx" />
-    <put-attribute name="defaultStudentSearch" value="/WEB-INF/views/defaultStudentSearch.jspx" /> 
   </definition>
   
 </tiles-definitions>

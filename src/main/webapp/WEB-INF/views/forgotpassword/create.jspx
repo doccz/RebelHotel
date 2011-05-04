@@ -11,9 +11,6 @@
    		</spring:url>
    	
 		<form:form action="${create}" method="GET">
-		
-		
-		
        	 <field:input field="userId" id="c_edu_unlv_cs_rebelhotel_UserId" disableFormBinding="true" />
      
      	
@@ -29,65 +26,4 @@
 	<c:if test="${!empty userId}">
 		<spring:message arguments="${userId}" code="user_id_not_found" />
 	</c:if>
-
-
-<spring:url value="/forgotpassword/createNewPassword" var="create" >
-   		<spring:param name="form" />		  
-   		</spring:url>
-   	
-		<form:form action="${create}" method="GET">
-  
-      	<c:set value="text" var="type" />
-      	<c:set value="false" var="disabled" />
-      	<c:set value="false" var="required" />
-    	<c:set value="userId" var="sec_field"  />
-    	<spring:message code="label_edu_unlv_cs_rebelhotel_searchforstudent" var="label" htmlEscape="false" />
-    
-    <table class="StudentSearchTable"><tr><td>
-    
-    	<div id="_edu_unlv_cs_rebelhotel_searchforstudent_id">
-      		<label for="_${sec_field}_id" class="StudentSearchLabel">
-        		<c:out value="${fn:escapeXml(label)}" />
-        			:
-      		</label>
-      		
-      <input id="_${sec_field}_id" name="${sec_field}" type="${fn:escapeXml(type)}" class="StudentSearchInput"/>
-        
-      <spring:message arguments="${label}" code="field_invalid" var="field_invalid" />
-      
-          <spring:message code="field_required" var="field_required" />
-          <spring:message argumentSeparator="," arguments="${label},(${field_required})" code="field_simple_validation" var="field_validation" />
-        
-      <c:set var="sec_field_validation">
-        <spring:escapeBody javaScriptEscape="true">${field_validation}</spring:escapeBody>
-      </c:set>
-      <c:set var="sec_field_invalid">
-        <spring:escapeBody javaScriptEscape="true">${field_invalid}</spring:escapeBody>
-      </c:set>
-      <script type="text/javascript">
-        Spring.addDecoration(new Spring.ElementDecoration({elementId : '_${sec_field}_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${sec_field_validation}', invalidMessage: '${sec_field_invalid}', required: ${required}}})); 
-      </script>
-    </div></td><td>
-   <div class="StudentSearchSubmit" >
-          <spring:message code="button_proceed" var="proceed_button"/>
-          <script type="text/javascript">Spring.addDecoration(new Spring.ValidateAllDecoration({elementId:'proceed', event:'onclick'}));</script>
-          <input id="proceed" type="submit" value="${fn:escapeXml(proceed_button)}"/>
-        </div>
-       </td></tr>
-       <tr><td><spring:url value="/quickFindCreate" var="form_url"
-				context="/RebelHotel/students" /> <spring:url
-				value="/resources/images/search.png" var="image_url" /> <spring:message
-				code="search_options_msg" var="label" /> <a
-				href="${fn:escapeXml(form_url)}" alt="${fn:escapeXml(label)}"
-				title="${fn:escapeXml(label)}"> <img
-				alt="${fn:escapeXml(label)}" class="image"
-				src="${fn:escapeXml(image_url)}" title="${fn:escapeXml(label)}" />
-			</a> <spring:message code="search_options_msg" /></td></tr></table>
-      </form:form>
-
-
-
-
-
-
 </div>
