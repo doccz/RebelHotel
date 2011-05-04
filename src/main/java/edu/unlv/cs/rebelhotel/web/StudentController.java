@@ -250,9 +250,12 @@ public class StudentController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, Model model) {
         addDateTimeFormatPatterns(model);
-        model.addAttribute("student", Student.findStudent(id));
+        Student student = Student.findStudent(id);
+        model.addAttribute("student", student);
         model.addAttribute("itemId", id);
-        model.addAttribute("progressList", Student.findStudent(id).calculateProgress());
+        //model.addAttribute("progressList", Student.findStudent(id).calculateProgress());
+        model.addAttribute("majors", Major.findStudentMajorsOrderedById(student));
+        model.addAttribute("jobs", WorkEffort.findStudentWorkEffortsOrderedById(student));
         return "students/show";
     }
 	
@@ -369,6 +372,13 @@ public class StudentController {
 		model.addAttribute("formStudentQuery", form);
 		addQueryDateTimeFormatPatterns(model);
 		return "students/query";
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+	@RequestMapping(value = "/{sid}", params = "set", method = RequestMethod.POST)
+	public String setBoolean(@PathVariable("sid") Long sid, Model model, HttpServletRequest request) {
+		Student student = Student.findStudent(sid);
+		return "redirect:/students/" + encodeUrlPathSegment(student.getId().toString(), request);
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")

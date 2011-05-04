@@ -376,4 +376,8 @@ public class WorkEffort {
     public String getDurationHours() { // support for student show.jspx table
     	return duration.getHours().toString();
     }
+    
+    public static List<WorkEffort> findStudentWorkEffortsOrderedById(Student student) {
+        return entityManager().createQuery("select o from WorkEffort o where o.student = '" + student.getId() + "' order by o.id asc", WorkEffort.class).getResultList();
+    }
 }

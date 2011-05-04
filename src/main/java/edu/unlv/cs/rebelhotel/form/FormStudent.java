@@ -33,8 +33,9 @@ public class FormStudent {
     private Term admitTerm;
 
     private Term gradTerm;
-
+    
     private Boolean codeOfConductSigned;
+    private Boolean handbookRead;
     
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -45,7 +46,8 @@ public class FormStudent {
         sb.append("LastName: ").append(getLastName()).append(", ");
         sb.append("AdmitTerm: ").append(getAdmitTerm()).append(", ");
         sb.append("GradTerm: ").append(getGradTerm()).append(", ");
-        sb.append("CodeOfConductSigned: ").append(getCodeOfConductSigned());
+        sb.append("CodeOfConductSigned: ").append(getCodeOfConductSigned()).append(", ");
+        sb.append("HandbookRead: ").append(getHandbookRead());
         return sb.toString();
     }
     
@@ -64,6 +66,7 @@ public class FormStudent {
     	fs.setAdmitTerm(student.getAdmitTerm());
     	fs.setGradTerm(student.getGradTerm());
     	fs.setCodeOfConductSigned(student.getCodeOfConductSigned());
+    	fs.setHandbookRead(student.getHandbookRead());
     	
     	return fs;
     }

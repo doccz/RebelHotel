@@ -13,6 +13,7 @@
         <field:select field="admitTerm" id="c_edu_unlv_cs_rebelhotel_domain_Student_admitTerm" itemValue="id" items="${terms}" path="/terms" z="+QqDVPDlRIwBJg9uS56fRV+0UgQ="/>
         <field:select field="gradTerm" id="c_edu_unlv_cs_rebelhotel_domain_Student_gradTerm" itemValue="id" items="${terms}" path="/terms" z="hkCK5XP5bEC8PqbKO/PWTXgPodk="/>
         <field:checkbox field="codeOfConductSigned" id="c_edu_unlv_cs_rebelhotel_domain_Student_codeOfConductSigned" z="MEsITWHN00P2YXp8sh6JT1t/sNM="/>
+        <field:checkbox field="handbookRead" id="c_edu_unlv_cs_rebelhotel_domain_Student_handbookRead" />
 
     </form:update>
 </div>

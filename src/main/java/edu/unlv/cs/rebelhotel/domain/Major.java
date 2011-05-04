@@ -1,6 +1,7 @@
 package edu.unlv.cs.rebelhotel.domain;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -125,4 +126,8 @@ public class Major {
 				&& catalogTerm.isBetween(requirement.getStartTerm(),
 						requirement.getEndTerm());
 	}
+	
+	public static List<Major> findStudentMajorsOrderedById(Student student) {
+        return entityManager().createQuery("select o from Major o where o.student = '" + student.getId() + "' order by o.id asc", Major.class).getResultList();
+    }
 }

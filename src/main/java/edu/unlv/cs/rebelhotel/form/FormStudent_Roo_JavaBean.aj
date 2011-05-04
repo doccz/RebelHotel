@@ -91,4 +91,12 @@ privileged aspect FormStudent_Roo_JavaBean {
         this.codeOfConductSigned = codeOfConductSigned;
     }
     
+    public Boolean FormStudent.getHandbookRead() {
+        return this.handbookRead;
+    }
+    
+    public void FormStudent.setHandbookRead(Boolean handbookRead) {
+        this.handbookRead = handbookRead;
+    }
+    
 }

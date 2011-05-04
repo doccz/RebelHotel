@@ -92,14 +92,14 @@ public class Student implements Serializable {
     public void updateLastModified() {
     	lastModified = new Date();
     	DEBUG_LOG.debug("Updated existing student: " + toString());
-	audit();
+    	audit();
     }
     
     @PrePersist
     public void createNewStudent(){
     	lastModified = new Date();
     	DEBUG_LOG.debug("Created new student: " + toString());
-	audit();
+    	audit();
     }
 
     public String toString() {
@@ -193,6 +193,7 @@ public class Student implements Serializable {
     	setAdmitTerm(formStudent.getAdmitTerm());
     	setGradTerm(formStudent.getGradTerm());
     	setCodeOfConductSigned(formStudent.getCodeOfConductSigned());
+    	setHandbookRead(formStudent.getHandbookRead());
     }
     
     /**

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:spring="http://www.springframework.org/tags" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:tiles="http://tiles.apache.org/tags-tiles" version="2.0">
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:sform="http://www.springframework.org/tags/form" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:spring="http://www.springframework.org/tags" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:tiles="http://tiles.apache.org/tags-tiles" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <tiles:insertAttribute ignore="true" name="student_menu"/>
@@ -10,7 +10,50 @@
         <field:display field="lastName" id="s_edu_unlv_cs_rebelhotel_domain_Student_lastName" object="${student}" z="MV/3u5u5Y//qbKb5pE4p3PXgbDY="/>
         <field:display field="admitTerm" id="s_edu_unlv_cs_rebelhotel_domain_Student_admitTerm" object="${student}" z="6tJ5tkyGsDQH3mlfM1wmlzichRU="/>
         <field:display field="gradTerm" id="s_edu_unlv_cs_rebelhotel_domain_Student_gradTerm" object="${student}" z="GVBUTuxqCefJz3zKqOn+kmB04SU="/>
-    	<field:display field="codeOfConductSigned" id="s_edu_unlv_cs_rebelhotel_domain_Student_codeOfConductSigned" object="${student}" z="bdzExXPCeUL8sy6mD7XFCvADpVM="/>
+    	<label>
+    		<spring:message code = "label_edu_unlv_cs_rebelhotel_domain_student_codeofconductsigned" /> :
+    	</label>
+    	
+    	<spring:url var = "student_boolean_form_url" value = "/students/${itemId}?set" />
+    	<sform:form action = "${student_boolean_form_url}" method = "post">
+    	<spring:url var = "accept_image_url" value = "/resources/images/accept.png" />
+    	<spring:url var = "deny_image_url" value = "/resources/images/cancel.png" />
+    	<div class = "box">
+    		<spring:eval expression = "student['codeOfConductSigned']" />
+    		<c:choose>
+    			<c:when test = "${student.codeOfConductSigned}">
+    				<span class = "studentBoolean">
+    					<input type = "image" src = "${deny_image_url}" alt = "set to no" name = "codeofconductsigned_no" />
+    				</span>
+    			</c:when>
+    			<c:otherwise>
+    				<span class = "studentBoolean">
+    					<input type = "image" src = "${accept_image_url}" alt = "set to yes" name = "codeofconductsigned_yes" />
+    				</span>
+    			</c:otherwise>
+    		</c:choose>
+    	</div>
+    	<br />
+    	<label>
+    		<spring:message code = "label_edu_unlv_cs_rebelhotel_domain_student_handbookread" /> :
+    	</label>
+    	<div class = "box">
+    		<spring:eval expression = "student['handbookRead']" />
+    		<c:choose>
+    			<c:when test = "${student.handbookRead}">
+    				<span class = "studentBoolean">
+    					<input type = "image" src = "${deny_image_url}" alt = "set to no" name = "handbookread_no" />
+    				</span>
+    			</c:when>
+    			<c:otherwise>
+    				<span class = "studentBoolean">
+    					<input type = "image" src = "${accept_image_url}" alt = "set to yes" name = "handbookread_yes" />
+    				</span>
+    			</c:otherwise>
+    		</c:choose>
+    	</div>
+    	</sform:form>
+    	<br />
         <field:display field="majors" id="s_edu_unlv_cs_rebelhotel_domain_Student_majors" object="${student}" z="e2EMdvNlgUpZB8J/T+lLcsRqPDg="/>
     	<field:display date="true" dateTimePattern="${student_lastmodified_date_format}" field="lastModified" id="s_edu_unlv_cs_rebelhotel_domain_Student_lastModified" object="${student}" z="i9OrOmdzt+/d35aZGKjTY5giRJU="/>
         <field:display field="userAccount" id="s_edu_unlv_cs_rebelhotel_domain_Student_userAccount" object="${student}" z="C7f59YScd+k6Iy5qzVpdyqcQt7k="/>
@@ -46,7 +89,7 @@
     </div>
     <c:if test = "${not empty student}">
     	Majors
-    	<table:table data = "${student.majors}" id = "s_edu_unlv_cs_rebelhotel_domain_Student_majors" path = "/majors" create = "false">
+    	<table:table data = "${majors}" id = "s_edu_unlv_cs_rebelhotel_domain_Student_majors" path = "/majors" create = "false">
 	    	<table:column id = "c_edu_unlv_cs_rebelhotel_domain_Major_degreeCode" property = "degreeCode" maxLength = "-1" />
 	    	<table:column id = "c_edu_unlv_cs_rebelhotel_domain_Major_catalogTerm" property = "catalogTerm" maxLength = "-1" />
 	    	<table:column id = "c_edu_unlv_cs_rebelhotel_domain_Major_totalHours" property = "totalHours" maxLength = "-1" />
@@ -55,7 +98,7 @@
 	    </table:table>
 	    <br />
 	    Jobs
-    	<table:table data = "${student.workEffort}" id = "s_edu_unlv_cs_rebelhotel_domain_Student_workEfforts" path = "/workefforts" create = "false">
+    	<table:table data = "${jobs}" id = "s_edu_unlv_cs_rebelhotel_domain_Student_workEfforts" path = "/workefforts" create = "false">
 	    	<table:column id = "c_edu_unlv_cs_rebelhotel_domain_WorkEffort_employer" property = "employerName" maxLength = "-1" />
 	    	<table:column id = "c_edu_unlv_cs_rebelhotel_domain_WorkEffort_duration" property = "durationDateRange" maxLength = "-1" />
 	    	<table:column id = "c_edu_unlv_cs_rebelhotel_domain_WorkEffort_duration_hours" property = "durationHours" maxLength = "-1" />
