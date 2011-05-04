@@ -24,8 +24,9 @@ public class WorkEffortQueryValidator {
 			}
 		}
 
-		if (fweq.getUserId().length() < 10) {
-
+		if (fweq.getEmployerLocation().isEmpty() && fweq.getEmployerName().isEmpty() && fweq.getStudentFirstName().isEmpty() && fweq.getStudentMiddleName().isEmpty() && fweq.getStudentLastName().isEmpty()
+				&& fweq.getUserId().isEmpty() && (!fweq.isValidationSelected()) && (!fweq.isVerificationSelected()) && (!fweq.isVerificationTypeSelected()) && fweq.getStartDate()==null && fweq.getEndDate()==null) {
+				errors.reject("error.empty.fields","Must Have Non-Empty Field");
 		}
 
 	}

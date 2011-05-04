@@ -1,0 +1,10 @@
+/target
+.settings
+.project
+.classpath
+.springBeans
+log.roo
+.DS_Store
+/backup
+*.zip
+*.orig

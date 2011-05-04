@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch" modelAttribute="randomValidationBatch" path="/randomvalidationbatches" z="2MXzbk+CLQ+zor8T0CC3Xi1+WFo=">
+        <field:input field="batch_number" id="c_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_batch_number" z="QPBGEz0GkAShU0DQrFn6UARjZYg="/>
+        <field:datetime dateTimePattern="${randomValidationBatch_batch_run_date_date_format}" field="batch_run_date" id="c_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_batch_run_date" z="W1MS2dxl/eAsTnXOAYFTrWzGCYY="/>
+        <field:input field="num_pending" id="c_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_num_pending" z="kfTray3h9Ybr7SrhPp2GK40KY1c="/>
+        <field:input field="num_validated" id="c_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_num_validated" z="ozwpsbrVS8LGh2WBgsjJnz5+Cu0="/>
+        <field:input field="num_failed_validation" id="c_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_num_failed_validation" z="agdhDjpZDup9rIkZDG5soej/q0E="/>
+        <field:input field="num_no_validation" id="c_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_num_no_validation" z="eqeHq6v8FpTOYmJvsmvGf8QKc6Q="/>
+        <field:input field="sample_size" id="c_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_sample_size" z="FYQiNa8yRWApCtXybpinWYGNNR0="/>
+        <field:checkbox field="is_completed" id="c_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_is_completed" z="FdWOeFxbzlLRlNmSs6n5Wm4v+tU="/>
+        <field:simple field="students" id="c_edu_unlv_cs_rebelhotel_domain_RandomValidationBatch_students" messageCode="entity_reference_not_managed" messageCodeAttribute="Student" z="jl7wjB+1fX3wjnp6Vtzw1edwTbw="/>
+    </form:update>
+</div>

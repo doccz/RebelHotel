@@ -29,6 +29,8 @@ public class ForgotPasswordController {
 	
 	@RequestMapping( value="/createNewPassword", method = RequestMethod.GET )
 	public String createNewPassword(@RequestParam("userId") String userId, Model model){
+		if(userId.isEmpty())
+			return "forgotpassword/create";
 		
 		try{
 		UserAccount userAccount = UserAccount.findUserAccountsByUserId(userId).getSingleResult();

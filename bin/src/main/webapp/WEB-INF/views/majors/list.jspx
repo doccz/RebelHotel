@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_edu_unlv_cs_rebelhotel_domain_Major" items="${majors}" z="fEdErY6US/7ksuLsbF/QzVTcyGg=">
+        <table:table data="${majors}" id="l_edu_unlv_cs_rebelhotel_domain_Major" path="/majors" z="vWIsPbs+OidqDJF5mI9dxWo+ZHQ=">
+            
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_Major_reachedMilestone" property="reachedMilestone" z="kWru6OrCZUB5eiEkHllUX0WCE+E="/>
+            
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_Major_catalogTerm" property="catalogTerm" z="mqyehFU0GGspMvAtev5xVj+FVDY="/>
+        
+        
+        <table:column id="c_edu_unlv_cs_rebelhotel_domain_Major_degreeCode" property="degreeCode" z="kDDCTtIrK1bCDtDRRMOTMoV9TAE="/>
+        
+        
+        <table:column id="c_edu_unlv_cs_rebelhotel_domain_Major_student" property="student" z="hFLmtWJF58A3jq49LT4GtJTOgls="/>
+        <table:column id="c_edu_unlv_cs_rebelhotel_domain_Major_majorHours" property="majorHours" z="vAXbF+OJVvu9/lIXJ/2we+Kpbrg="/>
+        <table:column id="c_edu_unlv_cs_rebelhotel_domain_Major_totalHours" property="totalHours" z="VP7luK0pp+h0fucDR9ua6XWqscA="/>
+        </table:table>
+    </page:list>
+</div>

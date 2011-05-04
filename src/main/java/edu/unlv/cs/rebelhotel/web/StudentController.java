@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package edu.unlv.cs.rebelhotel.web;
 
 import java.io.IOException;
@@ -576,6 +577,15 @@ public class StudentController {
     	
         return "students/show";
     }
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+	@RequestMapping("quickFindCreate")
+    public String quickFindCreateForm(Model model, HttpServletRequest request) {
+		
+		FormStudentQuickFind formStudentQuickFind = new FormStudentQuickFind();
+		model.addAttribute("formStudentQuickFind",formStudentQuickFind);
+		return "students/quickFindForm";
+	}
 	
 	
 	/*@ModelAttribute("majors")

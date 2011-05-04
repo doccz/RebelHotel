@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+	<definition extends="default" name="fileuploads.default">
+		<put-attribute cascade="true" name="student_menu" value="/WEB-INF/views/fileuploads/fileuploadMenu.jspx"/>
+	</definition>
+    <definition extends="fileuploads.default" name="fileuploads/list">
+        <put-attribute name="body" value="/WEB-INF/views/fileuploads/list.jspx"/>
+        <put-attribute name="menu" value="/WEB-INF/views/fileuploads/fileuploadMenu.jspx" />
+    </definition>
+	<definition extends="fileuploads.default" name="fileuploads/show">
+        <put-attribute name="body" value="/WEB-INF/views/fileuploads/show.jspx"/>
+        <put-attribute name="menu" value="/WEB-INF/views/fileuploads/fileuploadMenu.jspx" />
+    </definition>
+	<definition extends="fileuploads.default" name="fileuploads/create">
+        <put-attribute name="body" value="/WEB-INF/views/fileuploads/create.jspx"/>
+        <put-attribute name="menu" value="/WEB-INF/views/fileuploads/fileuploadMenu.jspx" />
+    </definition>
+	<definition extends="fileuploads.default" name="fileuploads/update">
+        <put-attribute name="body" value="/WEB-INF/views/fileuploads/update.jspx"/>
+        <put-attribute name="menu" value="/WEB-INF/views/fileuploads/fileuploadMenu.jspx" />
+    </definition>
+   <definition extends = "fileuploads.default" name = "fileuploads/upload">
+    	<put-attribute name="body" value = "/WEB-INF/views/fileuploads/upload.jspx" />
+    	<put-attribute name="menu" value="/WEB-INF/views/fileuploads/fileuploadMenu.jspx" />
+    </definition>
+</tiles-definitions>
