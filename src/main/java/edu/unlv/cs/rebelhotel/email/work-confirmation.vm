@@ -1,14 +1,13 @@
 <html>
 <body>
-<h2> Attention {$student.getName()} </h2>
+<h2>Attention {$student.getName()} </h2>
 <br/>
 <p style ="text-indent:25px;">  
 The College of Hotel Administration has received a new job posting towards you work-related milestone requirements.  
-The following job submission has been approved by the department. <p/><br/>
-<span style = font-weight:bold> ${workeffort.toString()} </span><br/>
+The following job submission has been approved by the department: <p/><br/>
+<span style = font-weight:bold> ${workEffort.toString()} </span><br/>
 <p style ="text-indent:25px;">
-If you would like would like to check your progress towards the completion of this milestone.
-Please login with your User name and password.<br/>
+If you would like to check your progress towards the completion of this milestone, then proceed to login to the system.
 
 If you have any question please contact 
 <a href="http://hotel.unlv.edu/contact/">College of Hotel Administration</a>
