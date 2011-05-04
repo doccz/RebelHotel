@@ -600,7 +600,7 @@ public class StudentController {
 	
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
-	@RequestMapping(params = "find=ByUserIdEquals", method = RequestMethod.GET)
+	@RequestMapping(value = "quickFindByUserId", method = RequestMethod.GET)
     public String DefaultFindStudentByUserId(@RequestParam(value= "userId", required= false) String userId, Model model, HttpServletRequest request) {
     	Student student;
     

@@ -19,11 +19,11 @@
 	
   	<body class="tundra spring">
    		<div id="wrapper">
-   		    <tiles:insertAttribute name="defaultStudentSearch" ignore="true" />
 		    <tiles:insertAttribute name="header" ignore="true" />
+		    <tiles:insertAttribute name="defaultStudentSearch" ignore="true" /> 
 		    <tiles:insertAttribute name="menu" ignore="true" />   
 		    <div id="main">
-	    		<tiles:insertAttribute name="body"/> 
+	    		<tiles:insertAttribute name="body"/>
 		    	<tiles:insertAttribute name="footer" ignore="true"/>
 		    </div>
 		</div>

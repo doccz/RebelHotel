@@ -3,43 +3,22 @@
 
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
-    <!-- 
-	<table>
-		<tr><td>
-		<form:find id="ff_edu_unlv_cs_rebelhotel_defaultstudentsearch" finderName="studentQuickFind" path="/students" modelAttribute="formStudentQuickFind">
-	 	<field:input field="formStudentQuickFind.userId" id="c_edu_unlv_cs_rebelhotel_SearchForStudent" disableFormBinding="true" />
-	             </form:find>
-	             </td></tr>
-		 <tr><td>
-				<spring:url value="students/quickfind" var="form_url" />
-            	<spring:url value="/resources/images/search.png" var="image_url" />
-            <spring:message  code="search_options_msg" var="label" />
-            <a href="${fn:escapeXml(form_url)}" alt="${fn:escapeXml(label)}" title="${fn:escapeXml(label)}">
-              <img alt="${fn:escapeXml(label)}" class="image" src="${fn:escapeXml(image_url)}" title="${fn:escapeXml(label)}" />
-            </a>
-            <spring:message  code="search_options_msg" />
-             </td></tr>
-      </table>
-       -->
    
+	
+   <h2>       <spring:message code="label_edu_unlv_cs_rebelhotel_formStudentQuickFind_tableheader" htmlEscape="false" />
+</h2>
+<hr/>
       <spring:url value="quickFind" var="form_url" />
      
       <form:form action="${fn:escapeXml(form_url)}" method="POST" modelAttribute="formStudentQuickFind">
-       <table style="width:300px;">
-       <th><spring:message code="label_edu_unlv_cs_rebelhotel_formStudentQuickFind_tableheader" htmlEscape="false" /></th>
-       <tr><td>
 	 	<field:input field="userId" id="f_edu_unlv_cs_rebelhotel_StudentQuickFindNSHE" />
-	 	</td></tr>
-	 	<tr><td>
 	 	<field:input field="firstName" id="f_edu_unlv_cs_rebelhotel_StudentQuickFindFirstName" />
 	    <field:input field="lastName" id="f _edu_unlv_cs_rebelhotel_StudentQuickFindLastName" />
-	 	</td></tr></table>
         <div class="submit">
           <spring:message code="button_find" var="find_button"/>
           <script type="text/javascript">Spring.addDecoration(new Spring.ValidateAllDecoration({elementId:'proceed', event:'onclick'}));</script>
           <input id="proceed" type="submit" value="${fn:escapeXml(find_button)}"/>
         </div>
-        
       </form:form>
  
  
