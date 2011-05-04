@@ -313,10 +313,12 @@
 		            <td>
 		              <c:choose>
 		                <c:when test="${columnMaxLength lt 0}">
-		                  <spring:eval expression="item[column]" />
+						  <spring:eval expression="item[column]" />
 		                </c:when>
 		                <c:otherwise>
-		                  <spring:eval expression="item[column]" var="colTxt" />
+		                  <c:set var="colTxt">
+		                  	<spring:eval expression="item[column]" />
+		                  </c:set>
 		                  <c:out value="${fn:substring(colTxt, 0, columnMaxLength)}" />
 		                </c:otherwise>
 		              </c:choose>
@@ -327,19 +329,19 @@
 			          	<c:set var = "majorData" value = "${item.majors}" />
 			          	<c:forEach items = "${majorData}" var = "majorItem">
 			          		<td>
-			          			${majorItem.degreeCode}
+			          			<spring:eval expression = "majorItem['degreeCode']" />
 			          		</td>
 			          		<td>
-			          			${majorItem.catalogTerm}
+			          			<spring:eval expression = "majorItem['catalogTerm']" />
 			          		</td>
 			          		<td>
-			          			${majorItem.totalHours}
+			          			<spring:eval expression = "majorItem['totalHours']" />
 			          		</td>
 			          		<td>
-			          			${majorItem.majorHours}
+			          			<spring:eval expression = "majorItem['majorHours']" />
 			          		</td>
 			          		<td>
-			          			${majorItem.reachedMilestone}
+			          			<spring:eval expression = "majorItem['reachedMilestone']" />
 			          		</td>
 			          		<c:set var = "i" value = "${i - 1}" />
 			          	</c:forEach>

@@ -40,6 +40,17 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 		};
 	}
 	
+	Converter<Boolean, String> getBooleanConverter() {
+		return new Converter<Boolean, String>() {
+			public String convert(Boolean param) {
+				if(param){
+					return "Yes";
+				}
+				return "No";
+			}
+		};
+	}
+	
 	Converter<edu.unlv.cs.rebelhotel.domain.Term, String> getTermConverter() {
 		return new Converter<edu.unlv.cs.rebelhotel.domain.Term, String>() {
 			public String convert(edu.unlv.cs.rebelhotel.domain.Term param) {
@@ -158,6 +169,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 		// Register application converters and formatters
 		
 		registry.addConverter(getSetConverter());
+		registry.addConverter(getBooleanConverter());
 		registry.addConverter(getTermConverter());
 		registry.addConverter(getStudentConverter());
 		registry.addConverter(getSupervisorConverter());
