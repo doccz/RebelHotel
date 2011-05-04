@@ -41,4 +41,26 @@ public class TermService {
 		
 		return result;
 	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+	public List<Term> generateRangeOfTerms(Integer low, Integer high) {
+		List<Term> result = new LinkedList<Term>();
+		
+		for (int i = low.intValue(); i <= high.intValue(); i++) {
+			for (Semester semester : Semester.values()) {
+				try {
+					Term.findTermsBySemesterAndTermYearEquals(semester, i).getSingleResult();
+				}
+				catch (org.springframework.dao.EmptyResultDataAccessException exception) { // create a new term only if there is not one existing already
+					Term term = new Term();
+					term.setSemester(semester);
+					term.setTermYear(i);
+					term.persist();
+					result.add(term);
+				}
+			}
+		}
+		
+		return result;
+	}
 }

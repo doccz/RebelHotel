@@ -19,10 +19,13 @@
     <definition extends="terms.default" name="terms/generate">
     	<put-attribute name="body" value="/WEB-INF/views/terms/generatedTerms.jspx"/>
     </definition>
-<definition extends="terms.default" name="terms/findTermsBySemester">
+	<definition extends="terms.default" name="terms/findTermsBySemester">
         <put-attribute name="body" value="/WEB-INF/views/terms/findTermsBySemester.jspx"/>
     </definition>
-<definition extends="terms.default" name="terms/findTermsBySemesterAndTermYearEquals">
+	<definition extends="terms.default" name="terms/findTermsBySemesterAndTermYearEquals">
         <put-attribute name="body" value="/WEB-INF/views/terms/findTermsBySemesterAndTermYearEquals.jspx"/>
+    </definition>
+    <definition extends = "terms.default" name = "terms/generateTerms">
+    	<put-attribute name = "body" value = "/WEB-INF/views/terms/generateTerms.jspx" />
     </definition>
 </tiles-definitions>

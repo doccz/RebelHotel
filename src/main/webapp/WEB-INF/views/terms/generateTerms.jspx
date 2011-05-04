@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:create id="fc_edu_unlv_cs_rebelhotel_form_FormGenerateTerms" modelAttribute="formGenerateTerms" path="/terms?generateRange" render="${empty dependencies}">
+        <field:input field="yearLow" id="c_edu_unlv_cs_rebelhotel_form_FormGenerateTerms_yearLow" required="true" validationMessageCode="field_invalid_integer" />
+        <field:input field="yearHigh" id="c_edu_unlv_cs_rebelhotel_form_FormGenerateTerms_yearHigh" required="true" validationMessageCode="field_invalid_integer" />
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_edu_unlv_cs_rebelhotel_domain_Term" render="${not empty dependencies}" />
+</div>

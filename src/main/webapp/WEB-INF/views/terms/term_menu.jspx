@@ -8,7 +8,8 @@
         <menu:category id="c_term" z="z3ly3A0HuvUfPkgN3H2XzNcWTlU=">
             <menu:item id="i_term_new" messageCode="global_menu_new" url="/terms?form" z="wgiKkyRDO0HpHhgEDihRQzUhP3k="/>
         	<menu:item id="i_term_list" messageCode="global_menu_list" url="/terms?page=1&amp;size=${empty param.size ? 10 : param.size}" z="ev5ds/cpGL+OtBUv9Kd6x/Ioqak="/>
-        	<menu:item id="i_term_generate" url="/terms?generate"/>
+        	<menu:item id="i_term_generate" url="/terms?generate" />
+        	<menu:item id = "i_term_generateTerms" url = "/terms?generateRange" />
         	<menu:item id="i_main_menu" url="/"/>
         </menu:category>
     	        </security:authorize>

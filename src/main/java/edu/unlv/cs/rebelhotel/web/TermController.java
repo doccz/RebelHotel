@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import edu.unlv.cs.rebelhotel.domain.Term;
+import edu.unlv.cs.rebelhotel.form.FormGenerateTerms;
 import edu.unlv.cs.rebelhotel.service.TermService;
+import edu.unlv.cs.rebelhotel.validators.GenerateTermsValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
@@ -25,6 +27,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class TermController {
 	@Autowired
 	TermService termService;
+	
+	@Autowired
+	GenerateTermsValidator generateTermsValidator;
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+	@RequestMapping(params = "generateRange", method = RequestMethod.POST)
+	public String generateRangedTerms(@Valid FormGenerateTerms form, BindingResult result, Model model, HttpServletRequest request) {
+		generateTermsValidator.validate(form, result);
+		if (result.hasErrors()) {
+			model.addAttribute("formGenerateTerms", form);
+			return "terms/generateTerms";
+		}
+		List<Term> terms = termService.generateRangeOfTerms(form.getYearLow(), form.getYearHigh());
+		model.addAttribute("terms_num", terms.size());
+		model.addAttribute("terms", terms);
+		return "terms/generate";
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
+	@RequestMapping(params = "generateRange", method = RequestMethod.GET)
+	public String generateRangedTerms(Model model) {
+		model.addAttribute("formGenerateTerms", new FormGenerateTerms());
+		return "terms/generateTerms";
+	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
 	@RequestMapping(params = "generate")
