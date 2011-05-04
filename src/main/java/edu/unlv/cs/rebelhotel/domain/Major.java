@@ -92,7 +92,7 @@ public class Major {
 		int approvedHours = calculateRelatedHoursWorked(workHistory);
 		int totalHoursNeeded = findMajorRequiredHours();
 
-		remainingHours = totalHoursNeeded - approvedHours;
+		remainingHours = Math.max(totalHoursNeeded - approvedHours, 0);
 
 		return remainingHours;
 	}
